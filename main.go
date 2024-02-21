@@ -1,21 +1,20 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
+	"github.com/enuesaa/tryserve/pkg/usecase"
 	"github.com/urfave/cli/v2"
 )
 
 func main() {
 	app := &cli.App{
-		Name:  "tryserve",
+		Name:    "tryserve",
 		Version: "0.0.1",
-		Usage: "Instance web server",
+		Usage:   "Instance web server",
 		Action: func(c *cli.Context) error {
-			fmt.Println("hello")
-			return nil
+			return usecase.Serve()
 		},
 	}
 
