@@ -6,13 +6,13 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
 func Serve() error {
 	app := fiber.New()
 
-	app.Get("/*", func(c *fiber.Ctx) error {
+	app.Get("/*", func(c fiber.Ctx) error {
 		path := c.Path() // like `/`
 		if strings.HasSuffix(path, "/") {
 			path = filepath.Join(path, "index.html")
