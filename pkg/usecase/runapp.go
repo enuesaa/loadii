@@ -1,23 +1,19 @@
 package usecase
 
 import (
-	"bytes"
 	"fmt"
-	"os"
-	"os/exec"
-	"path/filepath"
 	"strings"
 
 	"github.com/enuesaa/tryserve/pkg/repository"
 )
 
 func RunApp(repos repository.Repos, path string) error {
-	ext := filepath.Ext(path)
+	ext := repos.Fs.Ext(path)
 	if ext == ".go" {
 		return RunGoApp(repos, path)
 	}
 
-	data, err := os.ReadFile(path)
+	data, err := repos.Fs.Read(path)
 	if err != nil {
 		return err
 	}
@@ -32,23 +28,5 @@ func RunApp(repos repository.Repos, path string) error {
 		return fmt.Errorf("failed to run file becuase this file does not contain shebang.")
 	}
 
-	cmd := exec.Command(path)
-
-	var stdout bytes.Buffer
-	var stderr bytes.Buffer
-	cmd.Stdout = &stdout
-	cmd.Stderr = &stderr
-	
-	if err := cmd.Start(); err != nil {
-		return err
-	}
-	fmt.Printf("running in pid %d\n", cmd.Process.Pid)
-
-	if err := cmd.Wait(); err != nil {
-		return err
-	}
-	fmt.Printf("stderr: %s\n", stderr.String())
-	fmt.Printf("stdout: %s\n", stdout.String())
-
-	return nil
+	return repos.Cmd.Exec(path)
 }

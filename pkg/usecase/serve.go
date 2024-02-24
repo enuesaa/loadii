@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"mime"
-	"os"
 	"path/filepath"
 	"strings"
 
@@ -29,8 +28,8 @@ func Serve(repos repository.Repos, basepath string) error {
 		if ext := filepath.Ext(path); ext == "" {
 			path = path + ".html"
 		}
-
-		f, err := os.ReadFile(path)
+	
+		data, err := repos.Fs.Read(path)
 		if err != nil {
 			return err
 		}
@@ -39,7 +38,7 @@ func Serve(repos repository.Repos, basepath string) error {
 		mimeType := mime.TypeByExtension(ext)
 		c.Set(fiber.HeaderContentType, mimeType)
 
-		return c.SendString(string(f))
+		return c.SendString(string(data))
 	})
 
 	return app.Listen(":3000")

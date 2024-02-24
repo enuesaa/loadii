@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"path/filepath"
 
 	"github.com/enuesaa/tryserve/pkg/repository"
 	"github.com/enuesaa/tryserve/pkg/usecase"
@@ -29,7 +28,7 @@ func main() {
 			}
 
 			repos := repository.New()
-			ext := filepath.Ext(path)
+			ext := repos.Fs.Ext(path)
 			// TODO: change this logic. if path is file, run app.
 			if ext == "" {
 				return usecase.Serve(repos, path)

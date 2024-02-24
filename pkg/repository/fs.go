@@ -7,6 +7,7 @@ import (
 )
 
 type FsRepositoryInterface interface {
+	Ext(path string) string
 	IsExist(path string) bool
 	IsDir(path string) (bool, error)
 	CreateDir(path string) error
@@ -19,6 +20,10 @@ type FsRepositoryInterface interface {
 	ListFiles(path string) ([]string, error)
 }
 type FsRepository struct{}
+
+func (repo *FsRepository) Ext(path string) string {
+	return filepath.Ext(path)
+}
 
 func (repo *FsRepository) IsExist(path string) bool {
 	if _, err := os.Stat(path); os.IsNotExist(err) {

@@ -2,12 +2,17 @@ package repository
 
 import (
 	"fmt"
+	"path/filepath"
 	"slices"
 	"strings"
 )
 
 type FsMockRepository struct {
 	Files []string
+}
+
+func (repo *FsMockRepository) Ext(path string) string {
+	return filepath.Ext(path)
 }
 
 func (repo *FsMockRepository) IsExist(path string) bool {
