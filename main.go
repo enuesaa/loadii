@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/enuesaa/tryserve/pkg/usecase"
 	"github.com/urfave/cli/v2"
@@ -24,6 +25,10 @@ func main() {
 			path := c.Args().Get(0)
 			if path == "" {
 				return fmt.Errorf("Argument <path> is required. Please specify the path to serve, like `tryserve .`")
+			}
+			ext := filepath.Ext(path)
+			if ext == ".go" {
+				return usecase.RunGoApp(path)
 			}
 			return usecase.Serve(path)
 		},
