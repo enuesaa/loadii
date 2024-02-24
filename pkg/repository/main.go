@@ -4,13 +4,13 @@ type Repos struct {
 	Fs     FsRepositoryInterface
 }
 
-func NewRepos() Repos {
+func New() Repos {
 	return Repos{
 		Fs:     &FsRepository{},
 	}
 }
 
-func NewMockRepos() Repos {
+func NewMock() Repos {
 	return Repos{
 		Fs:     &FsMockRepository{},
 	}

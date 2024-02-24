@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/enuesaa/tryserve/pkg/repository"
 	"github.com/enuesaa/tryserve/pkg/usecase"
 	"github.com/urfave/cli/v2"
 )
@@ -26,14 +27,14 @@ func main() {
 			if path == "" {
 				return fmt.Errorf("Argument <path> is required. Please specify the path to serve, like `tryserve .`")
 			}
+
+			repos := repository.New()
 			ext := filepath.Ext(path)
-			if ext == ".go" {
-				return usecase.RunGoApp(path)
+			// TODO: change this logic. if path is file, run app.
+			if ext == "" {
+				return usecase.Serve(repos, path)
 			}
-			if ext == ".js" || ext == ".py" {
-				return usecase.RunSomethingApp(path)
-			}
-			return usecase.Serve(path)
+			return usecase.RunApp(repos, path)
 		},
 	}
 

@@ -5,10 +5,18 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
+
+	"github.com/enuesaa/tryserve/pkg/repository"
 )
 
-func RunSomethingApp(path string) error {
+func RunApp(repos repository.Repos, path string) error {
+	ext := filepath.Ext(path)
+	if ext == ".go" {
+		return RunGoApp(repos, path)
+	}
+
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return err

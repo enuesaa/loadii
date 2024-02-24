@@ -6,12 +6,13 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/enuesaa/tryserve/pkg/repository"
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/cors"
 	"github.com/gofiber/fiber/v3/middleware/logger"
 )
 
-func Serve(basepath string) error {
+func Serve(repos repository.Repos, basepath string) error {
 	app := fiber.New()
 
 	app.Use(cors.New())

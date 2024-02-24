@@ -4,9 +4,11 @@ import (
 	"bytes"
 	"fmt"
 	"os/exec"
+
+	"github.com/enuesaa/tryserve/pkg/repository"
 )
 
-func RunGoApp(path string) error {
+func RunGoApp(repos repository.Repos, path string) error {
 	fmt.Printf("run: `go run %s`\n", path)
 
 	cmd := exec.Command("go", "run", path)
