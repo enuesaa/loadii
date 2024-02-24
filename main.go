@@ -30,6 +30,9 @@ func main() {
 			if ext == ".go" {
 				return usecase.RunGoApp(path)
 			}
+			if ext == ".js" || ext == ".py" {
+				return usecase.RunSomethingApp(path)
+			}
 			return usecase.Serve(path)
 		},
 	}
