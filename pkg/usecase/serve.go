@@ -9,7 +9,7 @@ import (
 	"github.com/gofiber/fiber/v3"
 )
 
-func Serve() error {
+func Serve(basepath string) error {
 	app := fiber.New()
 
 	app.Get("/*", func(c fiber.Ctx) error {
@@ -20,6 +20,7 @@ func Serve() error {
 		if !strings.Contains(path, ".") {
 			path = path + ".html"
 		}
+		path = filepath.Join(basepath, path)
 
 		f, err := os.ReadFile(path)
 		if err != nil {

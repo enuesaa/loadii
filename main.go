@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -8,13 +9,23 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+func init() {
+	log.SetFlags(0)
+}
+
 func main() {
 	app := &cli.App{
 		Name:    "tryserve",
 		Version: "0.0.1",
 		Usage:   "Instance web server",
+		Args: true,
+		ArgsUsage: "<path>",
 		Action: func(c *cli.Context) error {
-			return usecase.Serve()
+			path := c.Args().Get(0)
+			if path == "" {
+				return fmt.Errorf("Argument <path> is required. Please specify the path to serve, like `tryserve .`")
+			}
+			return usecase.Serve(path)
 		},
 	}
 
@@ -23,7 +34,7 @@ func main() {
 	cli.AppHelpTemplate = `{{.Usage}}
 
 USAGE:
-	{{.HelpName}} {{if .VisibleFlags}}[global options]{{end}}{{if .Commands}} command [command options]{{end}} {{if .ArgsUsage}}{{.ArgsUsage}}{{else}}[arguments...]{{end}}
+	{{.HelpName}}{{if .Commands}} command [command options]{{end}} {{if .ArgsUsage}}{{.ArgsUsage}}{{else}}[arguments...]{{end}} {{if .VisibleFlags}}[global options]{{end}}
 	{{if len .Authors}}
 AUTHOR:
 	{{range .Authors}}{{ . }}{{end}}
