@@ -15,16 +15,29 @@ func init() {
 }
 
 func main() {
+	watchmode := false
+
 	app := &cli.App{
 		Name:      "tryserve",
-		Version:   "0.0.1",
-		Usage:     "Instance web server",
+		Version:   "0.0.2",
+		Usage:     "Instant web server",
 		Args:      true,
 		ArgsUsage: "<path>",
+		Flags: []cli.Flag{
+            &cli.BoolFlag{
+                Name:  "watch",
+                Value: false,
+                Usage: "run watch mode",
+				Destination: &watchmode,
+            },
+        },
 		Action: func(c *cli.Context) error {
 			path := c.Args().Get(0)
 			if path == "" {
 				return fmt.Errorf("Argument <path> is required. Please specify the path to serve, like `tryserve .`")
+			}
+			if watchmode {
+				fmt.Printf("running on watch mode\n")
 			}
 
 			repos := repository.New()
