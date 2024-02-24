@@ -7,10 +7,15 @@ import (
 	"strings"
 
 	"github.com/gofiber/fiber/v3"
+    "github.com/gofiber/fiber/v3/middleware/logger"
+	"github.com/gofiber/fiber/v3/middleware/cors"
 )
 
 func Serve(basepath string) error {
 	app := fiber.New()
+
+	app.Use(cors.New())
+	app.Use(logger.New())
 
 	app.Get("/*", func(c fiber.Ctx) error {
 		path := c.Path() // like `/`

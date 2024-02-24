@@ -15,8 +15,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '1.22'
 
       - run: go install
+
       - uses: goreleaser/goreleaser-action@v5
         with:
           version: latest
