@@ -15,10 +15,10 @@ func init() {
 
 func main() {
 	app := &cli.App{
-		Name:    "tryserve",
-		Version: "0.0.1",
-		Usage:   "Instance web server",
-		Args: true,
+		Name:      "tryserve",
+		Version:   "0.0.1",
+		Usage:     "Instance web server",
+		Args:      true,
 		ArgsUsage: "<path>",
 		Action: func(c *cli.Context) error {
 			path := c.Args().Get(0)

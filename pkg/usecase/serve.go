@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"github.com/gofiber/fiber/v3"
-    "github.com/gofiber/fiber/v3/middleware/logger"
 	"github.com/gofiber/fiber/v3/middleware/cors"
+	"github.com/gofiber/fiber/v3/middleware/logger"
 )
 
 func Serve(basepath string) error {
@@ -19,21 +19,23 @@ func Serve(basepath string) error {
 
 	app.Get("/*", func(c fiber.Ctx) error {
 		path := c.Path() // like `/`
+		path = filepath.Join(basepath, path)
+
+		// TODO: This behavior should be changed with flag.
 		if strings.HasSuffix(path, "/") {
 			path = filepath.Join(path, "index.html")
 		}
-		if !strings.Contains(path, ".") {
+		if ext := filepath.Ext(path); ext == "" {
 			path = path + ".html"
 		}
-		path = filepath.Join(basepath, path)
 
 		f, err := os.ReadFile(path)
 		if err != nil {
 			return err
 		}
 
-		fileExt := filepath.Ext(path)
-		mimeType := mime.TypeByExtension(fileExt)
+		ext := filepath.Ext(path)
+		mimeType := mime.TypeByExtension(ext)
 		c.Set(fiber.HeaderContentType, mimeType)
 
 		return c.SendString(string(f))
