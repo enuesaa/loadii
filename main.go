@@ -16,6 +16,7 @@ func init() {
 
 func main() {
 	watchmode := false
+	port := 3000
 
 	app := &cli.App{
 		Name:      "tryserve",
@@ -29,6 +30,12 @@ func main() {
 				Value:       false,
 				Usage:       "run watch mode",
 				Destination: &watchmode,
+			},
+			&cli.IntFlag{
+				Name:        "port",
+				Value:       3000,
+				Usage:       "port",
+				Destination: &port,
 			},
 		},
 		Action: func(c *cli.Context) error {
@@ -50,7 +57,7 @@ func main() {
 				return fmt.Errorf("unknown error occuerd: %s", err.Error())
 			}
 			if isDir {
-				return usecase.Serve(repos, path)
+				return usecase.Serve(repos, path, port)
 			}
 			return usecase.RunApp(repos, path)
 		},

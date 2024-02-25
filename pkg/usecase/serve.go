@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"fmt"
 	"mime"
 	"path/filepath"
 	"strings"
@@ -11,7 +12,7 @@ import (
 	"github.com/gofiber/fiber/v3/middleware/logger"
 )
 
-func Serve(repos repository.Repos, basepath string) error {
+func Serve(repos repository.Repos, basepath string, port int) error {
 	app := fiber.New()
 
 	app.Use(cors.New())
@@ -41,5 +42,12 @@ func Serve(repos repository.Repos, basepath string) error {
 		return c.SendString(string(data))
 	})
 
-	return app.Listen(":3000")
+	listenConfig := fiber.ListenConfig{
+		DisableStartupMessage: true,
+	}
+
+	addr := fmt.Sprintf(":%d", port)
+	fmt.Printf("Listening on %s\n", addr)
+
+	return app.Listen(addr, listenConfig)
 }
