@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"github.com/enuesaa/tryserve/pkg/repository"
+	"github.com/enuesaa/tryup/pkg/repository"
 )
 
 func RunGoApp(repos repository.Repos, path string) error {

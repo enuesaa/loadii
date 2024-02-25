@@ -1,13 +1,13 @@
-# tryserve
+# tryup
 Instant web server for development.
 
 ## Usage
 ```console
-$ tryserve --help
+$ tryup --help
 Instant web server
 
 USAGE:
-  tryserve <path> [global options]
+  tryup <path> [global options]
 
 GLOBAL OPTIONS:
   --watch        run watch mode (default: false)
@@ -22,11 +22,11 @@ GLOBAL OPTIONS:
 
 ### Planning Usecase
 ```bash
-tryserve .       # this serve static content
-tryserve main.go # this run `go run main.go` internally
-tryserve main.go --watch . # this run `go run main.go` and also, do hot reload
+tryup .       # this serve static content
+tryup main.go # this run `go run main.go` internally
+tryup main.go --watch . # this run `go run main.go` and also, do hot reload
 
 # or 
-tryserve go run main.go
-tryserve pnpm dev
+tryup go run main.go
+tryup pnpm dev
 ```

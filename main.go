@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/enuesaa/tryserve/pkg/repository"
-	"github.com/enuesaa/tryserve/pkg/usecase"
+	"github.com/enuesaa/tryup/pkg/repository"
+	"github.com/enuesaa/tryup/pkg/usecase"
 	"github.com/urfave/cli/v2"
 )
 
@@ -19,7 +19,7 @@ func main() {
 	port := 3000
 
 	app := &cli.App{
-		Name:      "tryserve",
+		Name:      "tryup",
 		Version:   "0.0.2",
 		Usage:     "Instant web server",
 		Args:      true,

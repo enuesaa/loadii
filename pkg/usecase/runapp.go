@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/enuesaa/tryserve/pkg/repository"
+	"github.com/enuesaa/tryup/pkg/repository"
 )
 
 func RunApp(repos repository.Repos, path string) error {

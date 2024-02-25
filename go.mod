@@ -1,4 +1,4 @@
-module github.com/enuesaa/tryserve
+module github.com/enuesaa/tryup
 
 go 1.22.0
 
