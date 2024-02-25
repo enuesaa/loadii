@@ -36,6 +36,13 @@ func main() {
 				Value:       3000,
 				Usage:       "port",
 				Destination: &port,
+				Action: func(ctx *cli.Context, v int) error {
+					// see https://cli.urfave.org/v2/examples/flags/
+					if v > 65537 {
+						return fmt.Errorf("invalid value %d passed to flag --port", v)
+					}
+					return nil
+				},
 			},
 		},
 		Action: func(c *cli.Context) error {
@@ -68,7 +75,7 @@ func main() {
 	cli.AppHelpTemplate = `{{.Usage}}
 
 USAGE:
-	{{.HelpName}}{{if .Commands}} command [command options]{{end}} {{if .ArgsUsage}}{{.ArgsUsage}}{{else}}[arguments...]{{end}} {{if .VisibleFlags}}[global options]{{end}}
+	{{.HelpName}} {{if .VisibleFlags}}[global options]{{end}}{{if .Commands}} command [command options]{{end}} {{if .ArgsUsage}}{{.ArgsUsage}}{{else}}[arguments...]{{end}}
 	{{if len .Authors}}
 AUTHOR:
 	{{range .Authors}}{{ . }}{{end}}
