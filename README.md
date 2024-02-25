@@ -22,11 +22,7 @@ GLOBAL OPTIONS:
 
 ### Planning Usecase
 ```bash
-tryup .       # this serve static content
-tryup main.go # this run `go run main.go` internally
-tryup main.go --watch . # this run `go run main.go` and also, do hot reload
-
-# or 
-tryup go run main.go
-tryup pnpm dev
+tryup . # this serve static content
+tryup . --exec go run main.go # this run `go run main.go` and also, do hot reload
+tryup . --exec pnpm dev
 ```
