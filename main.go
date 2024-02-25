@@ -41,9 +41,15 @@ func main() {
 			}
 
 			repos := repository.New()
-			ext := repos.Fs.Ext(path)
-			// TODO: change this logic. if path is file, run app.
-			if ext == "" {
+			if !repos.Fs.IsExist(path) {
+				return fmt.Errorf("not found: %s", path)
+			}
+
+			isDir, err := repos.Fs.IsDir(path)
+			if err != nil {
+				return fmt.Errorf("unknown error occuerd: %s", err.Error())
+			}
+			if isDir {
 				return usecase.Serve(repos, path)
 			}
 			return usecase.RunApp(repos, path)
