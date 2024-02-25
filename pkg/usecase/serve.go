@@ -28,7 +28,7 @@ func Serve(repos repository.Repos, basepath string) error {
 		if ext := filepath.Ext(path); ext == "" {
 			path = path + ".html"
 		}
-	
+
 		data, err := repos.Fs.Read(path)
 		if err != nil {
 			return err

@@ -24,17 +24,17 @@ func main() {
 		Args:      true,
 		ArgsUsage: "<path>",
 		Flags: []cli.Flag{
-            &cli.BoolFlag{
-                Name:  "watch",
-                Value: false,
-                Usage: "run watch mode",
+			&cli.BoolFlag{
+				Name:        "watch",
+				Value:       false,
+				Usage:       "run watch mode",
 				Destination: &watchmode,
-            },
-        },
+			},
+		},
 		Action: func(c *cli.Context) error {
 			path := c.Args().Get(0)
 			if path == "" {
-				return fmt.Errorf("Argument <path> is required. Please specify the path to serve, like `tryserve .`")
+				return cli.ShowAppHelp(c)
 			}
 			if watchmode {
 				fmt.Printf("running on watch mode\n")

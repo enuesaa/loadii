@@ -20,7 +20,7 @@ func (repo *CmdRepository) Exec(command string, args ...string) error {
 	var stderr bytes.Buffer
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
-	
+
 	if err := cmd.Start(); err != nil {
 		return err
 	}
