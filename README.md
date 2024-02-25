@@ -23,6 +23,7 @@ GLOBAL OPTIONS:
 ### Planning Usecase
 ```bash
 tryup . # this serve static content
-tryup . --exec go run main.go # this run `go run main.go` and also, do hot reload
-tryup . --exec pnpm dev
+tryup main.go # this run `go run main.go` and also, do hot reload
 ```
+
+- あまり pnpm dev で hot reload したいケースを思いつかない. そもそも next dev とかはホットリロードされるから
