@@ -31,7 +31,7 @@ func Serve(repos repository.Repos, basepath string) error {
 
 		data, err := repos.Fs.Read(path)
 		if err != nil {
-			return err
+			return c.SendStatus(fiber.StatusNotFound)
 		}
 
 		ext := filepath.Ext(path)
