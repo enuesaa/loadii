@@ -2,11 +2,7 @@
 Instant web server for development.
 
 ## Development Plan
-- [runapp] watch mode
-- [serve] index
-- [serve] custom logger
-
-### Planning Usecase
+### Planning Usage
 ```bash
 loadii serve # this serve static content
 loadii run main.go # this run `go run main.go` and also, do hot reload

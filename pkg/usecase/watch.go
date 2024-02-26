@@ -17,29 +17,58 @@ func Watch() {
 
 	go func() {
 		for {
-			select {
-			case event, ok := <-watcher.Events:
-				if !ok {
-					return
-				}
-				if event.Has(fsnotify.Write) {
-					log.Println("modified:", event.Name)
-				} else if event.Has(fsnotify.Remove) {
-					log.Println("deleted:", event.Name)
-				} else if event.Has(fsnotify.Create) {
-					log.Println("created:", event.Name)
-				} else if event.Has(fsnotify.Rename) {
-					// this seems deleted file.
-					log.Println("deleted:", event.Name)
-				}
-			case err, ok := <-watcher.Errors:
-				if !ok {
-					return
-				}
-				log.Printf("Error: %s\n", err.Error())
+			event, ok := <-watcher.Events
+			if !ok {
+				return
+			}
+			if event.Has(fsnotify.Write) {
+				log.Println("modified:", event.Name)
+			} else if event.Has(fsnotify.Remove) {
+				log.Println("deleted:", event.Name)
+			} else if event.Has(fsnotify.Create) {
+				log.Println("created:", event.Name)
+			} else if event.Has(fsnotify.Rename) {
+				// this seems deleted file.
+				log.Println("deleted:", event.Name)
 			}
 		}
 	}()
+
+	go func() {
+		for {
+			err, ok := <-watcher.Errors
+			if !ok {
+				return
+			}
+			log.Printf("Error: %s\n", err.Error())
+		}
+	}()
+
+	// go func() {
+	// 	for {			
+	// 		select {
+	// 		case event, ok := <-watcher.Events:
+	// 			if !ok {
+	// 				return
+	// 			}
+	// 			if event.Has(fsnotify.Write) {
+	// 				log.Println("modified:", event.Name)
+	// 			} else if event.Has(fsnotify.Remove) {
+	// 				log.Println("deleted:", event.Name)
+	// 			} else if event.Has(fsnotify.Create) {
+	// 				log.Println("created:", event.Name)
+	// 			} else if event.Has(fsnotify.Rename) {
+	// 				// this seems deleted file.
+	// 				log.Println("deleted:", event.Name)
+	// 			}
+	// 		case err, ok := <-watcher.Errors:
+	// 			if !ok {
+	// 				return
+	// 			}
+	// 			log.Printf("Error: %s\n", err.Error())
+	// 		}
+	// 	}
+	// }()
 
 	err = watcher.Add("./")
 	if err != nil {
