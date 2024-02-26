@@ -46,8 +46,11 @@ func main() {
 			},
 		},
 		Action: func(c *cli.Context) error {
+			// poc 
+			usecase.Watch()
+
 			// poc
-			usecase.ReadStdinAndPrintLoop()
+			// usecase.ReadStdinAndPrintLoop()
 			path := c.Args().Get(0)
 			if path == "" {
 				return nil
