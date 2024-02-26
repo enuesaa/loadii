@@ -1,4 +1,4 @@
-# tryup
+# loadii
 Instant web server for development.
 
 ## Usage
@@ -22,11 +22,8 @@ GLOBAL OPTIONS:
 
 ### Planning Usecase
 ```bash
-tryup serve # this serve static content
-tryup watch -e go run main.go # this run `go run main.go` and also, do hot reload
-tryup watch -r main.go     # this run `go run main.go` and also, do hot reload
-tryup watch -e pnpm build
-tryup watch -r main.go | tryup watch -w admin -e pnpm build
+loadii serve # this serve static content
+loadii run main.go # this run `go run main.go` and also, do hot reload
+loadii exec pnpm build
+loadii run main.go | loadii -w admin exec pnpm build
 ```
-
-- あまり pnpm dev で hot reload したいケースを思いつかない. そもそも next dev とかはホットリロードされるから
