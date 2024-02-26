@@ -46,9 +46,12 @@ func main() {
 			},
 		},
 		Action: func(c *cli.Context) error {
+			// poc
+			usecase.ReadStdinAndPrintLoop()
 			path := c.Args().Get(0)
 			if path == "" {
-				return cli.ShowAppHelp(c)
+				return nil
+				// return cli.ShowAppHelp(c)
 			}
 			if watchmode {
 				fmt.Printf("running on watch mode\n")
