@@ -10,7 +10,7 @@ import (
 func RunApp(repos repository.Repos, path string) error {
 	ext := repos.Fs.Ext(path)
 	if ext == ".go" {
-		return RunGoApp(repos, path)
+		return repos.Cmd.Exec("go", "run", path)
 	}
 
 	data, err := repos.Fs.Read(path)

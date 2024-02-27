@@ -23,6 +23,7 @@ func main() {
 			&command.ExecCommand,
 			&command.RunCommand,
 		},
+		Suggest:   true,
 	}
 
 	// disable default
