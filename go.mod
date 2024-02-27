@@ -1,8 +1,9 @@
-module github.com/enuesaa/tryup
+module github.com/enuesaa/loadii
 
 go 1.22.0
 
 require (
+	github.com/fsnotify/fsnotify v1.7.0
 	github.com/gofiber/fiber/v3 v3.0.0-20240221071727-26346d690877
 	github.com/urfave/cli/v2 v2.27.1
 )
@@ -10,7 +11,6 @@ require (
 require (
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
-	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/gofiber/utils/v2 v2.0.0-beta.3 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/klauspost/compress v1.17.6 // indirect

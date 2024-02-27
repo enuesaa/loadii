@@ -12,7 +12,7 @@ import (
 
 func ReadStdinAndPrintLoop() {
 	go func() {
-		scanner := bufio.NewScanner(os.Stdin)		
+		scanner := bufio.NewScanner(os.Stdin)
 		for {
 			if !scanner.Scan() {
 				break
@@ -29,9 +29,9 @@ func ReadStdinAndPrintLoop() {
 		}
 	}()
 
-    signal.Ignore(syscall.SIGPIPE)
+	signal.Ignore(syscall.SIGPIPE)
 	for range 10 {
 		time.Sleep(1 * time.Second)
-		fmt.Printf("a %d\n", os.Getpid() )
+		fmt.Printf("a %d\n", os.Getpid())
 	}
 }

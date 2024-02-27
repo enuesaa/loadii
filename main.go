@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/enuesaa/tryup/pkg/repository"
-	"github.com/enuesaa/tryup/pkg/usecase"
+	"github.com/enuesaa/loadii/pkg/repository"
+	"github.com/enuesaa/loadii/pkg/usecase"
 	"github.com/urfave/cli/v2"
 )
 
@@ -46,7 +46,7 @@ func main() {
 			},
 		},
 		Action: func(c *cli.Context) error {
-			// poc 
+			// poc
 			usecase.Watch()
 
 			// poc
