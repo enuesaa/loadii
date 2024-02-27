@@ -1,12 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
-	"github.com/enuesaa/loadii/pkg/repository"
-	"github.com/enuesaa/loadii/pkg/usecase"
+	"github.com/enuesaa/loadii/pkg/command"
 	"github.com/urfave/cli/v2"
 )
 
@@ -15,64 +13,15 @@ func init() {
 }
 
 func main() {
-	watchmode := false
-	port := 3000
-
 	app := &cli.App{
-		Name:      "tryup",
+		Name:      "loadii",
 		Version:   "0.0.2",
 		Usage:     "Instant web server",
 		Args:      true,
-		ArgsUsage: "<path>",
-		Flags: []cli.Flag{
-			&cli.BoolFlag{
-				Name:        "watch",
-				Value:       false,
-				Usage:       "run watch mode",
-				Destination: &watchmode,
-			},
-			&cli.IntFlag{
-				Name:        "port",
-				Value:       3000,
-				Usage:       "port",
-				Destination: &port,
-				Action: func(ctx *cli.Context, v int) error {
-					// see https://cli.urfave.org/v2/examples/flags/
-					if v > 65537 {
-						return fmt.Errorf("invalid value %d passed to flag --port", v)
-					}
-					return nil
-				},
-			},
-		},
-		Action: func(c *cli.Context) error {
-			// poc
-			usecase.Watch()
-
-			// poc
-			// usecase.ReadStdinAndPrintLoop()
-			path := c.Args().Get(0)
-			if path == "" {
-				return nil
-				// return cli.ShowAppHelp(c)
-			}
-			if watchmode {
-				fmt.Printf("running on watch mode\n")
-			}
-
-			repos := repository.New()
-			if !repos.Fs.IsExist(path) {
-				return fmt.Errorf("not found: %s", path)
-			}
-
-			isDir, err := repos.Fs.IsDir(path)
-			if err != nil {
-				return fmt.Errorf("unknown error occuerd: %s", err.Error())
-			}
-			if isDir {
-				return usecase.Serve(repos, path, port)
-			}
-			return usecase.RunApp(repos, path)
+		Commands: []*cli.Command{
+			&command.ServeCommand,
+			&command.ExecCommand,
+			&command.RunCommand,
 		},
 	}
 
