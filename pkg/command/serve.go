@@ -3,6 +3,7 @@ package command
 import (
 	"fmt"
 
+	"github.com/enuesaa/loadii/pkg/repository"
 	"github.com/enuesaa/loadii/pkg/usecase"
 	"github.com/urfave/cli/v2"
 )
@@ -12,6 +13,12 @@ var ServeCommand = cli.Command{
 	Aliases: []string{"s"},
 	Usage:   "serve instant web server",
 	Flags: []cli.Flag{
+		&cli.StringFlag{
+			Name:        "workdir",
+			Aliases: []string{"w"},
+			Value:       ".",
+			Usage:       "workdir",
+		},
 		&cli.IntFlag{
 			Name:        "port",
 			Value:       3000,
@@ -26,18 +33,11 @@ var ServeCommand = cli.Command{
 		},
 	},
 	Action: func(c *cli.Context) error {
+		workdir := c.String("workdir")
 		port := c.Int("port")
 
-		fmt.Printf("serve command %d\n", port)
+		repos := repository.New()
 
-		// poc
-		usecase.Watch()
-
-		// poc
-		// usecase.ReadStdinAndPrintLoop()
-
-		// usecase.Serve(repos, path, port)
-
-		return nil
+		return usecase.Serve(repos, workdir, port)
 	},
 }

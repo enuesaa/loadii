@@ -11,7 +11,10 @@ var ExecCommand = cli.Command{
 	Aliases: []string{"e"},
 	Usage:   "exec commands",
 	Action: func(c *cli.Context) error {
-		fmt.Println("exec command")
+		commands := c.Args().Slice()
+
+		fmt.Printf("exec command: %v\n", commands)
+
 		return nil
 	},
 }

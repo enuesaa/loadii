@@ -1,8 +1,8 @@
 package command
 
 import (
-	"fmt"
-
+	"github.com/enuesaa/loadii/pkg/repository"
+	"github.com/enuesaa/loadii/pkg/usecase"
 	"github.com/urfave/cli/v2"
 )
 
@@ -11,7 +11,13 @@ var RunCommand = cli.Command{
 	Aliases: []string{"r"},
 	Usage:   "run app. Currently, this command supports golang app.",
 	Action: func(c *cli.Context) error {
-		fmt.Println("run")
-		return nil
+		path := c.Args().Get(0)
+		if path == "" {
+			return cli.ShowAppHelp(c)
+		}
+
+		repos := repository.New()
+
+		return usecase.RunApp(repos, path)
 	},
 }
