@@ -3,6 +3,7 @@ package command
 import (
 	"fmt"
 
+	"github.com/enuesaa/loadii/pkg/usecase"
 	"github.com/urfave/cli/v2"
 )
 
@@ -15,6 +16,6 @@ var ExecCommand = cli.Command{
 
 		fmt.Printf("exec command: %v\n", commands)
 
-		return nil
+		return usecase.Exec(commands[0], commands[1:])
 	},
 }
