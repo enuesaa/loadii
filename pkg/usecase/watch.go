@@ -12,7 +12,8 @@ func Watch(path string) error {
 	if err != nil {
 		return err
 	}
-	defer watcher.Close()
+	// TODO
+	// defer watcher.Close()
 
 	go func() {
 		for {
@@ -33,16 +34,16 @@ func Watch(path string) error {
 		}
 	}()
 
-	// go func() {
-	// 	for {
-	// 		err, ok := <-watcher.Errors
-	// 		if !ok {
-	// 			return
-	// 		}
-	// 		log.Printf("Error: %s\n", err.Error())
-	// 	}
-	// }()
-	if err := watcher.Add(path); err != nil {
+	go func() {
+		for {
+			err, ok := <-watcher.Errors
+			if !ok {
+				return
+			}
+			log.Printf("Error: %s\n", err.Error())
+		}
+	}()
+	if err := watcher.Add("./"); err != nil {
 		return err
 	}
 	for _, file := range watcher.WatchList() {
