@@ -3,15 +3,14 @@ package usecase
 import (
 	"fmt"
 	"log"
-	"time"
 
 	"github.com/fsnotify/fsnotify"
 )
 
-func Watch() {
+func Watch(path string) error {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
-		log.Fatalf("Error: %s", err.Error())
+		return err
 	}
 	defer watcher.Close()
 
@@ -34,23 +33,21 @@ func Watch() {
 		}
 	}()
 
-	go func() {
-		for {
-			err, ok := <-watcher.Errors
-			if !ok {
-				return
-			}
-			log.Printf("Error: %s\n", err.Error())
-		}
-	}()
-
-	err = watcher.Add("./")
-	if err != nil {
-		log.Fatal(err)
+	// go func() {
+	// 	for {
+	// 		err, ok := <-watcher.Errors
+	// 		if !ok {
+	// 			return
+	// 		}
+	// 		log.Printf("Error: %s\n", err.Error())
+	// 	}
+	// }()
+	if err := watcher.Add(path); err != nil {
+		return err
+	}
+	for _, file := range watcher.WatchList() {
+		fmt.Printf("watching: %s\n", file)
 	}
 
-	for range 10 {
-		time.Sleep(1 * time.Second)
-		fmt.Printf("a\n")
-	}
+	return nil
 }

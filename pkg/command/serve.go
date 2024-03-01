@@ -2,6 +2,7 @@ package command
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/enuesaa/loadii/pkg/repository"
 	"github.com/enuesaa/loadii/pkg/usecase"
@@ -16,7 +17,7 @@ var ServeCommand = cli.Command{
 		&cli.StringFlag{
 			Name:        "workdir",
 			Aliases: []string{"w"},
-			Value:       ".",
+			Value:       "./",
 			Usage:       "workdir",
 		},
 		&cli.IntFlag{
@@ -37,6 +38,14 @@ var ServeCommand = cli.Command{
 		port := c.Int("port")
 
 		repos := repository.New()
+
+		if err := usecase.Watch("./"); err != nil {
+			return err
+		}
+		for range 10 {
+			time.Sleep(1 * time.Second)
+			fmt.Printf("a\n")
+		}
 
 		return usecase.Serve(repos, workdir, port)
 	},

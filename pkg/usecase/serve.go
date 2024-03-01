@@ -9,18 +9,16 @@ import (
 	"github.com/enuesaa/loadii/pkg/repository"
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/cors"
-	"github.com/gofiber/fiber/v3/middleware/logger"
 )
 
+//TODO test
 func Serve(repos repository.Repos, basepath string, port int) error {
 	app := fiber.New()
 
 	app.Use(cors.New())
-	app.Use(logger.New())
 
 	app.Get("/*", func(c fiber.Ctx) error {
 		path := c.Path() // like `/`
-		path = filepath.Join(basepath, path)
 
 		// TODO: This behavior should be changed with flag.
 		if strings.HasSuffix(path, "/") {
@@ -29,6 +27,8 @@ func Serve(repos repository.Repos, basepath string, port int) error {
 		if ext := filepath.Ext(path); ext == "" {
 			path = path + ".html"
 		}
+		path = filepath.Join(basepath, path)
+		fmt.Printf("path: %s originalPath: %s\n", path, c.Path())
 
 		data, err := repos.Fs.Read(path)
 		if err != nil {
