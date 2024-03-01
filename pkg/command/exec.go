@@ -2,7 +2,6 @@ package command
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/enuesaa/loadii/pkg/usecase"
 	"github.com/urfave/cli/v2"
@@ -24,10 +23,6 @@ var ExecCommand = cli.Command{
 
 		if err := usecase.Watch("./"); err != nil {
 			return err
-		}
-		for range 10 {
-			time.Sleep(1 * time.Second)
-			fmt.Printf("a\n")
 		}
 		return nil
 	},
