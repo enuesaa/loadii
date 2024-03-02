@@ -7,6 +7,7 @@ import (
 
 func Watch(repos repository.Repos) error {
 	watchctl := watch.New(repos)
-	return watchctl.Watch()
+	defer watchctl.Close()
 
+	return watchctl.Watch()
 }

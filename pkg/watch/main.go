@@ -1,6 +1,9 @@
 package watch
 
-import "github.com/enuesaa/loadii/pkg/repository"
+import (
+	"github.com/enuesaa/loadii/pkg/repository"
+	"github.com/fsnotify/fsnotify"
+)
 
 func New(repos repository.Repos) Watchctl {
 	return Watchctl {
@@ -10,4 +13,5 @@ func New(repos repository.Repos) Watchctl {
 
 type Watchctl struct {
 	repos repository.Repos
+	watcher *fsnotify.Watcher
 }

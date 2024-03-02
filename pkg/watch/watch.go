@@ -1,7 +1,6 @@
 package watch
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/fsnotify/fsnotify"
@@ -12,8 +11,7 @@ func (ctl *Watchctl) Watch() error {
 	if err != nil {
 		return err
 	}
-	// TODO
-	// defer watcher.Close()
+	ctl.watcher = watcher
 
 	go func() {
 		for {
@@ -43,12 +41,6 @@ func (ctl *Watchctl) Watch() error {
 			log.Printf("Error: %s\n", err.Error())
 		}
 	}()
-	if err := watcher.Add("./"); err != nil {
-		return err
-	}
-	for _, file := range watcher.WatchList() {
-		fmt.Printf("watching: %s\n", file)
-	}
 
-	return nil
+	return watcher.Add("./")
 }
