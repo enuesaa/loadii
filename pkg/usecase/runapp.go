@@ -4,13 +4,16 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/enuesaa/loadii/pkg/exec"
 	"github.com/enuesaa/loadii/pkg/repository"
 )
 
 func RunApp(repos repository.Repos, path string) error {
+	execctl := exec.New(repos)
+
 	ext := repos.Fs.Ext(path)
 	if ext == ".go" {
-		return repos.Cmd.Exec("go", "run", path)
+		return execctl.Exec("go", "run", path)
 	}
 
 	data, err := repos.Fs.Read(path)
@@ -28,5 +31,5 @@ func RunApp(repos repository.Repos, path string) error {
 		return fmt.Errorf("failed to run file becuase this file does not contain shebang.")
 	}
 
-	return repos.Cmd.Exec(path)
+	return execctl.Exec(path)
 }
