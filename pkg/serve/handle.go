@@ -12,6 +12,19 @@ import (
 func (ctl *Servectl) handleMainRoute(c fiber.Ctx) error {
 	path := c.Path() // like `/`
 
+	readpath := ctl.convertPath(path)
+	fmt.Printf("path: %s, looking: %s\n", path, readpath)
+
+	data, err := ctl.repos.Fs.Read(readpath)
+	if err != nil {
+		return c.SendStatus(fiber.StatusNotFound)
+	}
+	c.Set(fiber.HeaderContentType, ctl.judgeMimeType(path))
+
+	return c.SendString(string(data))
+}
+
+func (ctl *Servectl) convertPath(path string) string {
 	// TODO: This behavior should be changed with flag.
 	if strings.HasSuffix(path, "/") {
 		path = filepath.Join(path, "index.html")
@@ -19,17 +32,10 @@ func (ctl *Servectl) handleMainRoute(c fiber.Ctx) error {
 	if ext := filepath.Ext(path); ext == "" {
 		path = path + ".html"
 	}
-	path = filepath.Join(ctl.Basepath, path)
-	fmt.Printf("path: %s originalPath: %s\n", path, c.Path())
+	return filepath.Join(ctl.Basepath, path)
+}
 
-	data, err := ctl.repos.Fs.Read(path)
-	if err != nil {
-		return c.SendStatus(fiber.StatusNotFound)
-	}
-
+func (ctl *Servectl) judgeMimeType(path string) string {
 	ext := filepath.Ext(path)
-	mimeType := mime.TypeByExtension(ext)
-	c.Set(fiber.HeaderContentType, mimeType)
-
-	return c.SendString(string(data))
+	return mime.TypeByExtension(ext)
 }
