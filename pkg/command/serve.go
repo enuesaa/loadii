@@ -10,7 +10,6 @@ import (
 
 var ServeCommand = cli.Command{
 	Name:    "serve",
-	Aliases: []string{"s"},
 	Usage:   "serve instant web server",
 	Flags: []cli.Flag{
 		&cli.StringFlag{
@@ -38,7 +37,7 @@ var ServeCommand = cli.Command{
 
 		repos := repository.New()
 
-		if err := usecase.Watch(repos, nil); err != nil {
+		if err := usecase.Watch(repos); err != nil {
 			return err
 		}
 		return usecase.Serve(repos, workdir, port)

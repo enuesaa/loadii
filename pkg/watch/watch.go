@@ -1,16 +1,10 @@
 package watch
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/fsnotify/fsnotify"
 )
-
-// observer pattern みたいな機構がいい
-func (ctl *Watchctl) trigger() {
-	fmt.Printf("triggered!\n")
-}
 
 func (ctl *Watchctl) Watch() error {
 	watcher, err := fsnotify.NewWatcher()

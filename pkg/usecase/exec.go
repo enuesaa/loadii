@@ -3,12 +3,11 @@ package usecase
 import (
 	"fmt"
 	"os/exec"
+
+	"github.com/enuesaa/loadii/pkg/repository"
 )
 
-func Exec(commands []string) error {
-	if len(commands) == 0 {
-		return fmt.Errorf("please specify command")
-	}
+func Exec(repos repository.Repos, commands []string) error {
 	fmt.Printf("exec command: %v\n", commands)
 
 	command := commands[0]

@@ -8,7 +8,6 @@ import (
 
 var RunCommand = cli.Command{
 	Name:    "run",
-	Aliases: []string{"r"},
 	Usage:   "run app. Currently, this command supports golang app.",
 	Action: func(c *cli.Context) error {
 		path := c.Args().Get(0)
@@ -17,7 +16,7 @@ var RunCommand = cli.Command{
 		}
 
 		repos := repository.New()
-		if err := usecase.Watch(repos, nil); err != nil {
+		if err := usecase.Watch(repos); err != nil {
 			return err
 		}
 
