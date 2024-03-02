@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/enuesaa/loadii/pkg/command"
+	"github.com/enuesaa/loadii/pkg/repository"
 	"github.com/urfave/cli/v2"
 )
 
@@ -13,15 +14,17 @@ func init() {
 }
 
 func main() {
+	repos := repository.New()
+
 	app := &cli.App{
 		Name:      "loadii",
 		Version:   "0.0.2",
 		Usage:     "Instant web server",
 		Args:      true,
 		Commands: []*cli.Command{
-			&command.ServeCommand,
-			&command.ExecCommand,
-			&command.RunCommand,
+			command.NewExecCommand(repos),
+			command.NewRunCommand(repos),
+			command.NewServeCommand(repos),
 		},
 		Suggest:   true,
 	}
