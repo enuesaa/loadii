@@ -10,19 +10,19 @@ import (
 
 func NewServeCommand(repos repository.Repos) *cli.Command {
 	cmd := cli.Command{
-		Name:    "serve",
-		Usage:   "serve instant web server",
+		Name:  "serve",
+		Usage: "serve instant web server",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
-				Name:        "workdir",
+				Name:    "workdir",
 				Aliases: []string{"w"},
-				Value:       "./",
-				Usage:       "workdir",
+				Value:   "./",
+				Usage:   "workdir",
 			},
 			&cli.IntFlag{
-				Name:        "port",
-				Value:       3000,
-				Usage:       "port",
+				Name:  "port",
+				Value: 3000,
+				Usage: "port",
 				Action: func(ctx *cli.Context, v int) error {
 					// see https://cli.urfave.org/v2/examples/flags/
 					if v > 65537 {
@@ -35,12 +35,12 @@ func NewServeCommand(repos repository.Repos) *cli.Command {
 		Action: func(c *cli.Context) error {
 			workdir := c.String("workdir")
 			port := c.Int("port")
-	
+
 			usecase.Watch(repos)
-	
+
 			return usecase.Serve(repos, workdir, port)
 		},
 	}
-	
+
 	return &cmd
 }

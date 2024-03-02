@@ -17,16 +17,16 @@ func main() {
 	repos := repository.New()
 
 	app := &cli.App{
-		Name:      "loadii",
-		Version:   "0.0.1",
-		Usage:     "A CLI tool to watch file changes for app development",
-		Args:      true,
+		Name:    "loadii",
+		Version: "0.0.1",
+		Usage:   "A CLI tool to watch file changes and execute some operation.",
+		Args:    true,
 		Commands: []*cli.Command{
 			command.NewExecCommand(repos),
 			command.NewRunCommand(repos),
 			command.NewServeCommand(repos),
 		},
-		Suggest:   true,
+		Suggest: true,
 	}
 
 	// disable default

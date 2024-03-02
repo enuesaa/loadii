@@ -10,9 +10,9 @@ import (
 
 func NewExecCommand(repos repository.Repos) *cli.Command {
 	cmd := cli.Command{
-		Name:    "exec",
-		Usage:   "exec commands",
-		Args: true,
+		Name:      "exec",
+		Usage:     "exec commands",
+		Args:      true,
 		ArgsUsage: "commands",
 		Before: func(c *cli.Context) error {
 			commands := c.Args().Slice()
@@ -23,7 +23,7 @@ func NewExecCommand(repos repository.Repos) *cli.Command {
 		},
 		Action: func(c *cli.Context) error {
 			commands := c.Args().Slice()
-	
+
 			return usecase.ExecWatch(repos, commands)
 		},
 	}

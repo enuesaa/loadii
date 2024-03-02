@@ -8,8 +8,8 @@ import (
 
 func NewRunCommand(repos repository.Repos) *cli.Command {
 	cmd := cli.Command{
-		Name:    "run",
-		Usage:   "run app. Currently, this command supports golang app.",
+		Name:  "run",
+		Usage: "run app. Currently, this command supports golang app.",
 		Before: func(c *cli.Context) error {
 			path := c.Args().Get(0)
 			if path == "" {
@@ -19,9 +19,9 @@ func NewRunCommand(repos repository.Repos) *cli.Command {
 		},
 		Action: func(c *cli.Context) error {
 			path := c.Args().Get(0)
-	
+
 			usecase.Watch(repos)
-	
+
 			return usecase.RunApp(repos, path)
 		},
 	}
