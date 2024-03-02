@@ -17,7 +17,7 @@ func NewExecCommand(repos repository.Repos) *cli.Command {
 		Before: func(c *cli.Context) error {
 			commands := c.Args().Slice()
 			if len(commands) == 0 {
-				return fmt.Errorf("please specify command")
+				return fmt.Errorf("Required arguments are missing.\nPlease pass a command like `loadii exec echo a`.\n")
 			}
 			return nil
 		},

@@ -6,7 +6,7 @@ import (
 )
 
 func Exec(repos repository.Repos, commands []string) error {
-	repos.Log.Info("exec command: %v\n", commands)
+	repos.Log.Info("exec command: %v", commands)
 
 	command := commands[0]
 	args := commands[1:]

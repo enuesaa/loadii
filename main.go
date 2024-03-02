@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"os"
 
 	"github.com/enuesaa/loadii/pkg/command"
@@ -25,6 +26,9 @@ func main() {
 	}
 
 	// disable default
+	app.OnUsageError = func(c *cli.Context, err error, isSubcommand bool) error {
+		return err
+	}
 	app.HideHelpCommand = true
 	cli.AppHelpTemplate = `{{.Usage}}
 
@@ -42,6 +46,6 @@ GLOBAL OPTIONS:
 `
 
 	if err := app.Run(os.Args); err != nil {
-		os.Exit(1)
+		log.Fatalf("Error: %s", err.Error())
 	}
 }

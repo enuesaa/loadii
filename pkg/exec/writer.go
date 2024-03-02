@@ -16,7 +16,7 @@ func (w *CmdWriter) Write(p []byte) (n int, err error) {
 	texts := strings.Split(text, "\n")
 
 	for _, line := range texts {
-		w.repos.Log.Info("%s\n", line)
+		w.repos.Log.Info(line)
 	}
 
 	return len(p), nil

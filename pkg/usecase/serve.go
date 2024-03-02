@@ -10,7 +10,7 @@ func Serve(repos repository.Repos, basepath string, port int) error {
 	servectl.Port = port
 	servectl.Basepath = basepath
 
-	repos.Log.Info("Listening on %s\n", servectl.Addr())
+	repos.Log.Info("Listening on %s", servectl.Addr())
 
 	return servectl.Listen()
 }
