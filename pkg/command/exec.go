@@ -24,7 +24,7 @@ var ExecCommand = cli.Command{
 			return err
 		}
 
-		if err := usecase.Watch(repos); err != nil {
+		if err := usecase.WatchSleep(repos); err != nil {
 			return err
 		}
 		return nil

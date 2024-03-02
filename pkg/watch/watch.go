@@ -15,7 +15,7 @@ func (ctl *Watchctl) Watch() error {
 
 	go func() {
 		for {
-			event, ok := <-watcher.Events
+			event, ok := <-ctl.watcher.Events
 			if !ok {
 				return
 			}
@@ -34,7 +34,7 @@ func (ctl *Watchctl) Watch() error {
 
 	go func() {
 		for {
-			err, ok := <-watcher.Errors
+			err, ok := <-ctl.watcher.Errors
 			if !ok {
 				return
 			}
@@ -42,5 +42,5 @@ func (ctl *Watchctl) Watch() error {
 		}
 	}()
 
-	return watcher.Add("./")
+	return ctl.watcher.Add("./")
 }
