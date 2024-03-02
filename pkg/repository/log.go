@@ -14,7 +14,7 @@ type LogRepositoryInterface interface {
 	Info(format string, v ...any)
 	Fatal(err error)
 }
-type LogRepository struct {}
+type LogRepository struct{}
 
 func (repo *LogRepository) prefix() string {
 	return time.Now().Local().Format("2006-01-02 15:04:05")

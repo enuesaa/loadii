@@ -19,7 +19,7 @@ func (ctl *Servectl) handleMainRoute(c fiber.Ctx) error {
 	if err != nil {
 		return c.SendStatus(fiber.StatusNotFound)
 	}
-	c.Set(fiber.HeaderContentType, ctl.judgeMimeType(path))
+	c.Set(fiber.HeaderContentType, ctl.judgeMimeType(readpath))
 
 	return c.SendString(string(data))
 }

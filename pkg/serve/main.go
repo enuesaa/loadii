@@ -4,6 +4,7 @@ import "github.com/enuesaa/loadii/pkg/repository"
 
 func New(repos repository.Repos) Servectl {
 	return Servectl{
+		repos:    repos,
 		Port:     3000,
 		Basepath: ".",
 	}
