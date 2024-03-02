@@ -18,8 +18,8 @@ func main() {
 
 	app := &cli.App{
 		Name:      "loadii",
-		Version:   "0.0.2",
-		Usage:     "Instant web server",
+		Version:   "0.0.1",
+		Usage:     "A CLI tool to watch file changes for app development",
 		Args:      true,
 		Commands: []*cli.Command{
 			command.NewExecCommand(repos),
@@ -47,6 +47,6 @@ GLOBAL OPTIONS:
 `
 
 	if err := app.Run(os.Args); err != nil {
-		log.Fatalf("Error: %s", err.Error())
+		os.Exit(1)
 	}
 }
