@@ -7,7 +7,7 @@ import (
 	"github.com/enuesaa/loadii/pkg/watch"
 )
 
-func Watch(repos repository.Repos) error {
+func Watch(repos repository.Repos) {
 	go func() {
 		watchctl := watch.New(repos)
 		defer watchctl.Close()
@@ -18,6 +18,4 @@ func Watch(repos repository.Repos) error {
 
 		<-make(chan struct{})
 	}()
-
-	return nil
 }

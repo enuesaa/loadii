@@ -36,10 +36,8 @@ var ServeCommand = cli.Command{
 		port := c.Int("port")
 
 		repos := repository.New()
+		usecase.Watch(repos)
 
-		if err := usecase.Watch(repos); err != nil {
-			return err
-		}
 		return usecase.Serve(repos, workdir, port)
 	},
 }

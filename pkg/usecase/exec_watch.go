@@ -12,21 +12,17 @@ func ExecWatch(repos repository.Repos, commands []string) error {
 		return err
 	}
 
-	go func() {
-		watchctl := watch.New(repos)
-		defer watchctl.Close()
+	watchctl := watch.New(repos)
+	defer watchctl.Close()
 
-		if err := watchctl.Watch(); err != nil {
-			log.Fatalf("Error: %s", err.Error())
-		}
+	watchctl.AddCallback(func() {
+		Exec(repos, commands)
+	})
 
-		callback := func ()  {
-			Exec(repos, commands)
-		}
-		watchctl.Callback = &callback
-
-		<-make(chan struct{})
-	}()
+	if err := watchctl.Watch(); err != nil {
+		log.Fatalf("Error: %s", err.Error())
+	}
+	watchctl.Wait()
 
 	return nil
 }

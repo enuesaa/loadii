@@ -21,9 +21,7 @@ func (ctl *Watchctl) Watch() error {
 			}
 			if event.Has(fsnotify.Write) {
 				log.Println("modified:", event.Name)
-
-				if ctl.Callback != nil {
-					fnc := *ctl.Callback
+				for _, fnc := range ctl.callbacks {
 					fnc()
 				}
 			} else if event.Has(fsnotify.Remove) {

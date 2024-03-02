@@ -13,18 +13,17 @@ var ExecCommand = cli.Command{
 	Usage:   "exec commands",
 	Args: true,
 	ArgsUsage: "commands",
-	Action: func(c *cli.Context) error {
+	Before: func(c *cli.Context) error {
 		commands := c.Args().Slice()
 		if len(commands) == 0 {
 			return fmt.Errorf("please specify command")
 		}
+		return nil
+	},
+	Action: func(c *cli.Context) error {
+		commands := c.Args().Slice()
 		repos := repository.New()
 
-		if err := usecase.ExecWatch(repos, commands); err != nil {
-			return err
-		}
-		<-make(chan struct{})
-
-		return nil
+		return usecase.ExecWatch(repos, commands)
 	},
 }

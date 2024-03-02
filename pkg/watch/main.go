@@ -8,12 +8,12 @@ import (
 func New(repos repository.Repos) Watchctl {
 	return Watchctl {
 		repos: repos,
-		Callback: nil,
+		callbacks: make([]func(), 0),
 	}
 }
 
 type Watchctl struct {
 	repos repository.Repos
 	watcher *fsnotify.Watcher
-	Callback *func()
+	callbacks []func()
 }
