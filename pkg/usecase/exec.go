@@ -9,6 +9,8 @@ func Exec(commands []string) error {
 	if len(commands) == 0 {
 		return fmt.Errorf("please specify command")
 	}
+	fmt.Printf("exec command: %v\n", commands)
+
 	command := commands[0]
 	args := commands[1:]
 

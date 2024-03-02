@@ -27,7 +27,11 @@ func (ctl *Watchctl) Watch() error {
 			}
 			if event.Has(fsnotify.Write) {
 				log.Println("modified:", event.Name)
-				ctl.trigger()
+
+				if ctl.Callback != nil {
+					fnc := *ctl.Callback
+					fnc()
+				}
 			} else if event.Has(fsnotify.Remove) {
 				log.Println("deleted:", event.Name)
 			} else if event.Has(fsnotify.Create) {
@@ -36,16 +40,6 @@ func (ctl *Watchctl) Watch() error {
 				// this seems deleted file.
 				log.Println("deleted:", event.Name)
 			}
-		}
-	}()
-
-	go func() {
-		for {
-			err, ok := <-ctl.watcher.Errors
-			if !ok {
-				return
-			}
-			log.Printf("Error: %s\n", err.Error())
 		}
 	}()
 

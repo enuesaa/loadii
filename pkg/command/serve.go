@@ -38,7 +38,7 @@ var ServeCommand = cli.Command{
 
 		repos := repository.New()
 
-		if err := usecase.Watch(repos); err != nil {
+		if err := usecase.Watch(repos, nil); err != nil {
 			return err
 		}
 		return usecase.Serve(repos, workdir, port)
