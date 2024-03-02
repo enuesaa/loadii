@@ -1,14 +1,13 @@
 package usecase
 
 import (
-	"fmt"
 	"os/exec"
 
 	"github.com/enuesaa/loadii/pkg/repository"
 )
 
 func Exec(repos repository.Repos, commands []string) error {
-	fmt.Printf("exec command: %v\n", commands)
+	repos.Log.Info("exec command: %v\n", commands)
 
 	command := commands[0]
 	args := commands[1:]
@@ -18,7 +17,7 @@ func Exec(repos repository.Repos, commands []string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("output: %s\n", string(output))
+	repos.Log.Info("output: %s\n", string(output))
 
 	return nil
 }

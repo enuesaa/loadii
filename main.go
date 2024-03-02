@@ -1,17 +1,12 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	"github.com/enuesaa/loadii/pkg/command"
 	"github.com/enuesaa/loadii/pkg/repository"
 	"github.com/urfave/cli/v2"
 )
-
-func init() {
-	log.SetFlags(0)
-}
 
 func main() {
 	repos := repository.New()

@@ -1,8 +1,6 @@
 package watch
 
 import (
-	"log"
-
 	"github.com/fsnotify/fsnotify"
 )
 
@@ -20,17 +18,17 @@ func (ctl *Watchctl) Watch() error {
 				return
 			}
 			if event.Has(fsnotify.Write) {
-				log.Println("modified:", event.Name)
+				ctl.repos.Log.Info("modified: %s\n", event.Name)
 				for _, fnc := range ctl.callbacks {
 					fnc()
 				}
 			} else if event.Has(fsnotify.Remove) {
-				log.Println("deleted:", event.Name)
+				ctl.repos.Log.Info("deleted: %s\n", event.Name)
 			} else if event.Has(fsnotify.Create) {
-				log.Println("created:", event.Name)
+				ctl.repos.Log.Info("created: %s\n", event.Name)
 			} else if event.Has(fsnotify.Rename) {
 				// this seems deleted file.
-				log.Println("deleted:", event.Name)
+				ctl.repos.Log.Info("deleted: %s\n", event.Name)
 			}
 		}
 	}()

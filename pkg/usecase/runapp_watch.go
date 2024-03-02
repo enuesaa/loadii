@@ -1,8 +1,6 @@
 package usecase
 
 import (
-	"log"
-
 	"github.com/enuesaa/loadii/pkg/repository"
 	"github.com/enuesaa/loadii/pkg/watch"
 )
@@ -16,7 +14,7 @@ func RunAppWatch(repos repository.Repos, path string) error {
 	})
 
 	if err := watchctl.Watch(); err != nil {
-		log.Fatalf("Error: %s", err.Error())
+		repos.Log.Fatal(err)
 	}
 	if err := RunApp(repos, path); err != nil {
 		return err
