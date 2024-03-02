@@ -17,7 +17,7 @@ var RunCommand = cli.Command{
 		}
 
 		repos := repository.New()
-		if err := usecase.Watch("./"); err != nil {
+		if err := usecase.Watch(repos); err != nil {
 			return err
 		}
 
