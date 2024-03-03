@@ -5,10 +5,12 @@ import (
 	"github.com/enuesaa/loadii/pkg/watch"
 )
 
-func Watch(repos repository.Repos) {
+func ServeWatch(repos repository.Repos, basepath string, port int) error {
 	go func() {
 		watchctl := watch.New(repos)
 		defer watchctl.Close()
+
+		watchctl.WatchPath = basepath
 
 		if err := watchctl.Watch(); err != nil {
 			repos.Log.Fatal(err)
@@ -16,4 +18,6 @@ func Watch(repos repository.Repos) {
 
 		<-make(chan struct{})
 	}()
+
+	return Serve(repos, basepath, port)
 }

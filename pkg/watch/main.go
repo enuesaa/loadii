@@ -9,6 +9,7 @@ func New(repos repository.Repos) Watchctl {
 	return Watchctl{
 		repos:     repos,
 		callbacks: make([]func(), 0),
+		WatchPath: "./",
 	}
 }
 
@@ -16,4 +17,5 @@ type Watchctl struct {
 	repos     repository.Repos
 	watcher   *fsnotify.Watcher
 	callbacks []func()
+	WatchPath string
 }

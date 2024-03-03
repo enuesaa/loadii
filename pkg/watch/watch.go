@@ -34,5 +34,5 @@ func (ctl *Watchctl) Watch() error {
 		}
 	}()
 
-	return ctl.watcher.Add("./")
+	return ctl.watcher.Add(ctl.WatchPath)
 }
