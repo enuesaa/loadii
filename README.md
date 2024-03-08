@@ -1,5 +1,5 @@
 # loadii
-Instant web server for development.
+A CLI tool to watch file changes and execute a task.
 
 ## Development Plan
 ### Planning Usage

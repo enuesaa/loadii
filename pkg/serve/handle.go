@@ -1,7 +1,6 @@
 package serve
 
 import (
-	"fmt"
 	"mime"
 	"path/filepath"
 	"strings"
@@ -13,7 +12,7 @@ func (ctl *Servectl) handleMainRoute(c fiber.Ctx) error {
 	path := c.Path() // like `/`
 
 	readpath := ctl.convertPath(path)
-	fmt.Printf("path: %s, looking: %s\n", path, readpath)
+	ctl.repos.Log.Info("path: %s, looking: %s", path, readpath)
 
 	data, err := ctl.repos.Fs.Read(readpath)
 	if err != nil {

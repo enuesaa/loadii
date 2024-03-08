@@ -7,10 +7,11 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 )
 
-func ReadStdinAndPrintLoop() {
+func ReadStdin() error  {
+	signal.Ignore(syscall.SIGPIPE)
+
 	go func() {
 		scanner := bufio.NewScanner(os.Stdin)
 		for {
@@ -29,9 +30,5 @@ func ReadStdinAndPrintLoop() {
 		}
 	}()
 
-	signal.Ignore(syscall.SIGPIPE)
-	for range 10 {
-		time.Sleep(1 * time.Second)
-		fmt.Printf("a %d\n", os.Getpid())
-	}
+	return nil
 }
