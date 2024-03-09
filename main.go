@@ -20,20 +20,21 @@ func main() {
 		Version: "0.0.2",
 		Usage:   "A CLI tool to watch file changes and execute a task",
 		Commands: []*cli.Command{
-			command.NewExecCommand(repos, watchpath),
-			command.NewRunCommand(repos, watchpath),
-			command.NewServeCommand(repos, watchpath),
+			command.NewExecCommand(repos, &watchpath),
+			command.NewRunCommand(repos, &watchpath),
+			command.NewServeCommand(repos, &watchpath),
 		},
 		Flags: []cli.Flag{
 			&cli.StringFlag{
-				Name:    "watch",
-				Aliases: []string{"w"},
-				Usage:   "watch dir",
+				Name:        "watch",
+				Aliases:     []string{"w"},
+				Usage:       "watch dir",
+				Value:       ".",
 				Destination: &watchpath,
 			},
 		},
 		Action: func(c *cli.Context) error {
-			if watchpath == "" {
+			if len(c.FlagNames()) == 0 {
 				return cli.ShowAppHelp(c)
 			}
 

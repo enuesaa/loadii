@@ -8,7 +8,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func NewExecCommand(repos repository.Repos, watchpath string) *cli.Command {
+func NewExecCommand(repos repository.Repos, watchpath *string) *cli.Command {
 	cmd := cli.Command{
 		Name:      "exec",
 		Usage:     "exec commands",
@@ -24,7 +24,7 @@ func NewExecCommand(repos repository.Repos, watchpath string) *cli.Command {
 		Action: func(c *cli.Context) error {
 			commands := c.Args().Slice()
 
-			return usecase.ExecWatch(repos, watchpath, commands)
+			return usecase.ExecWatch(repos, *watchpath, commands)
 		},
 	}
 

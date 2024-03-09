@@ -9,7 +9,7 @@ import (
 	"syscall"
 )
 
-func ReadStdin() error  {
+func ReadStdin() error {
 	signal.Ignore(syscall.SIGPIPE)
 
 	go func() {

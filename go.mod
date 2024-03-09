@@ -4,7 +4,7 @@ go 1.22.0
 
 require (
 	github.com/fsnotify/fsnotify v1.7.0
-	github.com/gofiber/fiber/v3 v3.0.0-20240305075939-370cc8bdb65b
+	github.com/gofiber/fiber/v3 v3.0.0-20240308190313-0379cc59aad0
 	github.com/stretchr/testify v1.9.0
 	github.com/urfave/cli/v2 v2.27.1
 )
