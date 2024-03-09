@@ -5,8 +5,9 @@ import (
 	"github.com/enuesaa/loadii/pkg/watch"
 )
 
-func RunAppWatch(repos repository.Repos, path string) error {
+func RunAppWatch(repos repository.Repos, watchpath string, path string) error {
 	watchctl := watch.New(repos)
+	watchctl.WatchPath = watchpath
 	defer watchctl.Close()
 
 	watchctl.AddCallback(func() {

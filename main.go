@@ -13,29 +13,31 @@ import (
 func main() {
 	repos := repository.New()
 
+	var watchpath string
+
 	app := &cli.App{
 		Name:    "loadii",
 		Version: "0.0.2",
 		Usage:   "A CLI tool to watch file changes and execute a task",
 		Commands: []*cli.Command{
-			command.NewExecCommand(repos),
-			command.NewRunCommand(repos),
-			command.NewServeCommand(repos),
+			command.NewExecCommand(repos, watchpath),
+			command.NewRunCommand(repos, watchpath),
+			command.NewServeCommand(repos, watchpath),
 		},
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:    "watch",
 				Aliases: []string{"w"},
 				Usage:   "watch dir",
+				Destination: &watchpath,
 			},
 		},
 		Action: func(c *cli.Context) error {
-			watchdir := c.String("watch")
-			if watchdir == "" {
+			if watchpath == "" {
 				return cli.ShowAppHelp(c)
 			}
 
-			usecase.Watch(repos, watchdir)
+			usecase.Watch(repos, watchpath)
 
 			return nil
 		},

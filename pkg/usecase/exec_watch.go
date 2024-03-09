@@ -5,12 +5,13 @@ import (
 	"github.com/enuesaa/loadii/pkg/watch"
 )
 
-func ExecWatch(repos repository.Repos, commands []string) error {
+func ExecWatch(repos repository.Repos, watchpath string, commands []string) error {
 	if err := Exec(repos, commands); err != nil {
 		return err
 	}
 
 	watchctl := watch.New(repos)
+	watchctl.WatchPath = watchpath
 	defer watchctl.Close()
 
 	watchctl.AddCallback(func() {

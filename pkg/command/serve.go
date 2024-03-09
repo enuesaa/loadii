@@ -6,7 +6,9 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func NewServeCommand(repos repository.Repos) *cli.Command {
+func NewServeCommand(repos repository.Repos, watchpath string) *cli.Command {
+	var port int
+
 	cmd := cli.Command{
 		Name:  "serve",
 		Usage: "serve instant web server",
@@ -15,18 +17,18 @@ func NewServeCommand(repos repository.Repos) *cli.Command {
 				Name:  "port",
 				Value: 3000,
 				Usage: "port",
+				Destination: &port,
 			},
 		},
 		Args: true,
-		ArgsUsage: "path",
+		ArgsUsage: "<path>",
 		Action: func(c *cli.Context) error {
 			path := "."
 			if c.Args().Len() > 0 {
 				path = c.Args().Get(0)
 			}
-			port := c.Int("port")
 
-			return usecase.ServeWatch(repos, path, port)
+			return usecase.ServeWatch(repos, watchpath, path, port)
 		},
 	}
 

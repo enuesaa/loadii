@@ -6,7 +6,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func NewRunCommand(repos repository.Repos) *cli.Command {
+func NewRunCommand(repos repository.Repos, watchpath string) *cli.Command {
 	cmd := cli.Command{
 		Name:  "run",
 		Usage: "run app. Currently, this command supports golang app.",
@@ -20,7 +20,7 @@ func NewRunCommand(repos repository.Repos) *cli.Command {
 		Action: func(c *cli.Context) error {
 			path := c.Args().Get(0)
 
-			return usecase.RunAppWatch(repos, path)
+			return usecase.RunAppWatch(repos, watchpath, path)
 		},
 	}
 
