@@ -11,22 +11,22 @@ func NewServeCommand(repos repository.Repos) *cli.Command {
 		Name:  "serve",
 		Usage: "serve instant web server",
 		Flags: []cli.Flag{
-			&cli.StringFlag{
-				Name:    "workdir",
-				Value:   "./",
-				Usage:   "workdir",
-			},
 			&cli.IntFlag{
 				Name:  "port",
 				Value: 3000,
 				Usage: "port",
 			},
 		},
+		Args: true,
+		ArgsUsage: "path",
 		Action: func(c *cli.Context) error {
-			workdir := c.String("workdir")
+			path := "."
+			if c.Args().Len() > 0 {
+				path = c.Args().Get(0)
+			}
 			port := c.Int("port")
 
-			return usecase.ServeWatch(repos, workdir, port)
+			return usecase.ServeWatch(repos, path, port)
 		},
 	}
 

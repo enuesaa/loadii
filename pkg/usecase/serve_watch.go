@@ -5,6 +5,7 @@ import (
 	"github.com/enuesaa/loadii/pkg/watch"
 )
 
+//TODO: watch path should be configured in global flag `-w`
 func ServeWatch(repos repository.Repos, basepath string, port int) error {
 	go func() {
 		watchctl := watch.New(repos)
