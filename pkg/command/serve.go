@@ -13,7 +13,6 @@ func NewServeCommand(repos repository.Repos) *cli.Command {
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:    "workdir",
-				Aliases: []string{"w"},
 				Value:   "./",
 				Usage:   "workdir",
 			},

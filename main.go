@@ -6,6 +6,7 @@ import (
 
 	"github.com/enuesaa/loadii/pkg/command"
 	"github.com/enuesaa/loadii/pkg/repository"
+	"github.com/enuesaa/loadii/pkg/usecase"
 	"github.com/urfave/cli/v2"
 )
 
@@ -21,6 +22,23 @@ func main() {
 			command.NewExecCommand(repos),
 			command.NewRunCommand(repos),
 			command.NewServeCommand(repos),
+		},
+		Flags: []cli.Flag{
+			&cli.StringFlag{
+				Name:    "watch",
+				Aliases: []string{"w"},
+				Usage:   "watch dir",
+			},
+		},
+		Action: func(c *cli.Context) error {
+			watchdir := c.String("watch")
+			if watchdir == "" {
+				return cli.ShowAppHelp(c)
+			}
+
+			usecase.Watch(repos, watchdir)
+
+			return nil
 		},
 		Suggest: true,
 	}
