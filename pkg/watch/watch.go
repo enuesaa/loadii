@@ -1,6 +1,10 @@
 package watch
 
 import (
+	"os"
+	"path/filepath"
+	"strings"
+
 	"github.com/fsnotify/fsnotify"
 )
 
@@ -34,5 +38,26 @@ func (ctl *Watchctl) Watch() error {
 		}
 	}()
 
-	return ctl.watcher.Add(ctl.WatchPath)
+	if err := ctl.watcher.Add(ctl.WatchPath); err != nil {
+		return err
+	}
+
+	err = filepath.Walk(ctl.WatchPath, func(path string, f os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !f.IsDir() {
+			return nil
+		}
+		if strings.HasPrefix(path, ".") {
+			return nil
+		}
+
+		return ctl.watcher.Add(path)
+	})
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
