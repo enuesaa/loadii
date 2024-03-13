@@ -17,7 +17,7 @@ func main() {
 
 	app := &cli.App{
 		Name:    "loadii",
-		Version: "0.0.2",
+		Version: "0.0.3",
 		Usage:   "A CLI tool to watch file changes and execute a task",
 		Commands: []*cli.Command{
 			command.NewExecCommand(repos, &watchpath),

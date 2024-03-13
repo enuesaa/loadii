@@ -1,6 +1,6 @@
 package exec
 
-//TODO: refactor
+// TODO: refactor
 func (ctl *Execctl) Exec(command string, args ...string) error {
 	writer := CmdWriter{
 		repos: ctl.repos,
