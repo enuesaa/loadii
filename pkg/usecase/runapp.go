@@ -2,18 +2,20 @@ package usecase
 
 import (
 	"fmt"
+	"slices"
 	"strings"
 
 	"github.com/enuesaa/loadii/pkg/exec"
 	"github.com/enuesaa/loadii/pkg/repository"
 )
 
-func RunApp(repos repository.Repos, path string) error {
+func RunApp(repos repository.Repos, path string, args []string) error {
 	execctl := exec.New(repos)
 
 	ext := repos.Fs.Ext(path)
 	if ext == ".go" {
-		return execctl.Exec("go", "run", path)
+		cmdargs := slices.Concat([]string{"run", path}, args)
+		return execctl.Exec("go", cmdargs...)
 	}
 
 	data, err := repos.Fs.Read(path)

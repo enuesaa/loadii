@@ -23,8 +23,9 @@ func NewRunCommand(repos repository.Repos, watchpath *string) *cli.Command {
 		},
 		Action: func(c *cli.Context) error {
 			path := c.Args().Get(0)
+			args := c.Args().Slice()[1:]
 
-			return usecase.RunAppWatch(repos, *watchpath, path)
+			return usecase.RunAppWatch(repos, *watchpath, path, args)
 		},
 	}
 
