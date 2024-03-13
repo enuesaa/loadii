@@ -1,6 +1,25 @@
 # loadii
 A CLI tool to watch file changes and execute a task.
 
+## Usage
+```console
+$ go run . --help
+A CLI tool to watch file changes and execute a task
+
+USAGE:
+  loadii [global options] command [command options] [arguments...]
+
+COMMANDS:
+   exec   exec commands
+   run    run app. Currently, this command supports golang app.
+   serve  serve instant web server
+
+GLOBAL OPTIONS:
+  --watch value, -w value  watch dir (default: ".")
+  --help, -h               show help
+  --version, -v            print the version
+```
+
 ## Development Plan
 ### Planning Usage
 ```bash
