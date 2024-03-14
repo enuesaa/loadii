@@ -3,7 +3,7 @@ A CLI tool to watch file changes and execute a task.
 
 ## Usage
 ```console
-$ go run . --help
+$ loadii --help
 A CLI tool to watch file changes and execute a task
 
 USAGE:
@@ -11,7 +11,6 @@ USAGE:
 
 COMMANDS:
    exec   exec commands
-   run    run app. Currently, this command supports golang app.
    serve  serve instant web server
 
 GLOBAL OPTIONS:
@@ -24,7 +23,6 @@ GLOBAL OPTIONS:
 ### Planning Usage
 ```bash
 loadii serve # this serve static content
-loadii run main.go # this run `go run main.go` and also, do hot reload
 loadii exec pnpm build
 loadii serve | loadii exec pnpm build
 loadii run main.go | loadii -w admin exec pnpm build
