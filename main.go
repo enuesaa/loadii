@@ -20,15 +20,8 @@ func main() {
 		Version: "0.0.3",
 		Usage:   "A CLI tool to watch file changes and execute a task",
 		Commands: []*cli.Command{
-			// loadii go run .
-			// loadii --watch . go run .
+			// loadii exec go run .
 			command.NewExecCommand(repos, &watchpath),
-			//Deprecated
-			// 他では見かけないコマンドなので、exec に比べて認知負荷が高い
-			// 例えば go run . をこれで実現するには loadii run main.go を渡す必要があるが、全く別の見た目で大きな隔たりがある
-			command.NewRunCommand(repos, &watchpath),
-			// loadii --serve ./dist 
-			// loadii --watch . --serve ./dist pnpm build
 			// loadii exec go run . | loadii serve ./dist
 			command.NewServeCommand(repos, &watchpath),
 		},
