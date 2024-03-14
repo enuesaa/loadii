@@ -25,7 +25,6 @@ GLOBAL OPTIONS:
 loadii serve # this serve static content
 loadii exec pnpm build
 loadii serve | loadii exec pnpm build
-loadii run main.go | loadii -w admin exec pnpm build
 ```
 
 ## モチベーション
