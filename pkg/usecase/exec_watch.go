@@ -5,7 +5,7 @@ import (
 	"github.com/enuesaa/loadii/pkg/watch"
 )
 
-//TODO: how to change workdir
+// TODO: how to change workdir
 func ExecWatch(repos repository.Repos, watchpath string, commands []string) error {
 	if err := Exec(repos, commands); err != nil {
 		return err

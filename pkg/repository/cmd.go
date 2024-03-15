@@ -19,7 +19,6 @@ func (repo *CmdRepository) Exec(writer io.Writer, command string, args ...string
 	if err := cmd.Start(); err != nil {
 		return err
 	}
-	// fmt.Printf("running in pid %d\n", cmd.Process.Pid)
 
 	return cmd.Wait()
 }

@@ -20,9 +20,7 @@ func main() {
 		Version: "0.0.3",
 		Usage:   "A CLI tool to watch file changes and execute a task",
 		Commands: []*cli.Command{
-			// loadii exec go run .
 			command.NewExecCommand(repos, &watchpath),
-			// loadii exec go run . | loadii serve ./dist
 			command.NewServeCommand(repos, &watchpath),
 		},
 		Flags: []cli.Flag{
