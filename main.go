@@ -5,13 +5,13 @@ import (
 	"log"
 	"os"
 
-	// "github.com/enuesaa/loadii/pkg/repository"
-	// "github.com/enuesaa/loadii/pkg/usecase"
+	"github.com/enuesaa/loadii/pkg/repository"
+	"github.com/enuesaa/loadii/pkg/usecase"
 	"github.com/urfave/cli/v2"
 )
 
 func main() {
-	// repos := repository.New()
+	repos := repository.New()
 
 	var watchIncludes cli.StringSlice
 	var watchExcludes cli.StringSlice
@@ -70,20 +70,25 @@ func main() {
 		Args:      true,
 		ArgsUsage: "commands",
 		Action: func(c *cli.Context) error {
+			commands := c.Args().Slice()
+			if len(c.FlagNames()) == 0 && len(commands) == 0 {
+				return cli.ShowAppHelp(c)
+			}
 			fmt.Printf("includes: %+v\n", watchIncludes.Value())
 			fmt.Printf("excludes: %+v\n", watchExcludes.Value())
 			fmt.Printf("workdir: %+v\n", workdir)
 			fmt.Printf("serve: %+v\n", servePath)
 			fmt.Printf("port: %+v\n", servePort)
 			fmt.Printf("autoApprove: %+v\n", autoApprove)
-		
-			if len(c.FlagNames()) == 0 {
-				return cli.ShowAppHelp(c)
+
+			if servePath != "" {
+				go usecase.Serve(repos, servePath, servePort)
+			}
+			if len(commands) > 0 {
+				return usecase.ExecWatch(repos, watchIncludes.Value()[0], commands)
 			}
 
-			// usecase.Watch(repos, ".")
-
-			return nil
+			return usecase.Watch(repos, watchIncludes.Value()[0])
 		},
 		Suggest: true,
 	}
