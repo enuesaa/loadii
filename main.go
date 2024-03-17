@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -74,21 +73,18 @@ func main() {
 			if len(c.FlagNames()) == 0 && len(commands) == 0 {
 				return cli.ShowAppHelp(c)
 			}
-			fmt.Printf("includes: %+v\n", watchIncludes.Value())
-			fmt.Printf("excludes: %+v\n", watchExcludes.Value())
-			fmt.Printf("workdir: %+v\n", workdir)
-			fmt.Printf("serve: %+v\n", servePath)
-			fmt.Printf("port: %+v\n", servePort)
-			fmt.Printf("autoApprove: %+v\n", autoApprove)
 
 			if servePath != "" {
 				go usecase.Serve(repos, servePath, servePort)
 			}
+
+			includes := watchIncludes.Value()
+			excludes := watchExcludes.Value()
 			if len(commands) > 0 {
-				return usecase.ExecWatch(repos, watchIncludes.Value()[0], commands)
+				return usecase.ExecWatch(repos, includes, excludes, commands, workdir)
 			}
 
-			return usecase.Watch(repos, watchIncludes.Value()[0])
+			return usecase.Watch(repos, includes, excludes)
 		},
 		Suggest: true,
 	}
@@ -111,8 +107,7 @@ COMMANDS:
 FLAGS:{{range .VisibleFlagCategories}}{{if len .Name}}[{{.Name}}]{{end}}
 	{{range .Flags}}{{.}}
 	{{end}}
-	{{end}}{{end}}
-`
+{{end}}{{end}}`
 
 	if err := app.Run(os.Args); err != nil {
 		log.Fatalf("Error: %s", err.Error())

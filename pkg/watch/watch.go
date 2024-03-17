@@ -38,26 +38,51 @@ func (ctl *Watchctl) Watch() error {
 		}
 	}()
 
-	if err := ctl.watcher.Add(ctl.WatchPath); err != nil {
-		return err
-	}
-
-	err = filepath.Walk(ctl.WatchPath, func(path string, f os.FileInfo, err error) error {
+	for _, path := range ctl.Includes {
+		if err := ctl.watcher.Add(path); err != nil {
+			return err
+		}
+		err = filepath.Walk(path, func(path string, f os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+			if !f.IsDir() {
+				return nil
+			}
+			if strings.HasPrefix(path, ".") {
+				return nil
+			}
+	
+			return ctl.watcher.Add(path)
+		})
 		if err != nil {
 			return err
 		}
-		if !f.IsDir() {
-			return nil
-		}
-		if strings.HasPrefix(path, ".") {
-			return nil
-		}
-
-		return ctl.watcher.Add(path)
-	})
-	if err != nil {
-		return err
 	}
+
+	for _, path := range ctl.Excludes {
+		if err := ctl.watcher.Remove(path); err != nil {
+			return err
+		}
+		err = filepath.Walk(path, func(path string, f os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+			if !f.IsDir() {
+				return nil
+			}
+			if strings.HasPrefix(path, ".") {
+				return nil
+			}
+	
+			return ctl.watcher.Remove(path)
+		})
+		if err != nil {
+			return err
+		}
+	}
+
+
 
 	return nil
 }
