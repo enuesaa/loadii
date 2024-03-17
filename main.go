@@ -22,14 +22,14 @@ func main() {
 
 	app := &cli.App{
 		Name:    "loadii",
-		Version: "0.0.3",
+		Version: "0.0.4",
 		Usage:   "A CLI tool to watch file changes and execute a command",
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
 				Name:        "yes",
 				Aliases:     []string{"y"},
 				Value:       false,
-				Usage:       "Auto approve",
+				Usage:       "Approve command execution",
 				Destination: &autoApprove,
 			},
 			&cli.StringSliceFlag{
@@ -74,6 +74,7 @@ func main() {
 			if len(c.FlagNames()) == 0 && len(commands) == 0 {
 				return cli.ShowAppHelp(c)
 			}
+			//TODO: always print the command to run.
 			if len(commands) > 0 && !autoApprove {
 				message := fmt.Sprintf("Are you sure to run the command %+v (y/n)", commands)
 				value, err := repos.Prompt.Ask(message, "")

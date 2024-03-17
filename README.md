@@ -1,30 +1,35 @@
 # loadii
-A CLI tool to watch file changes and execute a task.
+A CLI tool to watch file changes and execute a command
 
 ## Usage
 ```console
 $ loadii --help
-A CLI tool to watch file changes and execute a task
+A CLI tool to watch file changes and execute a command
 
 USAGE:
-  loadii [global options] command [command options] [arguments...]
+  loadii [flags] commands
 
-COMMANDS:
-   exec   exec commands
-   serve  serve instant web server
+FLAGS:
+  --help, -h     show help
+  --version, -v  print the version
+  --yes, -y      Approve command execution (default: false)
 
-GLOBAL OPTIONS:
-  --watch value, -w value  watch dir (default: ".")
-  --help, -h               show help
-  --version, -v            print the version
+[serve]
+  --port value               Serve port (default: 3000)
+  --serve value              Serve dir
+  --workdir value, -w value  Command execution dir (default: ".")
+
+[watch]
+  --exclude value [ --exclude value ]  Remove path to watch
+  --include value [ --include value ]  Add path to watch (default: ".")
 ```
 
-## Development Plan
-### Planning Usage
+## Planning Usage
 ```bash
-loadii serve # this serve static content
-loadii exec pnpm build
-loadii serve | loadii exec pnpm build
+loadii --serve ./dist
+loadii go run .
+loadii -w ./example/simple go run .
+loadii --serve ./dist pnpm build
 ```
 
 ## モチベーション
