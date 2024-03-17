@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -72,6 +73,16 @@ func main() {
 			commands := c.Args().Slice()
 			if len(c.FlagNames()) == 0 && len(commands) == 0 {
 				return cli.ShowAppHelp(c)
+			}
+			if len(commands) > 0 && !autoApprove {
+				message := fmt.Sprintf("Are you sure to run the command %+v (y/n)", commands)
+				value, err := repos.Prompt.Ask(message, "")
+				if err != nil {
+					return err
+				}
+				if value != "y" {
+					return fmt.Errorf("not confirmed")
+				}
 			}
 
 			if servePath != "" {
