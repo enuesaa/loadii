@@ -6,12 +6,14 @@ import (
 )
 
 type CmdRepositoryInterface interface {
-	Exec(writer io.Writer, command string, args ...string) error
+	Exec(workdir string, writer io.Writer, command string, args ...string) error
 }
 type CmdRepository struct{}
 
-func (repo *CmdRepository) Exec(writer io.Writer, command string, args ...string) error {
+//TODO: refactor
+func (repo *CmdRepository) Exec(workdir string, writer io.Writer, command string, args ...string) error {
 	cmd := exec.Command(command, args...)
+	cmd.Dir = workdir
 
 	cmd.Stdout = writer
 	cmd.Stderr = writer

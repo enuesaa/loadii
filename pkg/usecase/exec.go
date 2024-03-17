@@ -12,5 +12,5 @@ func Exec(repos repository.Repos, commands []string, workdir string) error {
 	args := commands[1:]
 	execctl := exec.New(repos)
 
-	return execctl.Exec(command, args...)
+	return execctl.Exec(workdir, command, args...)
 }
