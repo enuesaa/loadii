@@ -5,18 +5,18 @@ import (
 	"github.com/enuesaa/loadii/pkg/watch"
 )
 
-// TODO: how to change workdir
-func ExecWatch(repos repository.Repos, watchpath string, commands []string) error {
-	if err := Exec(repos, commands); err != nil {
+func ExecWatch(repos repository.Repos, includes []string, excludes []string, commands []string, workdir string) error {
+	if err := Exec(repos, commands, workdir); err != nil {
 		return err
 	}
 
 	watchctl := watch.New(repos)
-	watchctl.WatchPath = watchpath
+	watchctl.Includes = includes
+	watchctl.Excludes = excludes
 	defer watchctl.Close()
 
 	watchctl.AddCallback(func() {
-		Exec(repos, commands)
+		Exec(repos, commands, workdir)
 	})
 
 	if err := watchctl.Watch(); err != nil {

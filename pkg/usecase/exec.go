@@ -5,7 +5,7 @@ import (
 	"github.com/enuesaa/loadii/pkg/repository"
 )
 
-func Exec(repos repository.Repos, commands []string) error {
+func Exec(repos repository.Repos, commands []string, workdir string) error {
 	repos.Log.Info("Running %v", commands)
 
 	command := commands[0]
