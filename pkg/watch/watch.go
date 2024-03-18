@@ -52,7 +52,7 @@ func (ctl *Watchctl) Watch() error {
 			if strings.HasPrefix(path, ".") {
 				return nil
 			}
-	
+
 			return ctl.watcher.Add(path)
 		})
 		if err != nil {
@@ -74,15 +74,13 @@ func (ctl *Watchctl) Watch() error {
 			if strings.HasPrefix(path, ".") {
 				return nil
 			}
-	
+
 			return ctl.watcher.Remove(path)
 		})
 		if err != nil {
 			return err
 		}
 	}
-
-
 
 	return nil
 }

@@ -35,45 +35,48 @@ func main() {
 			&cli.StringSliceFlag{
 				Name:        "include",
 				Usage:       "Add path to watch",
-				Value: cli.NewStringSlice("."),
+				Value:       cli.NewStringSlice("."),
 				Destination: &watchIncludes,
-				Category: "watch",
+				Category:    "watch",
 			},
 			&cli.StringSliceFlag{
 				Name:        "exclude",
 				Usage:       "Remove path to watch",
 				Destination: &watchExcludes,
-				Category: "watch",
+				Category:    "watch",
 			},
 			&cli.StringFlag{
 				Name:        "serve",
 				Usage:       "Serve dir",
 				Destination: &servePath,
-				Category: "serve",
+				Category:    "serve",
 			},
 			&cli.IntFlag{
-				Name: "port",
-				Usage: "Serve port",
-				Value: 3000,
+				Name:        "port",
+				Usage:       "Serve port",
+				Value:       3000,
 				Destination: &servePort,
-				Category: "serve",
+				Category:    "serve",
 			},
 			&cli.StringFlag{
-				Name: "workdir",
-				Aliases: []string{"w"},
-				Usage: "Command execution dir",
-				Value: ".",
+				Name:        "workdir",
+				Aliases:     []string{"w"},
+				Usage:       "Command execution dir",
+				Value:       ".",
 				Destination: &workdir,
-				Category: "serve",
+				Category:    "serve",
 			},
 		},
 		Args:      true,
 		ArgsUsage: "commands",
 		Action: func(c *cli.Context) error {
 			commands := c.Args().Slice()
+
+			// When no flag, no args passed
 			if len(c.FlagNames()) == 0 && len(commands) == 0 {
 				return cli.ShowAppHelp(c)
 			}
+
 			//TODO: always print the command to run.
 			if len(commands) > 0 && !autoApprove {
 				message := fmt.Sprintf("Are you sure to run the command %+v (y/n)", commands)

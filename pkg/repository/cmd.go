@@ -10,7 +10,7 @@ type CmdRepositoryInterface interface {
 }
 type CmdRepository struct{}
 
-//TODO: refactor
+// TODO: refactor
 func (repo *CmdRepository) Exec(workdir string, writer io.Writer, command string, args ...string) error {
 	cmd := exec.Command(command, args...)
 	cmd.Dir = workdir

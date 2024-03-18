@@ -5,7 +5,7 @@ import (
 	"github.com/enuesaa/loadii/pkg/watch"
 )
 
-//TODO change argument. use struct
+// TODO change argument. use struct
 func ExecWatch(repos repository.Repos, includes []string, excludes []string, commands []string, workdir string) error {
 	if err := Exec(repos, commands, workdir); err != nil {
 		return err
