@@ -77,15 +77,17 @@ func main() {
 				return cli.ShowAppHelp(c)
 			}
 
-			//TODO: always print the command to run.
-			if len(commands) > 0 && !autoApprove {
-				message := fmt.Sprintf("Are you sure to run the command %+v (y/n)", commands)
-				value, err := repos.Prompt.Ask(message, "")
-				if err != nil {
-					return err
-				}
-				if value != "y" {
-					return fmt.Errorf("not confirmed")
+			// TODO: logic を usecase layer に移す
+			if len(commands) > 0 {
+				repos.Log.Info("[PLAN] run the command `%v`", commands)
+				if !autoApprove {
+					value, err := repos.Prompt.Ask("Are you sure to run (y/n)", "")
+					if err != nil {
+						return err
+					}
+					if value != "y" {
+						return fmt.Errorf("not confirmed")
+					}
 				}
 			}
 
