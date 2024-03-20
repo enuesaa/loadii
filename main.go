@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -78,17 +77,9 @@ func main() {
 				return cli.ShowAppHelp(c)
 			}
 
-			// TODO: logic を usecase layer に移す
 			if len(commands) > 0 {
-				repos.Log.Info("[PLAN] run the command `%v`", commands)
-				if !autoApprove {
-					value, err := repos.Prompt.Ask("Are you sure to run (y/n)", "")
-					if err != nil {
-						return err
-					}
-					if value != "y" {
-						return fmt.Errorf("not confirmed")
-					}
+				if err := usecase.Confirm(repos, commands, autoApprove); err != nil {
+					return err
 				}
 			}
 
