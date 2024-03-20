@@ -1,6 +1,8 @@
 package exec
 
-import "github.com/enuesaa/loadii/pkg/repository"
+import (
+	"github.com/enuesaa/loadii/pkg/repository"
+)
 
 func New(repos repository.Repos) Execctl {
 	return Execctl{

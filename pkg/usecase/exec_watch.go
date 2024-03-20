@@ -1,13 +1,15 @@
 package usecase
 
 import (
+	"github.com/enuesaa/loadii/pkg/exec"
 	"github.com/enuesaa/loadii/pkg/repository"
 	"github.com/enuesaa/loadii/pkg/watch"
 )
 
-// TODO change argument. use struct
 func ExecWatch(repos repository.Repos, includes []string, excludes []string, commands []string, workdir string) error {
-	if err := Exec(repos, commands, workdir); err != nil {
+	execctl := exec.New(repos)
+
+	if err := execctl.Exec(workdir, commands); err != nil {
 		return err
 	}
 
@@ -17,7 +19,7 @@ func ExecWatch(repos repository.Repos, includes []string, excludes []string, com
 	defer watchctl.Close()
 
 	watchctl.AddCallback(func() {
-		Exec(repos, commands, workdir)
+		execctl.Exec(workdir, commands)
 	})
 
 	if err := watchctl.Watch(); err != nil {

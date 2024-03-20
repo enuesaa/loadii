@@ -1,9 +1,11 @@
 package exec
 
-// TODO: refactor
-func (ctl *Execctl) Exec(workdir string, command string, args ...string) error {
+func (ctl *Execctl) Exec(workdir string, commands []string) error {
+	command := commands[0]
+	args := commands[1:]
+
 	writer := CmdWriter{
 		repos: ctl.repos,
 	}
-	return ctl.repos.Cmd.Exec(workdir, &writer, command, args...)
+	return ctl.repos.Cmd.Exec(&writer, workdir, command, args)
 }
