@@ -6,18 +6,19 @@ import (
 )
 
 func New(repos repository.Repos, options ...Option) Watchctl {
-	return Watchctl{
-		repos:     repos,
-		callbacks: make([]func(), 0),
-		Includes:  []string{},
-		Excludes:  []string{},
+	ctl := Watchctl{
+		repos:   repos,
+		options: Options{},
 	}
+	for _, fn := range options {
+		fn(&ctl.options)
+	}
+
+	return ctl
 }
 
 type Watchctl struct {
 	repos     repository.Repos
 	watcher   *fsnotify.Watcher
-	callbacks []func()
-	Includes  []string
-	Excludes  []string
+	options   Options
 }

@@ -96,13 +96,17 @@ func main() {
 				go usecase.Serve(repos, servePath, servePort)
 			}
 
-			includes := watchIncludes.Value()
-			excludes := watchExcludes.Value()
+			options := []watch.Option{
+				watch.WithIncludes(watchIncludes.Value()),
+				watch.WithExcludes(watchExcludes.Value()),
+			}
 			if len(commands) > 0 {
-				return usecase.ExecWatch(repos, includes, excludes, commands, workdir)
+				options = append(options, watch.WithCallback(func() {
+					usecase.Exec(repos, workdir, commands)
+				}))
 			}
 
-			return usecase.Watch(repos, watch.WithIncludes(includes), watch.WithExcludes(excludes))
+			return usecase.Watch(repos, options...)
 		},
 		Suggest: true,
 	}

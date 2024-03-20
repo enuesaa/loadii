@@ -3,7 +3,7 @@ package watch
 type Options struct {
 	Includes []string
 	Excludes []string
-	Callback func()
+	Callbacks []func()
 }
 
 type Option = func(*Options)
@@ -22,6 +22,6 @@ func WithExcludes(paths []string) Option {
 
 func WithCallback(fn func()) Option {
 	return func(opts *Options) {
-		opts.Callback = fn
+		opts.Callbacks = []func(){ fn }
 	}
 }

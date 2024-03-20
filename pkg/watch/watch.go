@@ -38,7 +38,7 @@ func (ctl *Watchctl) Watch() error {
 		}
 	}()
 
-	for _, path := range ctl.Includes {
+	for _, path := range ctl.options.Includes {
 		if err := ctl.watcher.Add(path); err != nil {
 			return err
 		}
@@ -60,7 +60,7 @@ func (ctl *Watchctl) Watch() error {
 		}
 	}
 
-	for _, path := range ctl.Excludes {
+	for _, path := range ctl.options.Excludes {
 		if err := ctl.watcher.Remove(path); err != nil {
 			return err
 		}
