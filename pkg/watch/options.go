@@ -1,8 +1,8 @@
 package watch
 
 type Options struct {
-	Includes []string
-	Excludes []string
+	Includes  []string
+	Excludes  []string
 	Callbacks []func()
 }
 
@@ -22,6 +22,6 @@ func WithExcludes(paths []string) Option {
 
 func WithCallback(fn func()) Option {
 	return func(opts *Options) {
-		opts.Callbacks = []func(){ fn }
+		opts.Callbacks = []func(){fn}
 	}
 }

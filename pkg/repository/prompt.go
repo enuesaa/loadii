@@ -23,7 +23,7 @@ func (prompt *PromptRepository) Confirm(message string) (bool, error) {
 	message = fmt.Sprintf("%s (y/n)", message)
 	input := textinput.New(message)
 	input.InitialValue = ""
-	
+
 	answer, err := input.RunPrompt()
 	if err != nil {
 		return false, err

@@ -18,7 +18,7 @@ func New(repos repository.Repos, options ...Option) Watchctl {
 }
 
 type Watchctl struct {
-	repos     repository.Repos
-	watcher   *fsnotify.Watcher
-	options   Options
+	repos   repository.Repos
+	watcher *fsnotify.Watcher
+	options Options
 }
