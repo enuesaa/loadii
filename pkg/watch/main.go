@@ -5,7 +5,7 @@ import (
 	"github.com/fsnotify/fsnotify"
 )
 
-func New(repos repository.Repos) Watchctl {
+func New(repos repository.Repos, options ...Option) Watchctl {
 	return Watchctl{
 		repos:     repos,
 		callbacks: make([]func(), 0),

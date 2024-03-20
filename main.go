@@ -7,6 +7,7 @@ import (
 
 	"github.com/enuesaa/loadii/pkg/repository"
 	"github.com/enuesaa/loadii/pkg/usecase"
+	"github.com/enuesaa/loadii/pkg/watch"
 	"github.com/urfave/cli/v2"
 )
 
@@ -101,7 +102,7 @@ func main() {
 				return usecase.ExecWatch(repos, includes, excludes, commands, workdir)
 			}
 
-			return usecase.Watch(repos, includes, excludes)
+			return usecase.Watch(repos, watch.WithIncludes(includes), watch.WithExcludes(excludes))
 		},
 		Suggest: true,
 	}

@@ -5,12 +5,9 @@ import (
 	"github.com/enuesaa/loadii/pkg/watch"
 )
 
-func Watch(repos repository.Repos, includes []string, excludes []string) error {
-	watchctl := watch.New(repos)
+func Watch(repos repository.Repos, options ...watch.Option) error {
+	watchctl := watch.New(repos, options...)
 	defer watchctl.Close()
-
-	watchctl.Includes = includes
-	watchctl.Excludes = excludes
 
 	if err := watchctl.Watch(); err != nil {
 		repos.Log.Fatal(err)
