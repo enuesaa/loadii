@@ -136,7 +136,7 @@ AUTHOR:
 	{{end}}{{if .Commands}}
 COMMANDS:
 {{range .Commands}}{{if not .HideHelp}}   {{join .Names ", "}}{{ "\t"}}{{.Usage}}{{ "\n" }}{{end}}{{end}}{{end}}{{if .VisibleFlags}}
-FLAGS:{{range .VisibleFlagCategories}}{{if len .Name}}[{{.Name}}]{{end}}
+FLAGS:{{range .VisibleFlagCategories}}{{if len .Name}}  [{{.Name}}]{{end}}
 	{{range .Flags}}{{.}}
 	{{end}}
 {{end}}{{end}}`

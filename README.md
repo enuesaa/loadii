@@ -14,14 +14,15 @@ FLAGS:
   --version, -v  print the version
   --yes, -y      Approve command execution (default: false)
 
-[serve]
+  [serve]
   --port value               Serve port (default: 3000)
   --serve value              Serve dir
   --workdir value, -w value  Command execution dir (default: ".")
 
-[watch]
+  [watch]
   --exclude value [ --exclude value ]  Remove path to watch
   --include value [ --include value ]  Add path to watch (default: ".")
+
 ```
 
 ## Planning Usage
