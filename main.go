@@ -81,6 +81,7 @@ func main() {
 				if err := usecase.Confirm(repos, commands, autoApprove); err != nil {
 					return err
 				}
+				usecase.Exec(repos, workdir, commands)
 			}
 
 			if servePath != "" {
