@@ -77,6 +77,24 @@ func main() {
 				return cli.ShowAppHelp(c)
 			}
 
+			// TODO: this is prototype
+			// print planning like fiber v2 message
+			repos.Log.Info("┌──────────────────────")
+			repos.Log.Info("│ Loadii")
+			repos.Log.Info("│")
+			if servePath != "" {
+				repos.Log.Info("│ Serve:   %s on %d", servePath, servePort)
+			} else {
+				repos.Log.Info("│ Serve:   (not configured)")
+			}
+			if len(commands) > 0 {
+				repos.Log.Info("│ Command: %+v", commands)
+			} else {
+				repos.Log.Info("│ Command: (not configured)")
+			}
+			repos.Log.Info("│ Watch:   includes: %+v, excludes: %+v", watchIncludes.Value(), watchExcludes.Value())
+			repos.Log.Info("└──────────────────────")
+
 			if len(commands) > 0 {
 				if err := usecase.Confirm(repos, commands, autoApprove); err != nil {
 					return err
