@@ -77,9 +77,9 @@ func main() {
 			}
 
 			plan := usecase.Plan{
-				ServePath: servePath,
-				ServePort: servePort,
-				Commands: commands,
+				ServePath:     servePath,
+				ServePort:     servePort,
+				Commands:      commands,
 				WatchIncludes: watchIncludes.Value(),
 				WatchExcludes: watchExcludes.Value(),
 			}

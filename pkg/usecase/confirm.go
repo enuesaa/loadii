@@ -8,12 +8,13 @@ import (
 )
 
 type Plan struct {
-	ServePath string
-	ServePort int
-	Commands []string
+	ServePath     string
+	ServePort     int
+	Commands      []string
 	WatchIncludes []string
 	WatchExcludes []string
 }
+
 func Confirm(repos repository.Repos, plan Plan, autoApprove bool) error {
 	// print planning like fiber v2 message
 	repos.Log.Info("┌────────────────────────────────────────────")

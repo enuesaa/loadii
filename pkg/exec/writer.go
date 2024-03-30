@@ -16,7 +16,7 @@ func (w *CmdWriter) Write(p []byte) (n int, err error) {
 	text := string(p)
 	texts := strings.Split(text, "\n")
 
-	if texts[len(texts) - 1] == "" {
+	if texts[len(texts)-1] == "" {
 		texts = texts[:len(texts)-1]
 	}
 	for _, line := range texts {
