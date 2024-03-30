@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	"github.com/enuesaa/loadii/pkg/repository"
@@ -22,7 +21,7 @@ func main() {
 
 	app := &cli.App{
 		Name:    "loadii",
-		Version: "0.0.4",
+		Version: "0.0.5",
 		Usage:   "A CLI tool to watch file changes and execute a command",
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
@@ -132,6 +131,6 @@ FLAGS:{{range .VisibleFlagCategories}}{{if len .Name}}  [{{.Name}}]{{end}}
 {{end}}{{end}}`
 
 	if err := app.Run(os.Args); err != nil {
-		log.Fatalf("Error: %s", err.Error())
+		repos.Log.Fatal(err)
 	}
 }

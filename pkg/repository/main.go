@@ -4,7 +4,6 @@ type Repos struct {
 	Cmd    CmdRepositoryInterface
 	Fs     FsRepositoryInterface
 	Log    LogRepositoryInterface
-	Prompt PromptRepositoryInterface
 }
 
 func New() Repos {
@@ -12,7 +11,6 @@ func New() Repos {
 		Cmd:    &CmdRepository{},
 		Fs:     &FsRepository{},
 		Log:    &LogRepository{},
-		Prompt: &PromptRepository{},
 	}
 }
 
@@ -21,6 +19,5 @@ func NewMock() Repos {
 		Cmd:    &CmdRepository{},
 		Fs:     &FsMockRepository{},
 		Log:    &LogRepository{},
-		Prompt: &PromptRepository{},
 	}
 }

@@ -5,7 +5,7 @@ go 1.22.0
 require (
 	github.com/erikgeiser/promptkit v0.9.0
 	github.com/fsnotify/fsnotify v1.7.0
-	github.com/gofiber/fiber/v3 v3.0.0-20240319073219-7fa8b2d4acf8
+	github.com/gofiber/fiber/v3 v3.0.0-20240328094538-dfe5c6fd0427
 	github.com/stretchr/testify v1.9.0
 	github.com/urfave/cli/v2 v2.27.1
 )
@@ -20,7 +20,7 @@ require (
 	github.com/containerd/console v1.0.4 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.4 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/gofiber/utils/v2 v2.0.0-beta.3 // indirect
+	github.com/gofiber/utils/v2 v2.0.0-beta.4 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/klauspost/compress v1.17.7 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
