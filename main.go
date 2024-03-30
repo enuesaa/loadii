@@ -76,21 +76,20 @@ func main() {
 				return cli.ShowAppHelp(c)
 			}
 
-			usecase.Plan(repos, usecase.PlanProps{
+			plan := usecase.Plan{
 				ServePath: servePath,
 				ServePort: servePort,
 				Commands: commands,
 				WatchIncludes: watchIncludes.Value(),
 				WatchExcludes: watchExcludes.Value(),
-			})
-
-			if len(commands) > 0 {
-				if err := usecase.Confirm(repos, commands, autoApprove); err != nil {
-					return err
-				}
-				usecase.Exec(repos, workdir, commands)
+			}
+			if err := usecase.Confirm(repos, plan, autoApprove); err != nil {
+				return err
 			}
 
+			if len(commands) > 0 {
+				usecase.Exec(repos, workdir, commands)
+			}
 			if servePath != "" {
 				go usecase.Serve(repos, servePath, servePort)
 			}
