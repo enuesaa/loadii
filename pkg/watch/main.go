@@ -16,8 +16,8 @@ func New(repos repository.Repos) Watchctl {
 }
 
 type Watchctl struct {
-	repos   repository.Repos
-	watcher *fsnotify.Watcher
+	repos     repository.Repos
+	watcher   *fsnotify.Watcher
 	Includes  []string
 	Excludes  []string
 	callbacks []func()
