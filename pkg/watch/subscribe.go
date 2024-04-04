@@ -28,7 +28,7 @@ func (ctl *Watchctl) subscribe() {
 }
 
 func (ctl *Watchctl) triggerCallbacks() {
-	for _, fnc := range ctl.options.Callbacks {
+	for _, fnc := range ctl.callbacks {
 		fnc()
 	}
 }

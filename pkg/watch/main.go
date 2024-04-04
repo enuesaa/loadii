@@ -5,22 +5,22 @@ import (
 	"github.com/fsnotify/fsnotify"
 )
 
-func New(repos repository.Repos, options ...Option) Watchctl {
+func New(repos repository.Repos) Watchctl {
 	ctl := Watchctl{
-		repos:   repos,
-		options: Options{},
+		repos:     repos,
+		Includes:  []string{},
+		Excludes:  []string{},
+		callbacks: []func(){},
 	}
-	for _, fn := range options {
-		fn(&ctl.options)
-	}
-
 	return ctl
 }
 
 type Watchctl struct {
 	repos   repository.Repos
 	watcher *fsnotify.Watcher
-	options Options
+	Includes  []string
+	Excludes  []string
+	callbacks []func()
 }
 
 // finally, call this function
@@ -30,4 +30,8 @@ func (ctl *Watchctl) Close() error {
 	}
 
 	return ctl.watcher.Close()
+}
+
+func (ctl *Watchctl) SetCallback(fn func()) {
+	ctl.callbacks = []func(){fn}
 }

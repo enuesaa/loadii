@@ -5,16 +5,11 @@ import (
 
 	"github.com/enuesaa/loadii/pkg/repository"
 	"github.com/enuesaa/loadii/pkg/usecase"
-	"github.com/enuesaa/loadii/pkg/watch"
 	"github.com/urfave/cli/v2"
 )
 
 func main() {
 	repos := repository.New()
-
-	var servePath string
-	var servePort int
-	var autoApprove bool
 
 	app := &cli.App{
 		Name:    "loadii",
@@ -26,7 +21,6 @@ func main() {
 				Aliases:     []string{"y"},
 				Value:       false,
 				Usage:       "Approve command execution",
-				Destination: &autoApprove,
 			},
 			&cli.StringSliceFlag{
 				Name:        "include",
@@ -69,6 +63,7 @@ func main() {
 				WatchIncludes: c.StringSlice("include"),
 				WatchExcludes: c.StringSlice("exclude"),
 			}
+			autoApprove := c.Bool("yes")
 
 			// When no flag, no args passed
 			if len(c.FlagNames()) == 0 && len(plan.Commands) == 0 {
@@ -86,20 +81,10 @@ func main() {
 				usecase.Exec(repos, plan.Workdir, plan.Commands)
 			}
 			if plan.ServePath != "" {
-				go usecase.Serve(repos, servePath, servePort)
+				go usecase.Serve(repos, plan.ServePath, plan.ServePort)
 			}
 
-			options := []watch.Option{
-				watch.WithIncludes(plan.WatchIncludes),
-				watch.WithExcludes(plan.WatchExcludes),
-			}
-			if len(plan.Commands) > 0 {
-				options = append(options, watch.WithCallback(func() {
-					usecase.Exec(repos, plan.Workdir, plan.Commands)
-				}))
-			}
-
-			return usecase.Watch(repos, options...)
+			return usecase.Watch(repos, plan)
 		},
 		Suggest: true,
 	}
