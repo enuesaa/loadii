@@ -26,30 +26,30 @@ func main() {
 				Name:     "include",
 				Usage:    "Add path to watch",
 				Value:    cli.NewStringSlice("."),
-				Category: "watch",
+				Category: "WATCH",
 			},
 			&cli.StringSliceFlag{
 				Name:     "exclude",
 				Usage:    "Remove path to watch",
-				Category: "watch",
+				Category: "WATCH",
 			},
 			&cli.StringFlag{
 				Name:     "serve",
 				Usage:    "Serve dir",
-				Category: "serve",
+				Category: "SERVE",
 			},
 			&cli.IntFlag{
 				Name:     "port",
 				Usage:    "Serve port",
 				Value:    3000,
-				Category: "serve",
+				Category: "SERVE",
 			},
 			&cli.StringFlag{
 				Name:     "workdir",
 				Aliases:  []string{"w"},
 				Usage:    "Command execution dir",
 				Value:    ".",
-				Category: "serve",
+				Category: "SERVE",
 			},
 		},
 		Args:      true,
@@ -104,7 +104,7 @@ AUTHOR:
 	{{end}}{{if .Commands}}
 COMMANDS:
 {{range .Commands}}{{if not .HideHelp}}   {{join .Names ", "}}{{ "\t"}}{{.Usage}}{{ "\n" }}{{end}}{{end}}{{end}}{{if .VisibleFlags}}
-FLAGS:{{range .VisibleFlagCategories}}{{if len .Name}}  [{{.Name}}]{{end}}
+FLAGS:{{range .VisibleFlagCategories}}{{if len .Name}}  {{.Name}}{{end}}
 	{{range .Flags}}{{.}}
 	{{end}}
 {{end}}{{end}}`
