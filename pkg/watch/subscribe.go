@@ -1,6 +1,8 @@
 package watch
 
 import (
+	"time"
+
 	"github.com/fsnotify/fsnotify"
 )
 
@@ -28,7 +30,16 @@ func (ctl *Watchctl) subscribe() {
 }
 
 func (ctl *Watchctl) triggerCallbacks() {
+	// do not run on same time. As far as possible, this should be `Exactly Once With No Guarantee`.
+	if ctl.running {
+		return
+	}
+	ctl.running = true
 	for _, fnc := range ctl.callbacks {
 		fnc()
 	}
+	go func ()  {
+		time.Sleep(10 * time.Second)
+		ctl.running = false
+	}()
 }

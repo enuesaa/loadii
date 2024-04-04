@@ -7,6 +7,7 @@ import (
 
 func New(repos repository.Repos) Watchctl {
 	ctl := Watchctl{
+		running:   false,
 		repos:     repos,
 		Includes:  []string{},
 		Excludes:  []string{},
@@ -16,6 +17,7 @@ func New(repos repository.Repos) Watchctl {
 }
 
 type Watchctl struct {
+	running   bool
 	repos     repository.Repos
 	watcher   *fsnotify.Watcher
 	Includes  []string
