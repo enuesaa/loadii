@@ -12,16 +12,13 @@ import (
 func main() {
 	repos := repository.New()
 
-	var watchIncludes cli.StringSlice
-	var watchExcludes cli.StringSlice
-	var workdir string
 	var servePath string
 	var servePort int
 	var autoApprove bool
 
 	app := &cli.App{
 		Name:    "loadii",
-		Version: "0.0.5",
+		Version: "0.0.6",
 		Usage:   "A CLI tool to watch file changes and execute a command",
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
@@ -35,26 +32,22 @@ func main() {
 				Name:        "include",
 				Usage:       "Add path to watch",
 				Value:       cli.NewStringSlice("."),
-				Destination: &watchIncludes,
 				Category:    "watch",
 			},
 			&cli.StringSliceFlag{
 				Name:        "exclude",
 				Usage:       "Remove path to watch",
-				Destination: &watchExcludes,
 				Category:    "watch",
 			},
 			&cli.StringFlag{
 				Name:        "serve",
 				Usage:       "Serve dir",
-				Destination: &servePath,
 				Category:    "serve",
 			},
 			&cli.IntFlag{
 				Name:        "port",
 				Usage:       "Serve port",
 				Value:       3000,
-				Destination: &servePort,
 				Category:    "serve",
 			},
 			&cli.StringFlag{
@@ -62,45 +55,47 @@ func main() {
 				Aliases:     []string{"w"},
 				Usage:       "Command execution dir",
 				Value:       ".",
-				Destination: &workdir,
 				Category:    "serve",
 			},
 		},
 		Args:      true,
 		ArgsUsage: "commands",
 		Action: func(c *cli.Context) error {
-			commands := c.Args().Slice()
+			plan := usecase.Plan{
+				Workdir:       c.String("workdir"),
+				ServePath:     c.String("serve"),
+				ServePort:     c.Int("port"),
+				Commands:      c.Args().Slice(),
+				WatchIncludes: c.StringSlice("include"),
+				WatchExcludes: c.StringSlice("exclude"),
+			}
 
 			// When no flag, no args passed
-			if len(c.FlagNames()) == 0 && len(commands) == 0 {
+			if len(c.FlagNames()) == 0 && len(plan.Commands) == 0 {
 				return cli.ShowAppHelp(c)
 			}
 
-			plan := usecase.Plan{
-				ServePath:     servePath,
-				ServePort:     servePort,
-				Commands:      commands,
-				WatchIncludes: watchIncludes.Value(),
-				WatchExcludes: watchExcludes.Value(),
-			}
-			if err := usecase.Confirm(repos, plan, autoApprove); err != nil {
-				return err
+			plan.Print(repos)
+			if !autoApprove {
+				if err := plan.Confirm(repos); err != nil {
+					return err
+				}
 			}
 
-			if len(commands) > 0 {
-				usecase.Exec(repos, workdir, commands)
+			if len(plan.Commands) > 0 {
+				usecase.Exec(repos, plan.Workdir, plan.Commands)
 			}
-			if servePath != "" {
+			if plan.ServePath != "" {
 				go usecase.Serve(repos, servePath, servePort)
 			}
 
 			options := []watch.Option{
-				watch.WithIncludes(watchIncludes.Value()),
-				watch.WithExcludes(watchExcludes.Value()),
+				watch.WithIncludes(plan.WatchIncludes),
+				watch.WithExcludes(plan.WatchExcludes),
 			}
-			if len(commands) > 0 {
+			if len(plan.Commands) > 0 {
 				options = append(options, watch.WithCallback(func() {
-					usecase.Exec(repos, workdir, commands)
+					usecase.Exec(repos, plan.Workdir, plan.Commands)
 				}))
 			}
 
