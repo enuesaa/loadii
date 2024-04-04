@@ -2,25 +2,24 @@ package exec
 
 import (
 	"strings"
-
-	"github.com/enuesaa/loadii/pkg/repository"
 )
 
-type CmdWriter struct {
-	repos repository.Repos
-}
-
 // implements io.Writer
-// TODO refactor. should stdout with colored output.
-func (w *CmdWriter) Write(p []byte) (n int, err error) {
+// In the furture, this function should print colored output.
+func (ctl *Execctl) Write(p []byte) (n int, err error) {
 	text := string(p)
-	texts := strings.Split(text, "\n")
+	lines := strings.Split(text, "\n")
 
-	if texts[len(texts)-1] == "" {
-		texts = texts[:len(texts)-1]
+	if len(lines) == 0 {
+		return len(p), nil
 	}
-	for _, line := range texts {
-		w.repos.Log.Info(line)
+
+	lastI := len(lines) - 1
+	if lines[lastI] == "" {
+		lines = lines[:lastI]
+	}
+	for _, line := range lines {
+		ctl.repos.Log.Info(line)
 	}
 
 	return len(p), nil
