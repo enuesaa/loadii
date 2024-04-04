@@ -12,7 +12,7 @@ func Watch(repos repository.Repos, plan Plan) error {
 
 	if len(plan.Commands) > 0 {
 		watchctl.SetCallback(func() {
-			Exec(repos, plan.Workdir, plan.Commands)
+			Exec(repos, plan)
 		})
 	}
 	defer watchctl.Close()

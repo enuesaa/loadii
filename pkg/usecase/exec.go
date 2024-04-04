@@ -5,10 +5,10 @@ import (
 	"github.com/enuesaa/loadii/pkg/repository"
 )
 
-func Exec(repos repository.Repos, workdir string, commands []string) error {
+func Exec(repos repository.Repos, plan Plan) error {
 	execctl := exec.New(repos)
 
-	if err := execctl.Exec(workdir, commands); err != nil {
+	if err := execctl.Exec(plan.Workdir, plan.Commands); err != nil {
 		return err
 	}
 	return nil

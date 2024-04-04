@@ -78,10 +78,10 @@ func main() {
 			}
 
 			if len(plan.Commands) > 0 {
-				usecase.Exec(repos, plan.Workdir, plan.Commands)
+				usecase.Exec(repos, plan)
 			}
 			if plan.ServePath != "" {
-				go usecase.Serve(repos, plan.ServePath, plan.ServePort)
+				go usecase.Serve(repos, plan)
 			}
 
 			return usecase.Watch(repos, plan)

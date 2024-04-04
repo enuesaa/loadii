@@ -5,10 +5,10 @@ import (
 	"github.com/enuesaa/loadii/pkg/serve"
 )
 
-func Serve(repos repository.Repos, basepath string, port int) error {
+func Serve(repos repository.Repos, plan Plan) error {
 	servectl := serve.New(repos)
-	servectl.Port = port
-	servectl.Basepath = basepath
+	servectl.Port = plan.ServePort
+	servectl.Basepath = plan.ServePath
 
 	repos.Log.Info("Listening on %s", servectl.Addr())
 
