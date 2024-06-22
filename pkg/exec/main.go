@@ -6,18 +6,18 @@ import (
 
 func New(repos repository.Repos) Execctl {
 	return Execctl{
-		repos: repos,
+		repos:   repos,
 		Workdir: "",
 		Command: "",
-		Args: []string{},
+		Args:    []string{},
 	}
 }
 
 type Execctl struct {
-	repos repository.Repos
+	repos   repository.Repos
 	Workdir string
 	Command string
-	Args []string
+	Args    []string
 }
 
 func (ctl *Execctl) Exec() error {

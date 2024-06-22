@@ -38,7 +38,7 @@ func (ctl *Watchctl) triggerCallbacks() {
 	for _, fnc := range ctl.callbacks {
 		fnc()
 	}
-	go func ()  {
+	go func() {
 		time.Sleep(10 * time.Second)
 		ctl.running = false
 	}()

@@ -13,7 +13,7 @@ func main() {
 
 	app := &cli.App{
 		Name:    "loadii",
-		Version: "0.0.6",
+		Version: "0.0.7",
 		Usage:   "A CLI tool to watch file changes and execute a command",
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
