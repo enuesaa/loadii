@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"os"
 
 	"github.com/enuesaa/loadii/pkg/repository"
@@ -8,7 +10,16 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+var (
+	aaa = flag.String("aaa", "", "aa")
+)
+
 func main() {
+	flag.Parse()
+	fmt.Printf("%s", *aaa)
+
+	return
+
 	repos := repository.New()
 
 	app := &cli.App{
