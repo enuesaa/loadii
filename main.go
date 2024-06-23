@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"os"
 
@@ -10,13 +9,9 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var (
-	aaa = flag.String("aaa", "", "aa")
-)
-
 func main() {
-	flag.Parse()
-	fmt.Printf("%s", *aaa)
+	flags := parseArgs(os.Args)
+	fmt.Printf("%+v", flags)
 
 	return
 
