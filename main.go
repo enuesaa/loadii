@@ -2,8 +2,12 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"os/signal"
+	"syscall"
 
+	"github.com/enuesaa/loadii/pkg/exec"
 	"github.com/enuesaa/loadii/pkg/repository"
 	"github.com/enuesaa/loadii/pkg/usecase"
 )
@@ -20,27 +24,54 @@ func main() {
 	}
 
 	repos := repository.New()
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh, syscall.SIGTERM)
+
 	if flags.HasGoFlag {
-		plan := usecase.Plan{
-			Workdir:  ".",
-			Commands: []string{"go", "run", flags.GoFlagPath},
-		}
-		if err := usecase.Exec(repos, plan); err != nil {
-			fmt.Printf("Error: %s", err.Error())
-		}
+		go func() {
+			execctl := exec.New(repos)
+			execctl.Workdir = "."
+			execctl.Command = "go"
+			execctl.Args = []string{"run", flags.GoFlagPath}
+
+			if err := execctl.Exec(); err != nil {
+				fmt.Printf("Error: %s", err.Error())
+			}
+			sig := <-sigCh
+			fmt.Printf("Received: %v\n", sig)
+			if err := execctl.Kill(); err != nil {
+				fmt.Printf("Error: %s", err.Error())
+			}
+		}()
 	}
 	if flags.HasPnpmFlag {
-		plan := usecase.Plan{
-			Workdir:  flags.PnpmFlagPath,
-			Commands: []string{"pnpm", "run", flags.PnpmFlagScriptName},
-		}
-		if err := usecase.Exec(repos, plan); err != nil {
-			fmt.Printf("Error: %s", err.Error())
-		}
+		go func() {
+			execctl := exec.New(repos)
+			execctl.Workdir = flags.PnpmFlagPath
+			execctl.Command = "pnpm"
+			execctl.Args = []string{"run", flags.PnpmFlagScriptName}
+
+			if err := execctl.Exec(); err != nil {
+				fmt.Printf("Error: %s", err.Error())
+			}
+			sig := <-sigCh
+			fmt.Printf("Received: %v\n", sig)
+			if err := execctl.Kill(); err != nil {
+				fmt.Printf("Error: %s", err.Error())
+			}
+		}()
 	}
 
 	if !flags.HasGoFlag && !flags.HasPnpmFlag {
 		fmt.Printf("%s\n", helpText)
 		os.Exit(0)
+	}
+
+	plan := usecase.Plan{
+		WatchIncludes: []string{"."},
+		WatchExcludes: []string{},
+	}
+	if err := usecase.Watch(repos, plan); err != nil {
+		log.Panicf("Error: %s", err.Error())
 	}
 }

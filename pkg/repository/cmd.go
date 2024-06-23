@@ -6,11 +6,12 @@ import (
 )
 
 type CmdRepositoryInterface interface {
-	Exec(writer io.Writer, workdir string, command string, args []string) error
+	Exec(writer io.Writer, workdir string, command string, args []string) (*exec.Cmd, error)
+	Kill(cmd *exec.Cmd) error
 }
 type CmdRepository struct{}
 
-func (repo *CmdRepository) Exec(writer io.Writer, workdir string, command string, args []string) error {
+func (repo *CmdRepository) Exec(writer io.Writer, workdir string, command string, args []string) (*exec.Cmd, error) {
 	cmd := exec.Command(command, args...)
 	cmd.Dir = workdir
 
@@ -18,8 +19,11 @@ func (repo *CmdRepository) Exec(writer io.Writer, workdir string, command string
 	cmd.Stderr = writer
 
 	if err := cmd.Start(); err != nil {
-		return err
+		return nil, err
 	}
+	return cmd, nil
+}
 
-	return cmd.Wait()
+func (repo *CmdRepository) Kill(cmd *exec.Cmd) error {
+	return cmd.Process.Kill() 
 }
