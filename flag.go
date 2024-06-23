@@ -14,8 +14,9 @@ FLAGS:
   -pnpm [path]             Run 'pnpm run dev [path]'
   -pnpm:[script] [path]    Run 'pnpm run [script] [path]'
   -help                    Show help
-  -version                 Print the version
-`
+  -version                 Print the version`
+
+var versionText = `loadii version 0.0.7`
 
 
 type Flags struct {
