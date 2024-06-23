@@ -44,7 +44,13 @@ loadii --serve ./dist pnpm build
 loadii scan # scan which language is used and predict dev command. scan sub-directories by default
 loadii -go # run `go run .`
 loadii -go -pnpm:ui # run `go run .` and `cd ./ui && pnpm dev`
-loadii -go sub --flag # run `go run . sub --flag`
 loadii -go sub --flag -pnpm:ui
+
 loadii -serve # serve .
+loadii -- go run . sub --flag -- -d ui pnpm dev
+
+loadii -go='sub --flag' -pnpm:ctlweb
+loadii -.:go . -ctlweb pnpm dev
+loadii main.go ctl -- ctlweb pnpm dev
+go run . ctl -- cd ctlweb && pnpm dev
 ```
