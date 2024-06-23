@@ -10,9 +10,9 @@ USAGE:
   loadii [flags]
 
 FLAGS:
-  -go [path]               Run 'go run [path]'
-  -pnpm [path]             Run 'pnpm run dev [path]'
-  -pnpm:[script] [path]    Run 'pnpm run [script] [path]'
+  -go:[path] [args]        Run 'go run [path] [args]'
+  -pnpm:[path]             Run 'pnpm run dev [path]'
+  -pnpm:[path] [script]    Run 'pnpm run [script] [path]'
   -help                    Show help
   -version                 Print the version`
 
@@ -22,6 +22,7 @@ var versionText = `loadii version 0.0.7`
 type Flags struct {
 	HasGoFlag bool
 	GoFlagPath string
+	GoArgs string
 	HasPnpmFlag bool
 	PnpmFlagScriptName string
 	PnpmFlagPath string
@@ -32,6 +33,7 @@ func parseArgs(args []string) Flags {
 	flags := Flags{
 		HasGoFlag: false,
 		GoFlagPath: ".",
+		GoArgs: "",
 		HasPnpmFlag: false,
 		PnpmFlagScriptName: "dev",
 		PnpmFlagPath: ".",
@@ -57,8 +59,13 @@ func parseArgs(args []string) Flags {
 			if strings.HasPrefix(arg, "-") {
 				break
 			}
-			flags.GoFlagPath = arg
+			flags.GoArgs = arg
 			break
+		}
+		if strings.HasPrefix(arg, "-go:") {
+			flags.HasGoFlag = true
+			flags.GoFlagPath = strings.ReplaceAll(arg, "-go:", "")
+			continue
 		}
 		if arg == "-go" {
 			flags.HasGoFlag = true
@@ -73,16 +80,16 @@ func parseArgs(args []string) Flags {
 			if strings.HasPrefix(arg, "-") {
 				break
 			}
-			flags.PnpmFlagPath = arg
+			flags.PnpmFlagScriptName = arg
 			break
 		}
 		if strings.HasPrefix(arg, "-pnpm:") {
 			flags.HasPnpmFlag = true
-			flags.PnpmFlagScriptName = strings.ReplaceAll(arg, "-pnpm:", "")
+			flags.PnpmFlagPath = strings.ReplaceAll(arg, "-pnpm:", "")
 			checkNextAsPnpmFlagPath = true
 			continue
 		}
-		if strings.HasPrefix(arg, "-pnpm") {
+		if arg == "-pnpm" {
 			flags.HasPnpmFlag = true
 			checkNextAsPnpmFlagPath = true
 			continue
