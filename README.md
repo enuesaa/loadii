@@ -43,6 +43,6 @@ loadii --serve ./dist pnpm build
 ```bash
 loadii -go # run `go run .`
 loadii -go -pnpm ./ui # run `go run .` and `cd ./ui && pnpm dev`
-loadii -go -pnpm:build ./ui # run `go run .` and `cd ./ui && pnpm build`
+loadii -go subcommand --goappflag -pnpm:build ./ui # run `go run .` and `cd ./ui && pnpm build`
 loadii -serve # serve .
 ```
