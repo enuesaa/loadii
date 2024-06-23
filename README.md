@@ -42,7 +42,7 @@ loadii --serve ./dist pnpm build
 ## Planning Usage [Refactor]
 ```bash
 loadii -go # run `go run .`
-loadii -go -pnpm ./ui # run `go run .` and `cd ./ui && pnpm dev`
-loadii -go subcommand --goappflag -pnpm:build ./ui # run `go run .` and `cd ./ui && pnpm build`
+loadii -go -pnpm:ui # run `go run .` and `cd ./ui && pnpm dev`
+loadii -go:cmd/aa/main.go sub --flag # run `go run cmd/aa/main.go sub --flag`
 loadii -serve # serve .
 ```
