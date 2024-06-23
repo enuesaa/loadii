@@ -25,7 +25,7 @@ FLAGS:
 
 ```
 
-## Planning Usage
+## Usage
 ```bash
 loadii --serve ./dist
 loadii go run .
@@ -34,16 +34,12 @@ loadii --serve ./dist pnpm build
 ```
 
 ## モチベーション
-- 開発の際にウェブサーバをぱっと立ち上げたい時があるが nginx や apache のセットアップは面倒
-- SSG方式のサイトでコンテンツを更新したときに即座にビルド処理を走らせたい時がある
-- 上記2つは本来無関係だが使用するタイミングが近く、一緒のコマンドになっていると便利そう
+次のような課題があり、コマンド一つで解決できないか探っている
+- 開発用にウェブサーバをぱっと立ち上げたい時があるが nginx や apache のセットアップは面倒
+- ファイル編集をトリガーにビルドを走らせたい時がある (HMRではない)
+- Go + フロントエンドの開発をするとき `go run .` と `pnpm dev` をそれぞれ実行する必要があり別タブを開くのが面倒
 
-## Refactor Plan
-### 課題感
-Go + frontend の開発をするとき go run . と pnpm dev の両方のコマンドを別タブで叩く必要がある。
-フラグの定義は雑でもいいのでとにかく早めに解消させたい
-
-### Example Usage [Planning]
+## Planning Usage [Refactor]
 ```bash
 loadii -go # run `go run .`
 loadii -go -pnpm ./ui # run `go run .` and `cd ./ui && pnpm dev`
