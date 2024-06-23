@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/enuesaa/loadii/pkg/repository"
 	"github.com/enuesaa/loadii/pkg/usecase"
@@ -47,4 +48,7 @@ func main() {
 		fmt.Printf("%s\n", helpText)
 		os.Exit(0)
 	}
+
+	// TODO
+	time.Sleep(10 * time.Second)
 }
