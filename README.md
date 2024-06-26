@@ -41,16 +41,12 @@ loadii --serve ./dist pnpm build
 
 ## Planning Usage [Refactor]
 ```bash
-loadii scan # scan which language is used and predict dev command. scan sub-directories by default
+loadii -i # interactive. scan which language is used and predict dev command
+loadii -i -d 4 # scan sub-dirs with 4 depth. defalut depth is 2
 loadii -go # run `go run .`
 loadii -go -pnpm:ui # run `go run .` and `cd ./ui && pnpm dev`
-loadii -go sub --flag -pnpm:ui
-
+loadii -go sub subsub -pnpm:ui
+loadii -go 'sub subsub' -pnpm:ui
+loadii -go 'sub subsub --flag' -pnpm:ui -i
 loadii -serve # serve .
-loadii -- go run . sub --flag -- -d ui pnpm dev
-
-loadii -go='sub --flag' -pnpm:ctlweb
-loadii -.:go . -ctlweb pnpm dev
-loadii main.go ctl -- ctlweb pnpm dev
-go run . ctl -- cd ctlweb && pnpm dev
 ```
