@@ -16,7 +16,20 @@ func TestParseArgs(t *testing.T) {
 			Expected: Flags{
 				HasGoFlag: true,
 				GoFlagPath: ".",
-				GoArgs: "",
+				GoArgs: []string{},
+				HasPnpmFlag: false,
+				PnpmFlagScriptName: "dev",
+				PnpmFlagPath: ".",
+				HasHelpFlag: false,
+				HasVersionFlag: false,
+			},
+		},
+		{
+			Args: []string{"loadii", "-go", "sub"},
+			Expected: Flags{
+				HasGoFlag: true,
+				GoFlagPath: ".",
+				GoArgs: []string{"sub"},
 				HasPnpmFlag: false,
 				PnpmFlagScriptName: "dev",
 				PnpmFlagPath: ".",
@@ -29,7 +42,7 @@ func TestParseArgs(t *testing.T) {
 			Expected: Flags{
 				HasGoFlag: true,
 				GoFlagPath: ".",
-				GoArgs: "",
+				GoArgs: []string{},
 				HasPnpmFlag: true,
 				PnpmFlagScriptName: "dev",
 				PnpmFlagPath: ".",
@@ -42,7 +55,7 @@ func TestParseArgs(t *testing.T) {
 			Expected: Flags{
 				HasGoFlag: false,
 				GoFlagPath: ".",
-				GoArgs: "",
+				GoArgs: []string{},
 				HasPnpmFlag: false,
 				PnpmFlagScriptName: "dev",
 				PnpmFlagPath: ".",
@@ -55,7 +68,7 @@ func TestParseArgs(t *testing.T) {
 			Expected: Flags{
 				HasGoFlag: false,
 				GoFlagPath: ".",
-				GoArgs: "",
+				GoArgs: []string{},
 				HasPnpmFlag: false,
 				PnpmFlagScriptName: "dev",
 				PnpmFlagPath: ".",

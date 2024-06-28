@@ -22,7 +22,7 @@ var versionText = `loadii version 0.0.7`
 type Flags struct {
 	HasGoFlag bool
 	GoFlagPath string
-	GoArgs string
+	GoArgs []string
 	HasPnpmFlag bool
 	PnpmFlagScriptName string
 	PnpmFlagPath string
@@ -33,7 +33,7 @@ func parseArgs(args []string) Flags {
 	flags := Flags{
 		HasGoFlag: false,
 		GoFlagPath: ".",
-		GoArgs: "",
+		GoArgs: []string{},
 		HasPnpmFlag: false,
 		PnpmFlagScriptName: "dev",
 		PnpmFlagPath: ".",
@@ -59,7 +59,7 @@ func parseArgs(args []string) Flags {
 			if strings.HasPrefix(arg, "-") {
 				break
 			}
-			flags.GoArgs = arg
+			flags.GoArgs = []string{arg} // TODO
 			break
 		}
 		if strings.HasPrefix(arg, "-go:") {

@@ -33,6 +33,7 @@ func main() {
 			execctl.Workdir = "."
 			execctl.Command = "go"
 			execctl.Args = []string{"run", flags.GoFlagPath}
+			execctl.Args = append(execctl.Args, flags.GoArgs...)
 
 			if err := execctl.Exec(); err != nil {
 				fmt.Printf("Error: %s", err.Error())
