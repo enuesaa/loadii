@@ -13,6 +13,7 @@ FLAGS:
   -go:[path] [args]        Run 'go run [path] [args]'
   -pnpm:[path]             Run 'pnpm run dev [path]'
   -pnpm:[path] [script]    Run 'pnpm run [script] [path]'
+  -serve                   Serve
   -help                    Show help
   -version                 Print the version`
 
@@ -28,6 +29,7 @@ type Flags struct {
 	PnpmFlagPath string
 	HasHelpFlag bool
 	HasVersionFlag bool
+	HasServeFlag bool
 }
 func parseArgs(args []string) Flags {
 	flags := Flags{
@@ -39,6 +41,7 @@ func parseArgs(args []string) Flags {
 		PnpmFlagPath: ".",
 		HasHelpFlag: false,
 		HasVersionFlag: false,
+		HasServeFlag: false,
 	}
 
 	for _, arg := range args[1:] {
@@ -49,6 +52,11 @@ func parseArgs(args []string) Flags {
 
 		if arg == "-version" {
 			flags.HasVersionFlag = true
+			continue
+		}
+
+		if arg == "-serve" {
+			flags.HasServeFlag = true
 			continue
 		}
 	}

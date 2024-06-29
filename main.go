@@ -9,6 +9,7 @@ import (
 
 	"github.com/enuesaa/loadii/pkg/exec"
 	"github.com/enuesaa/loadii/pkg/repository"
+	"github.com/enuesaa/loadii/pkg/serve"
 	"github.com/enuesaa/loadii/pkg/usecase"
 )
 
@@ -60,6 +61,25 @@ func main() {
 			if err := execctl.Kill(); err != nil {
 				fmt.Printf("Error: %s", err.Error())
 			}
+		}()
+	}
+
+	if flags.HasServeFlag {
+		go func ()  {
+			servectl := serve.New(repos)
+			servectl.Port = 3000
+			servectl.Basepath = "."
+
+			fmt.Printf("Listening on %s", servectl.Addr())
+
+			if err := servectl.Listen(); err != nil {
+				fmt.Printf("Error: %s", err.Error())
+			}
+			// sig := <-sigCh
+			// fmt.Printf("Received: %v\n", sig)
+			// if err := execctl.Kill(); err != nil {
+			// 	fmt.Printf("Error: %s", err.Error())
+			// }
 		}()
 	}
 
