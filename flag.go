@@ -16,7 +16,7 @@ FLAGS:
   -help                    Show help
   -version                 Print the version`
 
-var versionText = `loadii version 0.0.7`
+var versionText = `loadii version 0.0.8`
 
 
 type Flags struct {
