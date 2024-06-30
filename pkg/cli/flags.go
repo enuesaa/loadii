@@ -19,6 +19,15 @@ var (
 		DefaultWorkdir: ".",
 		ReceiveWorkdir: true,
 	}
+	ServeFlag = Flag{
+		Name: "-serve",
+		Help: "serve",
+		MinValues: 0,
+		MaxValues: 0,
+		DefaultValues: []string{},
+		DefaultWorkdir: ".",
+		ReceiveWorkdir: true,
+	}
 	HelpFlag = Flag{
 		Name: "-help",
 		Help: "Show help messages",

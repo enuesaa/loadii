@@ -7,6 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/enuesaa/loadii/pkg/cli"
 	"github.com/enuesaa/loadii/pkg/exec"
 	"github.com/enuesaa/loadii/pkg/repository"
 	"github.com/enuesaa/loadii/pkg/serve"
@@ -14,13 +15,14 @@ import (
 )
 
 func main() {
-	flags := parseArgs(os.Args)
-	if flags.HasHelpFlag {
-		fmt.Printf("%s\n", helpText)
+	cli.Parse(os.Args)
+
+	if cli.HelpFlag.Has() {
+		fmt.Printf("%s\n", cli.HelpText)
 		os.Exit(0)
 	}
-	if flags.HasVersionFlag {
-		fmt.Printf("%s\n", versionText)
+	if cli.VersionFlag.Has() {
+		fmt.Printf("%s\n", cli.VersionText)
 		os.Exit(0)
 	}
 
@@ -28,13 +30,13 @@ func main() {
 	sigCh := make(chan os.Signal, 1)
 	signal.Notify(sigCh, syscall.SIGTERM)
 
-	if flags.HasGoFlag {
+	if cli.GoFlag.Has() {
 		go func() {
 			execctl := exec.New(repos)
-			execctl.Workdir = "."
+			execctl.Workdir = cli.GoFlag.Workdir()
 			execctl.Command = "go"
-			execctl.Args = []string{"run", flags.GoFlagPath}
-			execctl.Args = append(execctl.Args, flags.GoArgs...)
+			execctl.Args = []string{"run"}
+			execctl.Args = append(execctl.Args, cli.GoFlag.Values()...)
 
 			if err := execctl.Exec(); err != nil {
 				fmt.Printf("Error: %s", err.Error())
@@ -46,12 +48,13 @@ func main() {
 			}
 		}()
 	}
-	if flags.HasPnpmFlag {
+	if cli.PnpmFlag.Has() {
 		go func() {
 			execctl := exec.New(repos)
-			execctl.Workdir = flags.PnpmFlagPath
+			execctl.Workdir = cli.PnpmFlag.Workdir()
 			execctl.Command = "pnpm"
-			execctl.Args = []string{"run", flags.PnpmFlagScriptName}
+			execctl.Args = []string{"run"}
+			execctl.Args = append(execctl.Args, cli.PnpmFlag.Values()...)
 
 			if err := execctl.Exec(); err != nil {
 				fmt.Printf("Error: %s", err.Error())
@@ -64,11 +67,11 @@ func main() {
 		}()
 	}
 
-	if flags.HasServeFlag {
+	if cli.ServeFlag.Has() {
 		go func ()  {
 			servectl := serve.New(repos)
 			servectl.Port = 3000
-			servectl.Basepath = "."
+			servectl.Basepath = cli.ServeFlag.Workdir()
 
 			fmt.Printf("Listening on %s", servectl.Addr())
 
@@ -83,7 +86,7 @@ func main() {
 		}()
 	}
 
-	if !flags.HasGoFlag && !flags.HasPnpmFlag {
+	if !cli.GoFlag.Has() && !cli.PnpmFlag.Has() {
 		fmt.Printf("%s\n", helpText)
 		os.Exit(0)
 	}
