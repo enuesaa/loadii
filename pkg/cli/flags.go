@@ -7,7 +7,7 @@ var (
 		MinValues: 0,
 		MaxValues: 10,
 		DefaultValues: []string{"."},
-		Workdir: ".",
+		DefaultWorkdir: ".",
 		ReceiveWorkdir: true,
 	}
 	PnpmFlag = Flag{
@@ -16,7 +16,7 @@ var (
 		MinValues: 0,
 		MaxValues: 10,
 		DefaultValues: []string{"dev"},
-		Workdir: ".",
+		DefaultWorkdir: ".",
 		ReceiveWorkdir: true,
 	}
 	HelpFlag = Flag{
@@ -25,7 +25,7 @@ var (
 		MinValues: 0,
 		MaxValues: 0,
 		DefaultValues: []string{},
-		Workdir: "",
+		DefaultWorkdir: "",
 		ReceiveWorkdir: false,
 	}
 	VersionFlag = Flag{
@@ -34,7 +34,7 @@ var (
 		MinValues: 0,
 		MaxValues: 0,
 		DefaultValues: []string{},
-		Workdir: "",
+		DefaultWorkdir: "",
 		ReceiveWorkdir: false,
 	}
 )

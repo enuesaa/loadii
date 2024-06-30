@@ -11,7 +11,7 @@ type Flag struct {
 	MinValues int // minimum values count
 	MaxValues int // maximum values count. if 0, this flag peforms bool flag.
 	DefaultValues []string
-	Workdir string // default value is `.`
+	DefaultWorkdir string // default value is `.`
 	ReceiveWorkdir bool
 }
 
@@ -27,6 +27,52 @@ func (f *Flag) Has() bool {
 		}
 	}
 	return false
+}
+
+func (f *Flag) Values() []string {
+	list := make([]string, 0)
+
+	useNext := false
+	for _, a := range Args {
+		if useNext {
+			if strings.HasPrefix(a, "-") {
+				return list
+			}
+			list = append(list, a)
+		}
+		if a == f.Name {
+			useNext = true
+			continue
+		}
+		if f.ReceiveWorkdir {
+			if strings.HasPrefix(a, f.NameWithWorkdirPrefix()) {
+				useNext = true
+				continue
+			}
+		}
+	}
+
+	return list
+}
+
+func (f *Flag) Workdir() string {
+	if !f.ReceiveWorkdir {
+		return ""
+	}
+	workdir := f.DefaultWorkdir
+
+	for _, a := range Args {
+		if a == f.Name {
+			return workdir
+		}
+		if f.ReceiveWorkdir {
+			if strings.HasPrefix(a, f.NameWithWorkdirPrefix()) {
+				return strings.ReplaceAll(a, f.NameWithWorkdirPrefix(), "")
+			}
+		}
+	}
+
+	return workdir
 }
 
 func (f *Flag) NameWithWorkdirPrefix() string {
