@@ -87,7 +87,7 @@ func main() {
 	}
 
 	if !cli.GoFlag.Has() && !cli.PnpmFlag.Has() {
-		fmt.Printf("%s\n", helpText)
+		fmt.Printf("%s\n", cli.HelpText)
 		os.Exit(0)
 	}
 
