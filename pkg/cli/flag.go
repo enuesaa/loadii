@@ -8,3 +8,12 @@ type Flag struct {
 	DefaultValues []string
 	Workdir string // default value is `.`
 }
+
+func (f *Flag) Has() bool {
+	for _, a := range Args {
+		if a == f.Name {
+			return true
+		}
+	}
+	return false
+}
