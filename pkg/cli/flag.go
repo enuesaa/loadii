@@ -1,5 +1,10 @@
 package cli
 
+import (
+	"fmt"
+	"strings"
+)
+
 type Flag struct {
 	Name string // like `-tag`
 	Help string // help message
@@ -7,6 +12,7 @@ type Flag struct {
 	MaxValues int // maximum values count. if 0, this flag peforms bool flag.
 	DefaultValues []string
 	Workdir string // default value is `.`
+	ReceiveWorkdir bool
 }
 
 func (f *Flag) Has() bool {
@@ -14,6 +20,15 @@ func (f *Flag) Has() bool {
 		if a == f.Name {
 			return true
 		}
+		if f.ReceiveWorkdir {
+			if strings.HasPrefix(a, f.NameWithWorkdirPrefix()) {
+				return true
+			}
+		}
 	}
 	return false
+}
+
+func (f *Flag) NameWithWorkdirPrefix() string {
+	return fmt.Sprintf("%s:", f.Name)
 }
