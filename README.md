@@ -7,30 +7,15 @@ $ loadii --help
 A CLI tool to watch file changes and execute a command
 
 USAGE:
-  loadii [flags] commands
+  loadii [flags]
 
 FLAGS:
-  --help, -h     show help
-  --version, -v  print the version
-  --yes, -y      Approve command execution (default: false)
-
-  SERVE
-  --port value               Serve port (default: 3000)
-  --serve value              Serve dir
-  --workdir value, -w value  Command execution dir (default: ".")
-
-  WATCH
-  --exclude value [ --exclude value ]  Remove path to watch
-  --include value [ --include value ]  Add path to watch (default: ".")
-
-```
-
-## Usage
-```bash
-loadii --serve ./dist
-loadii go run .
-loadii -w ./example/simple go run .
-loadii --serve ./dist pnpm build
+  -go:[path] [args]        Run 'go run [path] [args]'
+  -pnpm:[path]             Run 'pnpm run dev [path]'
+  -pnpm:[path] [script]    Run 'pnpm run [script] [path]'
+  -serve                   Serve
+  -help                    Show help
+  -v -version              Print the version
 ```
 
 ## モチベーション

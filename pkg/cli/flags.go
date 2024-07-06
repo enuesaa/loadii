@@ -27,6 +27,7 @@ var (
 	}
 	HelpFlag = Flag{
 		Name: "-help",
+		Alias: "-h",
 		Help: "Show help messages",
 		MinValues: 0,
 		MaxValues: 0,

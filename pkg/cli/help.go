@@ -11,5 +11,5 @@ FLAGS:
   -pnpm:[path]             Run 'pnpm run dev [path]'
   -pnpm:[path] [script]    Run 'pnpm run [script] [path]'
   -serve                   Serve
-  -help                    Show help
+  -h -help                 Show help
   -v -version              Print the version`
