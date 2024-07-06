@@ -91,11 +91,7 @@ func main() {
 		os.Exit(0)
 	}
 
-	plan := usecase.Plan{
-		WatchIncludes: []string{"."},
-		WatchExcludes: []string{},
-	}
-	if err := usecase.Watch(repos, plan); err != nil {
+	if err := usecase.Watch(repos, "."); err != nil {
 		log.Panicf("Error: %s", err.Error())
 	}
 }
