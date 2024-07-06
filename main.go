@@ -25,18 +25,18 @@ func main() {
 	}
 
 	repos := repository.New()
-	sigCh := make(chan os.Signal, 1)
-	signal.Notify(sigCh, syscall.SIGTERM)
+	sigch := make(chan os.Signal, 1)
+	signal.Notify(sigch, syscall.SIGTERM)
 
 	if cli.GoFlag.Has() {
-		go usecase.ExecGo(repos)
+		go usecase.ExecGo(repos, sigch)
 	}
 	if cli.PnpmFlag.Has() {
-		go usecase.ExecPnpm(repos)
+		go usecase.ExecPnpm(repos, sigch)
 	}
 
 	if cli.ServeFlag.Has() {
-		go usecase.Serve(repos)
+		go usecase.Serve(repos, sigch)
 	}
 
 	if !cli.GoFlag.Has() && !cli.PnpmFlag.Has() {
