@@ -16,11 +16,11 @@ func main() {
 	cli.Parse(os.Args)
 
 	if cli.HelpFlag.Has() {
-		fmt.Printf("%s\n", cli.HelpText)
+		fmt.Printf("%s\n", cli.GetHelpText())
 		os.Exit(0)
 	}
 	if cli.VersionFlag.Has() {
-		fmt.Printf("%s\n", cli.VersionText)
+		fmt.Printf("%s\n", cli.GetVersionText())
 		os.Exit(0)
 	}
 
@@ -40,7 +40,7 @@ func main() {
 	}
 
 	if !cli.GoFlag.Has() && !cli.PnpmFlag.Has() {
-		fmt.Printf("%s\n", cli.HelpText)
+		fmt.Printf("%s\n", cli.GetHelpText())
 		os.Exit(0)
 	}
 

@@ -1,6 +1,7 @@
 package cli
 
-var HelpText = `A CLI tool to watch file changes and execute a command
+//TODO: build help text from flag command.
+var helpText = `A CLI tool to watch file changes and execute a command
 
 USAGE:
   loadii [flags]
