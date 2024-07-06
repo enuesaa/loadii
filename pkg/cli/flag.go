@@ -57,11 +57,11 @@ func (f *Flag) Values() []string {
 	if position == -1 {
 		return list
 	}
-	if len(Args) <= position {
+	if len(Args) <= position + 1 {
 		return list
 	}
 	
-	rest := Args[position:]
+	rest := Args[position+1:]
 	for _, a := range rest {
 		if strings.HasPrefix(a, "-") {
 			return list
