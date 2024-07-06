@@ -39,6 +39,7 @@ var (
 	}
 	VersionFlag = Flag{
 		Name: "-version",
+		Alias: "-v",
 		Help: "Print version info",
 		MinValues: 0,
 		MaxValues: 0,

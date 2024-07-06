@@ -11,4 +11,4 @@ FLAGS:
   -pnpm:[path] [script]    Run 'pnpm run [script] [path]'
   -serve                   Serve
   -help                    Show help
-  -version                 Print the version`
+  -v -version              Print the version`
