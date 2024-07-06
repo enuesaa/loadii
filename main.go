@@ -34,14 +34,8 @@ func main() {
 	if cli.PnpmFlag.Has() {
 		go usecase.ExecPnpm(repos, sigch)
 	}
-
 	if cli.ServeFlag.Has() {
 		go usecase.Serve(repos, sigch)
-	}
-
-	if !cli.GoFlag.Has() && !cli.PnpmFlag.Has() {
-		fmt.Printf("%s\n", cli.GetHelpText())
-		os.Exit(0)
 	}
 
 	if err := usecase.Watch(repos, "."); err != nil {
