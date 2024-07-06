@@ -7,6 +7,7 @@ import (
 
 type Flag struct {
 	Name string // like `-tag`
+	Alias string // like `-t`
 	Help string // help message
 	MinValues int // minimum values count
 	MaxValues int // maximum values count. if 0, this flag peforms bool flag.
@@ -20,6 +21,11 @@ func (f *Flag) Has() bool {
 		if a == f.Name {
 			return true
 		}
+		if f.HasAlias() {
+			if a == f.Alias {
+				return true
+			}
+		}
 		if f.ReceiveWorkdir {
 			if strings.HasPrefix(a, f.NameWithWorkdirPrefix()) {
 				return true
@@ -27,6 +33,10 @@ func (f *Flag) Has() bool {
 		}
 	}
 	return false
+}
+
+func (f *Flag) HasAlias() bool {
+	return f.Alias != ""
 }
 
 func (f *Flag) Values() []string {
