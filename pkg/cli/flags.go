@@ -8,7 +8,6 @@ var (
 		MaxValues: 10,
 		DefaultValues: []string{"."},
 		DefaultWorkdir: ".",
-		ReceiveWorkdir: true,
 	}
 	PnpmFlag = Flag{
 		Name: "-pnpm",
@@ -17,7 +16,6 @@ var (
 		MaxValues: 10,
 		DefaultValues: []string{"dev"},
 		DefaultWorkdir: ".",
-		ReceiveWorkdir: true,
 	}
 	ServeFlag = Flag{
 		Name: "-serve",
@@ -26,7 +24,6 @@ var (
 		MaxValues: 0,
 		DefaultValues: []string{},
 		DefaultWorkdir: ".",
-		ReceiveWorkdir: true,
 	}
 	HelpFlag = Flag{
 		Name: "-help",
@@ -35,7 +32,6 @@ var (
 		MaxValues: 0,
 		DefaultValues: []string{},
 		DefaultWorkdir: "",
-		ReceiveWorkdir: false,
 	}
 	VersionFlag = Flag{
 		Name: "-version",
@@ -45,6 +41,5 @@ var (
 		MaxValues: 0,
 		DefaultValues: []string{},
 		DefaultWorkdir: "",
-		ReceiveWorkdir: false,
 	}
 )

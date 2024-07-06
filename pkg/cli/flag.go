@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -12,79 +11,94 @@ type Flag struct {
 	MinValues int // minimum values count
 	MaxValues int // maximum values count. if 0, this flag peforms bool flag.
 	DefaultValues []string
-	DefaultWorkdir string // default value is `.`
-	ReceiveWorkdir bool
+	DefaultWorkdir string // default value is `.` if "", workdir is not acceptable.
 }
 
 func (f *Flag) Has() bool {
-	for _, a := range Args {
+	position := f.GetPosition()
+	if position == -1 {
+		return false
+	}
+	return len(Args) > position
+}
+
+func (f *Flag) GetPosition() int {
+	for i, a := range Args {
 		if a == f.Name {
-			return true
+			return i
+		}
+		if f.HasWorkdir() && strings.HasPrefix(a, f.Name + ":") {
+			return i
 		}
 		if f.HasAlias() {
 			if a == f.Alias {
-				return true
+				return i
 			}
-		}
-		if f.ReceiveWorkdir {
-			if strings.HasPrefix(a, f.NameWithWorkdirPrefix()) {
-				return true
+			if f.HasWorkdir() && strings.HasPrefix(a, f.Alias + ":") {
+				return i
 			}
 		}
 	}
-	return false
+	return -1
 }
 
 func (f *Flag) HasAlias() bool {
 	return f.Alias != ""
 }
 
+func (f *Flag) HasWorkdir() bool {
+	return f.DefaultWorkdir != ""
+}
+
 func (f *Flag) Values() []string {
 	list := make([]string, 0)
 
-	useNext := false
-	for _, a := range Args {
-		if useNext {
-			if strings.HasPrefix(a, "-") {
-				return list
-			}
-			list = append(list, a)
+	position := f.GetPosition()
+	if position == -1 {
+		return list
+	}
+	if len(Args) <= position {
+		return list
+	}
+	
+	rest := Args[position:]
+	for _, a := range rest {
+		if strings.HasPrefix(a, "-") {
+			return list
 		}
-		if a == f.Name {
-			useNext = true
-			continue
-		}
-		if f.ReceiveWorkdir {
-			if strings.HasPrefix(a, f.NameWithWorkdirPrefix()) {
-				useNext = true
-				continue
-			}
-		}
+		list = append(list, a)
 	}
 
 	return list
 }
 
 func (f *Flag) Workdir() string {
-	if !f.ReceiveWorkdir {
+	if f.DefaultWorkdir == "" {
 		return ""
 	}
 	workdir := f.DefaultWorkdir
 
-	for _, a := range Args {
-		if a == f.Name {
-			return workdir
-		}
-		if f.ReceiveWorkdir {
-			if strings.HasPrefix(a, f.NameWithWorkdirPrefix()) {
-				return strings.ReplaceAll(a, f.NameWithWorkdirPrefix(), "")
-			}
-		}
+	position := f.GetPosition()
+	if position == -1 {
+		return workdir
+	}
+	if len(Args) <= position {
+		return workdir
 	}
 
-	return workdir
-}
+	flag := Args[position]
+	if flag == f.Name {
+		return workdir
+	}
+	if f.HasAlias() && flag == f.Alias {
+		return workdir
+	}
 
-func (f *Flag) NameWithWorkdirPrefix() string {
-	return fmt.Sprintf("%s:", f.Name)
+	if strings.HasPrefix(flag, f.Name + ":") {
+		return strings.ReplaceAll(flag, f.Name + ":", "")
+	}
+	if strings.HasPrefix(flag, f.Alias + ":") {
+		return strings.ReplaceAll(flag, f.Alias + ":", "")
+	}
+	return workdir
 }
