@@ -1,6 +1,6 @@
 package serve
 
-import "github.com/enuesaa/loadii/pkg/repository"
+import "github.com/enuesaa/loadii/internal/repository"
 
 func New(repos repository.Repos) Servectl {
 	return Servectl{

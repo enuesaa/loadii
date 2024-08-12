@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"github.com/enuesaa/loadii/pkg/repository"
-	"github.com/enuesaa/loadii/pkg/watch"
+	"github.com/enuesaa/loadii/internal/repository"
+	"github.com/enuesaa/loadii/internal/watch"
 )
 
 func Watch(repos repository.Repos, include string) error {

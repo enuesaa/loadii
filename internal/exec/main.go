@@ -3,7 +3,7 @@ package exec
 import (
 	"os/exec"
 
-	"github.com/enuesaa/loadii/pkg/repository"
+	"github.com/enuesaa/loadii/internal/repository"
 )
 
 func New(repos repository.Repos) Execctl {

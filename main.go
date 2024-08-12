@@ -7,9 +7,9 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/enuesaa/loadii/pkg/cli"
-	"github.com/enuesaa/loadii/pkg/repository"
-	"github.com/enuesaa/loadii/pkg/usecase"
+	"github.com/enuesaa/loadii/internal/cli"
+	"github.com/enuesaa/loadii/internal/repository"
+	"github.com/enuesaa/loadii/internal/usecase"
 )
 
 func main() {

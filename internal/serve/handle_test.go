@@ -3,7 +3,7 @@ package serve
 import (
 	"testing"
 
-	"github.com/enuesaa/loadii/pkg/repository"
+	"github.com/enuesaa/loadii/internal/repository"
 	"github.com/stretchr/testify/assert"
 )
 

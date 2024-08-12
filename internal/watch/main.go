@@ -1,7 +1,7 @@
 package watch
 
 import (
-	"github.com/enuesaa/loadii/pkg/repository"
+	"github.com/enuesaa/loadii/internal/repository"
 	"github.com/fsnotify/fsnotify"
 )
 

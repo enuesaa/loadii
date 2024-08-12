@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/enuesaa/loadii/pkg/cli"
-	"github.com/enuesaa/loadii/pkg/repository"
-	"github.com/enuesaa/loadii/pkg/serve"
+	"github.com/enuesaa/loadii/internal/cli"
+	"github.com/enuesaa/loadii/internal/repository"
+	"github.com/enuesaa/loadii/internal/serve"
 )
 
 func Serve(repos repository.Repos, sigch chan os.Signal) {
