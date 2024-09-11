@@ -14,15 +14,9 @@ func Serve(repos repository.Repos, sigch chan os.Signal) {
 	servectl.Port = 3000
 	servectl.Basepath = cli.ServeFlag.Workdir()
 
-	fmt.Printf("Listening on %s", servectl.Addr())
+	fmt.Printf("Listening on %s\n", servectl.Addr())
 
 	if err := servectl.Listen(); err != nil {
 		fmt.Printf("Error: %s", err.Error())
 	}
-
-	// sig := <-sigch
-	// fmt.Printf("Received: %v\n", sig)
-	// if err := execctl.Kill(); err != nil {
-	// 	fmt.Printf("Error: %s", err.Error())
-	// }
 }
