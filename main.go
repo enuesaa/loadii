@@ -19,7 +19,7 @@ func main() {
 
 	app := &cli.App{
 		Name:  "loadii",
-		Version: "0.0.9",
+		Version: "0.0.10",
 		Usage: "Instant web server for development",
 		Flags: []cli.Flag{
 			&cli.IntFlag{
