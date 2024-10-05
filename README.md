@@ -25,14 +25,4 @@ FLAGS:
 - Go + フロントエンドの開発をするとき `go run .` と `pnpm dev` をそれぞれ実行する必要がある
 
 ## Planning Usage [Experimental]
-```bash
-loadii -i # interactive. scan which language is used and predict dev command
-loadii -i -d 4 # scan sub-dirs with 4 depth. defalut depth is 2
-loadii -go # run `go run .`
-loadii -go -pnpm:ui # run `go run .` and `cd ./ui && pnpm dev`
-loadii -go sub subsub -pnpm:ui
-loadii -go 'sub subsub' -pnpm:ui
-loadii -go 'sub subsub --flag' -pnpm:ui -i
-loadii -serve      # serve .
-loadii -serve:dist # serve ./dist
-```
+現実問題としてWebサーバをぱっと立ち上げたいので、それに集中する
