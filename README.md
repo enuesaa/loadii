@@ -10,8 +10,9 @@ USAGE:
   loadii [global options] [arguments...]
 
 FLAGS:
-  --port value  Serve port (default: 3000)
-  --help, -h    show help
+  --port value   Serve port (default: 3000)
+  --help, -h     show help
+  --version, -v  print the version
 ```
 
 ## モチベーション

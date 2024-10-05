@@ -6,9 +6,9 @@ import (
 	"os/signal"
 	"syscall"
 
-    "github.com/urfave/cli/v2"
 	"github.com/enuesaa/loadii/internal/repository"
 	"github.com/enuesaa/loadii/internal/usecase"
+	"github.com/urfave/cli/v2"
 )
 
 func main() {
@@ -17,8 +17,9 @@ func main() {
 	var servePort int
 
 	app := &cli.App{
-        Name:  "loadii",
-        Usage: "Instant web server for development",
+		Name:  "loadii",
+		Version: "0.0.9",
+		Usage: "Instant web server for development",
 		Flags: []cli.Flag{
 			&cli.IntFlag{
 				Name:        "port",
@@ -27,15 +28,15 @@ func main() {
 				Destination: &servePort,
 			},
 		},
-        Action: func(*cli.Context) error {
+		Action: func(*cli.Context) error {
 			sigch := make(chan os.Signal, 1)
 			signal.Notify(sigch, syscall.SIGTERM)
 
 			go usecase.Serve(repos, sigch)
 
 			return usecase.Watch(repos, ".")
-        },
-    }
+		},
+	}
 
 	// disable default
 	app.HideHelpCommand = true
@@ -54,7 +55,7 @@ FLAGS:
 	{{end}}{{end}}
 `
 
-    if err := app.Run(os.Args); err != nil {
-		log.Panicf("Error: %s", err.Error())
-    }
+	if err := app.Run(os.Args); err != nil {
+		log.Fatalf("Error: %s", err.Error())
+	}
 }
