@@ -32,10 +32,9 @@ $ loadii --help
 Instant web server
 
 USAGE:
-  loadii [flags]
+  loadii [global options] [arguments...]
 
 FLAGS:
-  -port                    Port (default: 3000)
-  -h -help                 Show help
-  -v -version              Print the version
+  --port value  Serve port (default: 3000)
+  --help, -h    show help
 ```
