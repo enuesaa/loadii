@@ -8,10 +8,10 @@ import (
 	"github.com/enuesaa/loadii/internal/serve"
 )
 
-func Serve(repos repository.Repos, sigch chan os.Signal) {
+func Serve(repos repository.Repos, dir string, sigch chan os.Signal) {
 	servectl := serve.New(repos)
 	servectl.Port = 3000
-	servectl.Basepath = "."
+	servectl.Basepath = dir
 
 	fmt.Printf("Listening on %s\n", servectl.Addr())
 

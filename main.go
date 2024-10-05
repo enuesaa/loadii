@@ -15,6 +15,7 @@ func main() {
 	repos := repository.New()
 
 	var servePort int
+	var serveDir string
 
 	app := &cli.App{
 		Name:  "loadii",
@@ -27,14 +28,21 @@ func main() {
 				Value:       3000,
 				Destination: &servePort,
 			},
+			&cli.StringFlag{
+				Name:        "dir",
+				Aliases:     []string{"d"},
+				Usage:       "Serve dir",
+				Value:       ".",
+				Destination: &serveDir,
+			},
 		},
 		Action: func(*cli.Context) error {
 			sigch := make(chan os.Signal, 1)
 			signal.Notify(sigch, syscall.SIGTERM)
 
-			go usecase.Serve(repos, sigch)
+			go usecase.Serve(repos, serveDir, sigch)
 
-			return usecase.Watch(repos, ".")
+			return usecase.Watch(repos, serveDir)
 		},
 	}
 
