@@ -12,12 +12,13 @@ func (ctl *Servectl) handleMainRoute(c fiber.Ctx) error {
 	path := c.Path() // like `/`
 
 	readpath := ctl.convertPath(path)
-	ctl.repos.Log.Info("path: %s, looking: %s", path, readpath)
 
 	data, err := ctl.repos.Fs.Read(readpath)
 	if err != nil {
-		return c.SendStatus(fiber.StatusNotFound)
+		ctl.repos.Log.Info("http.request 404 %s (resolved: %s)", path, readpath)
+		return c.SendStatus(404)
 	}
+	ctl.repos.Log.Info("http.request 200 %s (resolved: %s)", path, readpath)
 	c.Set(fiber.HeaderContentType, ctl.judgeMimeType(readpath))
 
 	return c.SendString(string(data))
