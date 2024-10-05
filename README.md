@@ -26,3 +26,16 @@ FLAGS:
 
 ## Planning Usage [Experimental]
 現実問題としてWebサーバをぱっと立ち上げたいので、それに集中する
+
+```console
+$ loadii --help
+Instant web server
+
+USAGE:
+  loadii [flags]
+
+FLAGS:
+  -port                    Port (default: 3000)
+  -h -help                 Show help
+  -v -version              Print the version
+```

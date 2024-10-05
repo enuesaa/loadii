@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/enuesaa/loadii/internal/cli"
 	"github.com/enuesaa/loadii/internal/repository"
 	"github.com/enuesaa/loadii/internal/serve"
 )
@@ -12,7 +11,7 @@ import (
 func Serve(repos repository.Repos, sigch chan os.Signal) {
 	servectl := serve.New(repos)
 	servectl.Port = 3000
-	servectl.Basepath = cli.ServeFlag.Workdir()
+	servectl.Basepath = "."
 
 	fmt.Printf("Listening on %s\n", servectl.Addr())
 
