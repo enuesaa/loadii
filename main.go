@@ -29,7 +29,9 @@ func main() {
 		},
         Action: func(*cli.Context) error {
 			sigch := make(chan os.Signal, 1)
-			signal.Notify(sigch, syscall.SIGTERM)		
+			signal.Notify(sigch, syscall.SIGTERM)
+
+			go usecase.Serve(repos, sigch)
 
 			return usecase.Watch(repos, ".")
         },
