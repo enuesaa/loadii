@@ -15,10 +15,10 @@ func (ctl *Servectl) handleMainRoute(c fiber.Ctx) error {
 
 	data, err := ctl.repos.Fs.Read(readpath)
 	if err != nil {
-		ctl.repos.Log.Info("http.request 404 %s (resolved: %s)", path, readpath)
+		ctl.repos.Log.Info("http.request 404 %s (resolved: /%s)", path, readpath)
 		return c.SendStatus(404)
 	}
-	ctl.repos.Log.Info("http.request 200 %s (resolved: %s)", path, readpath)
+	ctl.repos.Log.Info("http.request 200 %s (resolved: /%s)", path, readpath)
 	c.Set(fiber.HeaderContentType, ctl.judgeMimeType(readpath))
 
 	return c.SendString(string(data))
