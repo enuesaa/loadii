@@ -1,6 +1,10 @@
 package repository
 
-import "go.uber.org/mock/gomock"
+import (
+	"testing"
+
+	"go.uber.org/mock/gomock"
+)
 
 type Repos struct {
 	Cmd CmdRepositoryInterface
@@ -16,10 +20,12 @@ func New() Repos {
 	}
 }
 
-func NewMock(ctrl gomock.Controller) Repos {
+func NewMock(t *testing.T) Repos {
+	ctrl := gomock.NewController(t)
+
 	return Repos{
 		Cmd: &CmdRepository{},
-		Fs:  NewMockFsRepositoryInterface(&ctrl),
-		Log: &LogRepository{},
+		Fs:  NewMockFsRepositoryInterface(ctrl),
+		Log: NewMockLogRepositoryInterface(ctrl),
 	}
 }
