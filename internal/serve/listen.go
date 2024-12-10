@@ -11,14 +11,18 @@ func (ctl *Servectl) Addr() string {
 	return fmt.Sprintf(":%d", ctl.Port)
 }
 
-func (ctl *Servectl) Listen() error {
+func (ctl *Servectl) App() *fiber.App {
 	app := fiber.New()
 
 	app.Use(cors.New())
 	app.Get("/*", ctl.handleMainRoute)
 
+	return app
+}
+
+func (ctl *Servectl) Listen() error {
 	listenConfig := fiber.ListenConfig{
 		DisableStartupMessage: true,
 	}
-	return app.Listen(ctl.Addr(), listenConfig)
+	return ctl.App().Listen(ctl.Addr(), listenConfig)
 }

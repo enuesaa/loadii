@@ -6,13 +6,11 @@ import (
 	"testing"
 
 	"github.com/enuesaa/loadii/internal/repository"
-	"github.com/gofiber/fiber/v3"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/mock/gomock"
 )
 
-// TODO: fiber app の routing と listen を分けるべき
 // TODO: repository.NewMock() については要検討。いちいちキャストしたくない
 func TestHandleMainRoute(t *testing.T) {
 	repos := repository.NewMock(t)
@@ -22,11 +20,9 @@ func TestHandleMainRoute(t *testing.T) {
 	repos.Log.(*repository.MockLogRepositoryInterface).EXPECT().Info(gomock.Any(), gomock.Any())
 
 	servectl := New(repos)
+	app := servectl.App()
 
     req := httptest.NewRequest("GET", "http://localhost:3000/", nil)
-	app := fiber.New()
-	app.Get("/*", servectl.handleMainRoute)
-
 	res, err := app.Test(req)
 	require.NoError(t, err)
 
