@@ -40,7 +40,7 @@ func main() {
 			sigch := make(chan os.Signal, 1)
 			signal.Notify(sigch, syscall.SIGTERM)
 
-			go usecase.Serve(repos, serveDir, sigch)
+			go usecase.Serve(repos, serveDir, servePort, sigch)
 
 			return usecase.Watch(repos, serveDir)
 		},
