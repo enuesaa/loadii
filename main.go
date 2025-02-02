@@ -19,7 +19,7 @@ func main() {
 
 	app := &cli.App{
 		Name:  "loadii",
-		Version: "0.0.10",
+		Version: "0.0.11",
 		Usage: "Instant web server for development",
 		Flags: []cli.Flag{
 			&cli.IntFlag{
@@ -35,6 +35,7 @@ func main() {
 				Value:       ".",
 				Destination: &serveDir,
 			},
+			// log flag
 		},
 		Action: func(*cli.Context) error {
 			sigch := make(chan os.Signal, 1)
