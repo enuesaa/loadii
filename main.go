@@ -35,7 +35,6 @@ func main() {
 				Value:       ".",
 				Destination: &serveDir,
 			},
-			// log flag
 		},
 		Action: func(*cli.Context) error {
 			sigch := make(chan os.Signal, 1)
