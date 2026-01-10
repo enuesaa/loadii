@@ -20,11 +20,11 @@ func main() {
 	app := &cli.App{
 		Name:  "loadii",
 		Version: "0.0.11",
-		Usage: "Instant web server for development",
+		Usage: "Instant web server for development purposes",
 		Flags: []cli.Flag{
 			&cli.IntFlag{
 				Name:        "port",
-				Usage:       "Serve port",
+				Usage:       "Port",
 				Value:       3000,
 				Destination: &servePort,
 			},
