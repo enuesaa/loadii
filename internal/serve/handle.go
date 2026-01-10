@@ -9,7 +9,8 @@ import (
 )
 
 func (ctl *Servectl) handleMainRoute(c fiber.Ctx) error {
-	path := c.Path() // like `/`
+	req := c.Req()
+	path := string(req.Request().URI().Path())
 
 	readpath := ctl.convertPath(path)
 
