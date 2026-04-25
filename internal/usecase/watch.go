@@ -1,11 +1,11 @@
 package usecase
 
 import (
-	"github.com/enuesaa/loadii/internal/repository"
+	"github.com/enuesaa/loadii/internal/deps"
 	"github.com/enuesaa/loadii/internal/watch"
 )
 
-func Watch(repos *repository.Repos, include string) error {
+func Watch(repos *deps.Repos, include string) error {
 	watchctl := watch.New(repos)
 	watchctl.Includes = []string{include}
 	watchctl.Excludes = []string{}

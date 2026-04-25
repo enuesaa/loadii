@@ -1,11 +1,11 @@
 package watch
 
 import (
-	"github.com/enuesaa/loadii/internal/repository"
+	"github.com/enuesaa/loadii/internal/deps"
 	"github.com/fsnotify/fsnotify"
 )
 
-func New(repos *repository.Repos) Watchctl {
+func New(repos *deps.Repos) Watchctl {
 	ctl := Watchctl{
 		running:   false,
 		repos:     repos,
@@ -18,7 +18,7 @@ func New(repos *repository.Repos) Watchctl {
 
 type Watchctl struct {
 	running   bool
-	repos     *repository.Repos
+	repos     *deps.Repos
 	watcher   *fsnotify.Watcher
 	Includes  []string
 	Excludes  []string

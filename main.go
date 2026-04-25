@@ -6,13 +6,13 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/enuesaa/loadii/internal/repository"
+	"github.com/enuesaa/loadii/internal/deps"
 	"github.com/enuesaa/loadii/internal/usecase"
 	"github.com/urfave/cli/v2"
 )
 
 func main() {
-	repos := repository.New()
+	repos := deps.New()
 
 	var servePort int
 	var serveDir string
