@@ -1,10 +1,10 @@
 package deps
 
-// import (
-// 	"testing"
+import (
+	"testing"
 
-// 	"go.uber.org/mock/gomock"
-// )
+	"go.uber.org/mock/gomock"
+)
 
 type Repos struct {
 	Fs  Fs
@@ -18,11 +18,11 @@ func New() *Repos {
 	}
 }
 
-// func NewMock(t *testing.T) *Repos {
-// 	ctrl := gomock.NewController(t)
+func NewMock(t *testing.T) *Repos {
+	ctrl := gomock.NewController(t)
 
-// 	return &Repos{
-// 		Fs:  NewMockFsRepositoryInterface(ctrl),
-// 		Log: NewMockLogRepositoryInterface(ctrl),
-// 	}
-// }
+	return &Repos{
+		Fs:  NewMockFs(ctrl),
+		Log: NewMockLog(ctrl),
+	}
+}

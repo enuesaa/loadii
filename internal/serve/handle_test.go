@@ -1,39 +1,39 @@
 package serve
 
-// import (
-// 	"io"
-// 	"net/http/httptest"
-// 	"testing"
+import (
+	"io"
+	"net/http/httptest"
+	"testing"
 
-// 	"github.com/enuesaa/loadii/internal/deps"
-// 	"github.com/stretchr/testify/assert"
-// 	"github.com/stretchr/testify/require"
-// 	"go.uber.org/mock/gomock"
-// )
+	"github.com/enuesaa/loadii/internal/deps"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	"go.uber.org/mock/gomock"
+)
 
-// func TestHandleMainRoute(t *testing.T) {
-// 	repos := repository.NewMock(t)
+func TestHandleMainRoute(t *testing.T) {
+	repos := deps.NewMock(t)
 
-// 	indexhtml := []byte("<html><body>hello</body></html>")
-// 	repos.Fs.(*repository.MockFsRepositoryInterface).EXPECT().Read("index.html").Return(indexhtml, nil)
-// 	repos.Log.(*repository.MockLogRepositoryInterface).EXPECT().Info(gomock.Any(), gomock.Any())
+	indexhtml := []byte("<html><body>hello</body></html>")
+	repos.Fs.(*deps.MockFs).EXPECT().Read("index.html").Return(indexhtml, nil)
+	repos.Log.(*deps.MockLog).EXPECT().Info(gomock.Any(), gomock.Any())
 
-// 	servectl := New(repos)
-// 	app := servectl.App()
+	servectl := New(repos)
+	app := servectl.App()
 
-//     req := httptest.NewRequest("GET", "http://localhost:3000/", nil)
-// 	res, err := app.Test(req)
-// 	require.NoError(t, err)
+    req := httptest.NewRequest("GET", "http://localhost:3000/", nil)
+	res, err := app.Test(req)
+	require.NoError(t, err)
 
-// 	resbody, err := io.ReadAll(res.Body)
-// 	require.NoError(t, err)
-// 	assert.Equal(t, indexhtml, resbody)
-// }
+	resbody, err := io.ReadAll(res.Body)
+	require.NoError(t, err)
+	assert.Equal(t, indexhtml, resbody)
+}
 
-// func TestConvertPath(t *testing.T) {
-// 	servectl := New(repository.New())
+func TestConvertPath(t *testing.T) {
+	servectl := New(deps.New())
 
-// 	assert.Equal(t, "index.html", servectl.convertPath("/"))
-// 	assert.Equal(t, "index.html", servectl.convertPath("/index.html"))
-// 	assert.Equal(t, "aa/index.html", servectl.convertPath("/aa/"))
-// }
+	assert.Equal(t, "index.html", servectl.convertPath("/"))
+	assert.Equal(t, "index.html", servectl.convertPath("/index.html"))
+	assert.Equal(t, "aa/index.html", servectl.convertPath("/aa/"))
+}
