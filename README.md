@@ -2,15 +2,15 @@
 Instant web server for development purposes.
 
 ## Usage
-```console
+```bash
 $ loadii --help
-Instant web server for development purposes
+Instant web server for development
 
 USAGE:
   loadii [global options] [arguments...]
 
 FLAGS:
-  --port value           Port (default: 3000)
+  --port value           Serve port (default: 3000)
   --dir value, -d value  Serve dir (default: ".")
   --help, -h             show help
   --version, -v          print the version
