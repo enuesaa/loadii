@@ -19,3 +19,7 @@ FLAGS:
 ## モチベーション
 - 開発の際にウェブサーバをぱっと立ち上げたい時がある
 - コマンド一つで立ち上げられないか
+
+## feature flags
+- verbose request header
+- otel

@@ -11,7 +11,6 @@ import (
 	"go.uber.org/mock/gomock"
 )
 
-// TODO: repository.NewMock() については要検討。いちいちキャストしたくない
 func TestHandleMainRoute(t *testing.T) {
 	repos := repository.NewMock(t)
 
