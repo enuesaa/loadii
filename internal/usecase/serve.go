@@ -8,7 +8,7 @@ import (
 	"github.com/enuesaa/loadii/internal/serve"
 )
 
-func Serve(repos repository.Repos, dir string, port int, sigch chan os.Signal) {
+func Serve(repos *repository.Repos, dir string, port int, sigch chan os.Signal) {
 	servectl := serve.New(repos)
 	servectl.Port = port
 	servectl.Basepath = dir

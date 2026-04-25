@@ -5,7 +5,7 @@ import (
 	"github.com/fsnotify/fsnotify"
 )
 
-func New(repos repository.Repos) Watchctl {
+func New(repos *repository.Repos) Watchctl {
 	ctl := Watchctl{
 		running:   false,
 		repos:     repos,
@@ -18,7 +18,7 @@ func New(repos repository.Repos) Watchctl {
 
 type Watchctl struct {
 	running   bool
-	repos     repository.Repos
+	repos     *repository.Repos
 	watcher   *fsnotify.Watcher
 	Includes  []string
 	Excludes  []string

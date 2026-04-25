@@ -2,7 +2,7 @@ package serve
 
 import "github.com/enuesaa/loadii/internal/repository"
 
-func New(repos repository.Repos) Servectl {
+func New(repos *repository.Repos) Servectl {
 	return Servectl{
 		repos:    repos,
 		Port:     3000,
@@ -11,7 +11,7 @@ func New(repos repository.Repos) Servectl {
 }
 
 type Servectl struct {
-	repos    repository.Repos
+	repos    *repository.Repos
 	Port     int
 	Basepath string
 }

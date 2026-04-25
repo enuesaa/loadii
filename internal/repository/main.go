@@ -11,17 +11,17 @@ type Repos struct {
 	Log LogRepositoryInterface
 }
 
-func New() Repos {
-	return Repos{
+func New() *Repos {
+	return &Repos{
 		Fs:  &FsRepository{},
 		Log: &LogRepository{},
 	}
 }
 
-func NewMock(t *testing.T) Repos {
+func NewMock(t *testing.T) *Repos {
 	ctrl := gomock.NewController(t)
 
-	return Repos{
+	return &Repos{
 		Fs:  NewMockFsRepositoryInterface(ctrl),
 		Log: NewMockLogRepositoryInterface(ctrl),
 	}
