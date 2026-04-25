@@ -7,14 +7,14 @@ package deps
 // )
 
 type Repos struct {
-	Fs  FsRepositoryInterface
-	Log LogRepositoryInterface
+	Fs  Fs
+	Log Log
 }
 
 func New() *Repos {
 	return &Repos{
-		Fs:  &FsRepository{},
-		Log: &LogRepository{},
+		Fs:  &FsImpl{},
+		Log: &LogImpl{},
 	}
 }
 

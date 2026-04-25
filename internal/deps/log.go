@@ -12,35 +12,35 @@ func init() {
 	log.SetFlags(0)
 }
 
-type LogRepositoryInterface interface {
+type Log interface {
 	Info(format string, v ...any)
 	Fatal(err error)
 	Ask(message string, defaultValue string) (string, error)
 	Confirm(message string) (bool, error)
 }
-type LogRepository struct{}
+type LogImpl struct{}
 
-func (repo *LogRepository) prefix() string {
+func (repo *LogImpl) prefix() string {
 	return time.Now().Local().Format("15:04:05")
 }
 
-func (repo *LogRepository) Info(format string, v ...any) {
+func (repo *LogImpl) Info(format string, v ...any) {
 	message := fmt.Sprintf(format, v...)
 	log.Printf("%s  %s\n", repo.prefix(), message)
 }
 
-func (repo *LogRepository) Fatal(err error) {
+func (repo *LogImpl) Fatal(err error) {
 	log.Fatalf("%s  Error: %s\n", repo.prefix(), err.Error())
 }
 
-func (repo *LogRepository) Ask(message string, defaultValue string) (string, error) {
+func (repo *LogImpl) Ask(message string, defaultValue string) (string, error) {
 	input := textinput.New(message)
 	input.InitialValue = defaultValue
 
 	return input.RunPrompt()
 }
 
-func (repo *LogRepository) Confirm(message string) (bool, error) {
+func (repo *LogImpl) Confirm(message string) (bool, error) {
 	message = fmt.Sprintf("%s  %s (y/n)", repo.prefix(), message)
 	input := textinput.New(message)
 	input.InitialValue = ""

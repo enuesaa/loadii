@@ -6,27 +6,27 @@ import (
 	"path/filepath"
 )
 
-type FsRepositoryInterface interface {
+type Fs interface {
 	Ext(path string) string
 	IsExist(path string) bool
 	IsDir(path string) (bool, error)
 	WorkDir() (string, error)
 	Read(path string) ([]byte, error)
 }
-type FsRepository struct{}
+type FsImpl struct{}
 
-func (repo *FsRepository) Ext(path string) string {
+func (repo *FsImpl) Ext(path string) string {
 	return filepath.Ext(path)
 }
 
-func (repo *FsRepository) IsExist(path string) bool {
+func (repo *FsImpl) IsExist(path string) bool {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		return false
 	}
 	return true
 }
 
-func (repo *FsRepository) IsDir(path string) (bool, error) {
+func (repo *FsImpl) IsDir(path string) (bool, error) {
 	f, err := os.Stat(path)
 	if err != nil {
 		return false, err
@@ -34,11 +34,11 @@ func (repo *FsRepository) IsDir(path string) (bool, error) {
 	return f.IsDir(), nil
 }
 
-func (repo *FsRepository) WorkDir() (string, error) {
+func (repo *FsImpl) WorkDir() (string, error) {
 	return os.Getwd()
 }
 
-func (repo *FsRepository) Read(path string) ([]byte, error) {
+func (repo *FsImpl) Read(path string) ([]byte, error) {
 	f, err := os.Open(path)
 	if err != nil {
 		return make([]byte, 0), err
