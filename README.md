@@ -20,6 +20,16 @@ FLAGS:
 - 開発の際にウェブサーバをぱっと立ち上げたい時がある
 - コマンド一つで立ち上げられないか
 
-## feature flags
-- verbose request header
-- otel
+## planning features
+```bash
+loadii            # serve current dir. track file changes
+loadii dist       # serve dist dir. track file changes
+loadii --no-track # serve current dir. no track
+loadii --index index.html,index.md
+loadii --no-index # serve current dir. no index
+loadii -H Cache-Control:no-store
+loadii --verbose
+loadii --port 3000
+```
+
+例えばある特定のパスの時だけヘッダーを返すとか、柔軟な制御を入れられるようにするか。
