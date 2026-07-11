@@ -2,14 +2,12 @@ package usecase
 
 import (
 	"fmt"
-	"os"
 
-	"github.com/enuesaa/loadii/internal/di"
 	"github.com/enuesaa/loadii/internal/services/serve"
 )
 
-func Serve(repos *di.Deps, dir string, port int, sigch chan os.Signal) {
-	servectl := serve.New(repos)
+func (u *useCaseImpl) Serve(dir string, port int) {
+	servectl := serve.New(u.deps)
 	servectl.Port = port
 	servectl.Basepath = dir
 

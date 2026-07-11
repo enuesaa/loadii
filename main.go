@@ -3,8 +3,6 @@ package main
 import (
 	"log"
 	"os"
-	"os/signal"
-	"syscall"
 
 	"github.com/enuesaa/loadii/internal/di"
 	"github.com/enuesaa/loadii/internal/usecase"
@@ -37,12 +35,10 @@ func main() {
 			},
 		},
 		Action: func(*cli.Context) error {
-			sigch := make(chan os.Signal, 1)
-			signal.Notify(sigch, syscall.SIGTERM)
+			usecases := usecase.New(deps)
+			go usecases.Serve(serveDir, servePort)
 
-			go usecases.Serve(deps, serveDir, servePort, sigch)
-
-			return usecases.Watch(deps, serveDir)
+			return usecases.Watch(serveDir)
 		},
 	}
 
