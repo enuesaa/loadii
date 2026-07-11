@@ -1,11 +1,11 @@
-package usecase
+package usecases
 
 import (
 	"fmt"
 	"os"
 
 	"github.com/enuesaa/loadii/internal/deps"
-	"github.com/enuesaa/loadii/internal/serve"
+	"github.com/enuesaa/loadii/internal/services/serve"
 )
 
 func Serve(repos *deps.Repos, dir string, port int, sigch chan os.Signal) {
