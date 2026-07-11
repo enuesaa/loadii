@@ -22,19 +22,14 @@ FLAGS:
 
 ## planning features
 ```bash
-loadii            # serve current dir. track file changes
-loadii dist       # serve dist dir. track file changes
-loadii --no-track # serve current dir. no track
+loadii         # serve current dir. track file changes
+loadii dist    # serve dist dir. track file changes
 loadii --index index.html,index.md
-loadii --no-index # serve current dir. no index
 loadii --header Cache-Control:no-store
 loadii --verbose
 loadii --port 3000
-loadii --demo     # serve demo app
-loadii --proxy /a:https://example.com/
+loadii --proxy https://example.com/
+loadii -e 'path=/ proxy=https://example.com/' -e 'path=/aa header=Cache-Control:no-store'
 ```
 
 例えばある特定のパスの時だけヘッダーを返すとか、柔軟な制御を入れられるようにするか。
-
-## planning tech stacks
-- go uber fx
