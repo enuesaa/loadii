@@ -27,9 +27,14 @@ loadii dist       # serve dist dir. track file changes
 loadii --no-track # serve current dir. no track
 loadii --index index.html,index.md
 loadii --no-index # serve current dir. no index
-loadii -H Cache-Control:no-store
+loadii --header Cache-Control:no-store
 loadii --verbose
 loadii --port 3000
+loadii --demo     # serve demo app
+loadii --proxy /a:https://example.com/
 ```
 
 例えばある特定のパスの時だけヘッダーを返すとか、柔軟な制御を入れられるようにするか。
+
+## planning tech stacks
+- go uber fx
