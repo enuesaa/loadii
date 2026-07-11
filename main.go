@@ -12,12 +12,12 @@ import (
 )
 
 func main() {
-	repos := deps.New()
+	di := deps.New()
 
 	var servePort int
 	var serveDir string
 
-	app := &cli.App{
+	cmd := &cli.App{
 		Name:  "loadii",
 		Version: "0.0.11",
 		Usage: "Instant web server for development purposes",
@@ -40,14 +40,14 @@ func main() {
 			sigch := make(chan os.Signal, 1)
 			signal.Notify(sigch, syscall.SIGTERM)
 
-			go usecases.Serve(repos, serveDir, servePort, sigch)
+			go usecases.Serve(di, serveDir, servePort, sigch)
 
-			return usecases.Watch(repos, serveDir)
+			return usecases.Watch(di, serveDir)
 		},
 	}
 
 	// disable default
-	app.HideHelpCommand = true
+	cmd.HideHelpCommand = true
 	cli.AppHelpTemplate = `{{.Usage}}
 
 USAGE:
@@ -63,7 +63,7 @@ FLAGS:
 	{{end}}{{end}}
 `
 
-	if err := app.Run(os.Args); err != nil {
+	if err := cmd.Run(os.Args); err != nil {
 		log.Fatalf("Error: %s", err.Error())
 	}
 }

@@ -6,22 +6,22 @@ import (
 	"go.uber.org/mock/gomock"
 )
 
-type Repos struct {
+type Container struct {
 	Fs  Fs
 	Log Log
 }
 
-func New() *Repos {
-	return &Repos{
+func New() *Container {
+	return &Container{
 		Fs:  &FsImpl{},
 		Log: &LogImpl{},
 	}
 }
 
-func NewMock(t *testing.T) *Repos {
+func NewMock(t *testing.T) *Container {
 	ctrl := gomock.NewController(t)
 
-	return &Repos{
+	return &Container{
 		Fs:  NewMockFs(ctrl),
 		Log: NewMockLog(ctrl),
 	}

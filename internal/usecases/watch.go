@@ -5,7 +5,7 @@ import (
 	"github.com/enuesaa/loadii/internal/services/watch"
 )
 
-func Watch(repos *deps.Repos, include string) error {
+func Watch(repos *deps.Container, include string) error {
 	watchctl := watch.New(repos)
 	watchctl.Includes = []string{include}
 	watchctl.Excludes = []string{}
