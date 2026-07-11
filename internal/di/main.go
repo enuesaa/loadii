@@ -1,4 +1,4 @@
-package deps
+package di
 
 import (
 	"testing"
@@ -6,22 +6,22 @@ import (
 	"go.uber.org/mock/gomock"
 )
 
-type Container struct {
+type Deps struct {
 	Fs  Fs
 	Log Log
 }
 
-func New() *Container {
-	return &Container{
+func New() *Deps {
+	return &Deps{
 		Fs:  &FsImpl{},
 		Log: &LogImpl{},
 	}
 }
 
-func NewMock(t *testing.T) *Container {
+func NewMock(t *testing.T) *Deps {
 	ctrl := gomock.NewController(t)
 
-	return &Container{
+	return &Deps{
 		Fs:  NewMockFs(ctrl),
 		Log: NewMockLog(ctrl),
 	}

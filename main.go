@@ -6,13 +6,13 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/enuesaa/loadii/internal/deps"
-	"github.com/enuesaa/loadii/internal/usecases"
+	"github.com/enuesaa/loadii/internal/di"
+	"github.com/enuesaa/loadii/internal/usecase"
 	"github.com/urfave/cli/v2"
 )
 
 func main() {
-	di := deps.New()
+	deps := di.New()
 
 	var servePort int
 	var serveDir string
@@ -40,9 +40,9 @@ func main() {
 			sigch := make(chan os.Signal, 1)
 			signal.Notify(sigch, syscall.SIGTERM)
 
-			go usecases.Serve(di, serveDir, servePort, sigch)
+			go usecases.Serve(deps, serveDir, servePort, sigch)
 
-			return usecases.Watch(di, serveDir)
+			return usecases.Watch(deps, serveDir)
 		},
 	}
 

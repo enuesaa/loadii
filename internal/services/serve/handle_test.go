@@ -5,18 +5,18 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/enuesaa/loadii/internal/deps"
+	"github.com/enuesaa/loadii/internal/di"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/mock/gomock"
 )
 
 func TestHandleMainRoute(t *testing.T) {
-	repos := deps.NewMock(t)
+	repos := di.NewMock(t)
 
 	indexhtml := []byte("<html><body>hello</body></html>")
-	repos.Fs.(*deps.MockFs).EXPECT().Read("index.html").Return(indexhtml, nil)
-	repos.Log.(*deps.MockLog).EXPECT().Info(gomock.Any(), gomock.Any())
+	repos.Fs.(*di.MockFs).EXPECT().Read("index.html").Return(indexhtml, nil)
+	repos.Log.(*di.MockLog).EXPECT().Info(gomock.Any(), gomock.Any())
 
 	servectl := New(repos)
 	app := servectl.App()
@@ -31,7 +31,7 @@ func TestHandleMainRoute(t *testing.T) {
 }
 
 func TestConvertPath(t *testing.T) {
-	servectl := New(deps.New())
+	servectl := New(di.New())
 
 	assert.Equal(t, "index.html", servectl.convertPath("/"))
 	assert.Equal(t, "index.html", servectl.convertPath("/index.html"))

@@ -1,17 +1,17 @@
 package serve
 
-import "github.com/enuesaa/loadii/internal/deps"
+import "github.com/enuesaa/loadii/internal/di"
 
-func New(repos *deps.Container) Servectl {
+func New(deps *di.Deps) Servectl {
 	return Servectl{
-		repos:    repos,
+		repos:    deps,
 		Port:     3000,
 		Basepath: ".",
 	}
 }
 
 type Servectl struct {
-	repos    *deps.Container
+	repos    *di.Deps
 	Port     int
 	Basepath string
 }
