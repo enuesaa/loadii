@@ -9,15 +9,15 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+var servePort int
+var serveDir string
+
 func main() {
 	deps := di.New()
 
-	var servePort int
-	var serveDir string
-
 	cmd := &cli.App{
 		Name:  "loadii",
-		Version: "0.0.11",
+		Version: "0.0.12",
 		Usage: "Instant web server for development purposes",
 		Flags: []cli.Flag{
 			&cli.IntFlag{
