@@ -39,9 +39,13 @@ func main() {
 				serveDir = args.First()
 			}
 			usecases := usecase.New(deps)
-			go usecases.Serve(serveDir, servePort)
 
-			return usecases.Watch(serveDir)
+			go func ()  {
+				if err := usecases.Watch(serveDir); err != nil {
+					deps.Log.Info("Error: %s", err.Error())
+				}	
+			}()
+			return usecases.Serve(serveDir, servePort)
 		},
 	}
 

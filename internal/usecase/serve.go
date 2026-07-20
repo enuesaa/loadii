@@ -1,19 +1,15 @@
 package usecase
 
-import (
-	"fmt"
+import "github.com/enuesaa/loadii/internal/services/serve"
 
-	"github.com/enuesaa/loadii/internal/services/serve"
-)
-
-func (u *useCaseImpl) Serve(dir string, port int) {
+func (u *useCaseImpl) Serve(dir string, port int) error {
 	servectl := serve.New(u.deps)
 	servectl.Port = port
 	servectl.Basepath = dir
-
-	fmt.Printf("Listening on %s\n", servectl.Addr())
+	u.deps.Log.Info("Listening on %s", servectl.Addr())
 
 	if err := servectl.Listen(); err != nil {
-		fmt.Printf("Error: %s", err.Error())
+		return err
 	}
+	return nil
 }

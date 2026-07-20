@@ -4,7 +4,7 @@ import "github.com/enuesaa/loadii/internal/di"
 
 type UseCases interface {
 	Watch(include string) error
-	Serve(dir string, port int)
+	Serve(dir string, port int) error
 }
 
 func New(deps *di.Deps) UseCases {
