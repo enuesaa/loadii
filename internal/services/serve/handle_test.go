@@ -21,7 +21,7 @@ func TestHandleMainRoute(t *testing.T) {
 	servectl := New(repos)
 	app := servectl.App()
 
-    req := httptest.NewRequest("GET", "http://localhost:3000/", nil)
+	req := httptest.NewRequest("GET", "http://localhost:3000/", nil)
 	res, err := app.Test(req)
 	require.NoError(t, err)
 

@@ -11,7 +11,6 @@ USAGE:
 
 FLAGS:
   --port value           Serve port (default: 3000)
-  --dir value, -d value  Serve dir (default: ".")
   --help, -h             show help
   --version, -v          print the version
 ```

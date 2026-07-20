@@ -17,10 +17,10 @@ func main() {
 	deps := di.New()
 
 	cmd := &cli.App{
-		Name:  "loadii",
-		Version: "0.0.12",
-		Usage: "Instant web server for development purposes",
-		Args: true,
+		Name:      "loadii",
+		Version:   "0.0.12",
+		Usage:     "Instant web server for development purposes",
+		Args:      true,
 		ArgsUsage: "<dir>",
 		Flags: []cli.Flag{
 			&cli.IntFlag{

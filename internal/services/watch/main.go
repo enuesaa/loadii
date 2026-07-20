@@ -8,7 +8,7 @@ import (
 func New(deps *di.Deps) Watchctl {
 	ctl := Watchctl{
 		running:   false,
-		repos:     deps,
+		deps:      deps,
 		Includes:  []string{},
 		Excludes:  []string{},
 		callbacks: []func(){},
@@ -18,7 +18,7 @@ func New(deps *di.Deps) Watchctl {
 
 type Watchctl struct {
 	running   bool
-	repos     *di.Deps
+	deps      *di.Deps
 	watcher   *fsnotify.Watcher
 	Includes  []string
 	Excludes  []string

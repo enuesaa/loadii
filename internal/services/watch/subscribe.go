@@ -13,17 +13,17 @@ func (ctl *Watchctl) subscribe() {
 			return
 		}
 		if event.Has(fsnotify.Write) {
-			ctl.repos.Log.Info("file.modified %s", event.Name)
+			ctl.deps.Log.Info("file.modified %s", event.Name)
 			ctl.triggerCallbacks()
 		} else if event.Has(fsnotify.Remove) {
-			ctl.repos.Log.Info("file.removed %s", event.Name)
+			ctl.deps.Log.Info("file.removed %s", event.Name)
 			ctl.triggerCallbacks()
 		} else if event.Has(fsnotify.Create) {
-			ctl.repos.Log.Info("file.created %s", event.Name)
+			ctl.deps.Log.Info("file.created %s", event.Name)
 			ctl.triggerCallbacks()
 		} else if event.Has(fsnotify.Rename) {
 			// this event is equal to file.removed
-			ctl.repos.Log.Info("file.removed %s", event.Name)
+			ctl.deps.Log.Info("file.removed %s", event.Name)
 			ctl.triggerCallbacks()
 		}
 	}
