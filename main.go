@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -10,7 +11,7 @@ import (
 )
 
 var servePort int
-var serveDir string
+var serveDir string = "."
 
 func main() {
 	deps := di.New()
@@ -19,6 +20,8 @@ func main() {
 		Name:  "loadii",
 		Version: "0.0.12",
 		Usage: "Instant web server for development purposes",
+		Args: true,
+		ArgsUsage: "<dir>",
 		Flags: []cli.Flag{
 			&cli.IntFlag{
 				Name:        "port",
@@ -26,15 +29,15 @@ func main() {
 				Value:       3000,
 				Destination: &servePort,
 			},
-			&cli.StringFlag{
-				Name:        "dir",
-				Aliases:     []string{"d"},
-				Usage:       "Serve dir",
-				Value:       ".",
-				Destination: &serveDir,
-			},
 		},
-		Action: func(*cli.Context) error {
+		Action: func(c *cli.Context) error {
+			args := c.Args()
+			if args.Len() > 1 {
+				return fmt.Errorf("Invalid arguments. Please specify exactly one argument.")
+			}
+			if args.Len() == 1 {
+				serveDir = args.First()
+			}
 			usecases := usecase.New(deps)
 			go usecases.Serve(serveDir, servePort)
 
