@@ -8,7 +8,9 @@ type UseCases interface {
 }
 
 func New(deps *di.Deps) UseCases {
-	return &useCaseImpl{}
+	return &useCaseImpl{
+		deps: deps,
+	}
 }
 
 type useCaseImpl struct {
