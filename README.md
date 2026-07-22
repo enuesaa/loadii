@@ -29,6 +29,17 @@ loadii --verbose
 loadii --port 3000
 loadii --proxy https://example.com/
 loadii -e 'path=/ proxy=https://example.com/' -e 'path=/aa header=Cache-Control:no-store'
+loadii --reload             # ライブリロード
+loadii --spa                # SPA フォールバック
+loadii --open               # 起動時にブラウザを開く
+loadii --host               # LAN 公開
+loadii --tls                # 自己署名 TLS
+loadii --cors               # CORS ヘッダ
+loadii --auth user:pass     # Basic 認証
+loadii --delay 500ms        # 遅延
+loadii --throttle           # 帯域制限
+loadii --status '/aa=500'   # パス別ステータス（fault injection）
+loadii --config loadii.yaml # 設定ファイル
 ```
 
 例えばある特定のパスの時だけヘッダーを返すとか、柔軟な制御を入れられるようにするか。
